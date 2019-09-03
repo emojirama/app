@@ -1,7 +1,7 @@
 <template>
   <div class="square" :style="style">
     <emoji
-      native="true"
+      :native="true"
       :emoji="getEmoji"
       :size="($store.getters.getSquareSize * 4) / 5"
     />
@@ -9,7 +9,6 @@
 </template>
 
 <script>
-// import getRandomColor from "utils/color";
 import { Emoji } from "emoji-mart-vue";
 export default {
   components: {
