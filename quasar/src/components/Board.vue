@@ -1,8 +1,11 @@
 <template>
-  <div class="grid" :style="style">
+  <div v-touch-swipe.mouse="move" class="grid" :style="style">
     <square
-      v-for="i in $store.getters.getCols * $store.getters.getRows"
+      v-for="(e, i) in $store.getters.getBoard.flat()"
       :key="i"
+      :emoji="e.emoji"
+      :color="e.color"
+      :position="e.position"
       >f</square
     >
   </div>
@@ -10,7 +13,6 @@
 
 <script>
 import Square from "./Square.vue";
-import { mapGetters } from "vuex";
 export default {
   components: {
     Square
@@ -25,6 +27,11 @@ export default {
       default: 5
     }
   },
+  methods: {
+    move(e) {
+      this.$store.commit("move", e.direction);
+    }
+  },
   destroyed() {},
   computed: {
     style() {
@@ -37,8 +44,7 @@ export default {
           this.$store.getters.getSquareSize
         }px)`
       };
-    },
-    ...mapGetters(["getArea"])
+    }
   }
 };
 </script>

@@ -47,7 +47,7 @@ module.exports = function(ctx) {
         "QCardActions"
       ],
 
-      directives: ["Ripple"],
+      directives: ["Ripple", "TouchSwipe"],
 
       // Quasar plugins
       plugins: ["Notify"]

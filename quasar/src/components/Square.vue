@@ -2,9 +2,16 @@
   <div class="square" :style="style">
     <template v-if="emoji">
       <emoji
-        v-if="emoji"
         :native="true"
-        :emoji="emoji"
+        :emoji="getSquareEmoji"
+        :size="($store.getters.getSquareSize * 4) / 5"
+      />
+    </template>
+    <template v-else>
+      <emoji
+        v-if="isCurrentSquare"
+        :native="true"
+        :emoji="$store.getters.getCurrentEmoji"
         :size="($store.getters.getSquareSize * 4) / 5"
       />
     </template>
@@ -12,25 +19,58 @@
 </template>
 
 <script>
+/* eslint-disable no-constant-condition */
 import { Emoji } from "emoji-mart-vue";
 export default {
   components: {
     Emoji
   },
+  props: {
+    emoji: {
+      type: String,
+      default: ""
+    },
+    color: {
+      type: String,
+      default: "red"
+    },
+    position: {
+      type: Array,
+      default: () => [0, 0]
+    }
+  },
   computed: {
-    getEmoji() {
-      return this.choose(this.choices);
+    isCurrentSquare() {
+      if (
+        this.position[0] === this.$store.getters.getPosition[0] &&
+        this.position[1] === this.$store.getters.getPosition[1]
+      ) {
+        return "elf";
+      }
+
+      return null;
+    },
+    getSquareEmoji() {
+      if (this.emoji === null) return "";
+      if (
+        this.position[0] === this.$store.getters.getPosition[0] &&
+        this.position[1] === this.$store.getters.getPosition[1]
+      ) {
+        console.log("current!!");
+        return this.$store.getters.getCurrentEmoji; // this.emoji;
+      }
+      return this.emoji;
     },
     style() {
       return {
         height: `${this.$store.getters.getSquareSize}px`,
         width: `${this.$store.getters.getSquareSize}px`,
-        backgroundColor: this.choose(this.colors)
+        backgroundColor: this.color
       };
     }
   },
   created() {
-    this.emoji = this.getEmoji;
+    // this.emoji = this.getEmoji;
   },
   methods: {
     choose(choices) {
@@ -40,7 +80,7 @@ export default {
   },
   data() {
     return {
-      emoji: "king",
+      // emoji: "king",
       choices: [
         "evergreen_tree",
         // "king",
