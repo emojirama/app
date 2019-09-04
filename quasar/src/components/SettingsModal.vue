@@ -1,5 +1,6 @@
 <template>
   <div>
+    <div class="trigger" @click="$store.commit('toggleSettingsModal')"></div>
     <q-dialog v-model="showSettingsModal">
       <q-card class="q-card">
         <q-card-section class="welcome">
@@ -9,10 +10,7 @@
         </q-card-section>
 
         <q-card-section>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum
-          repellendus sit voluptate voluptas eveniet porro. Rerum blanditiis
-          perferendis totam, ea at omnis vel numquam exercitationem aut, natus
-          minima, porro labore.
+          Click the bottom right corner of the screen to display this menu.
         </q-card-section>
 
         <q-card-actions align="right">
@@ -59,5 +57,14 @@ export default {
 <style scoped>
 .q-card {
   background: white;
+}
+
+.trigger {
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  height: 50px;
+  width: 50px;
+  z-index: 100;
 }
 </style>
