@@ -1,8 +1,8 @@
 {
   "name": "grid",
   "version": "0.0.1",
-  "description": "A Quasar Framework app",
-  "productName": "Quasar App",
+  "description": "emojirama",
+  "productName": "emojirama",
   "cordovaId": "org.cordova.quasar.app",
   "author": "Brian Caffey <briancaffey2010@gmail.com>",
   "private": true,

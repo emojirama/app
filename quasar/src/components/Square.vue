@@ -1,10 +1,13 @@
 <template>
   <div class="square" :style="style">
-    <emoji
-      :native="true"
-      :emoji="getEmoji"
-      :size="($store.getters.getSquareSize * 4) / 5"
-    />
+    <template v-if="emoji">
+      <emoji
+        v-if="emoji"
+        :native="true"
+        :emoji="emoji"
+        :size="($store.getters.getSquareSize * 4) / 5"
+      />
+    </template>
   </div>
 </template>
 
@@ -26,6 +29,9 @@ export default {
       };
     }
   },
+  created() {
+    this.emoji = this.getEmoji;
+  },
   methods: {
     choose(choices) {
       const index = Math.floor(Math.random() * choices.length);
@@ -34,18 +40,19 @@ export default {
   },
   data() {
     return {
+      emoji: "king",
       choices: [
         "evergreen_tree",
-        "king",
-        "deciduous_tree",
-        "evergreen_tree",
-        "deciduous_tree",
-        "evergreen_tree",
-        "deciduous_tree",
-        "european_castle",
-        "prince",
-        "circus_tent",
-        "tulip",
+        // "king",
+        // "deciduous_tree",
+        // "evergreen_tree",
+        // "deciduous_tree",
+        // "evergreen_tree",
+        // "deciduous_tree",
+        // "european_castle",
+        // "prince",
+        // "circus_tent",
+        // "tulip",
         null,
         null,
         null,

@@ -1,6 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import ui from "./ui";
+import board from "./board";
 
 // import example from './module-example'
 
@@ -14,6 +15,7 @@ Vue.use(Vuex);
 export default function(/* { ssrContext } */) {
   const Store = new Vuex.Store({
     modules: {
+      board,
       ui
       // example
     },

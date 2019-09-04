@@ -1,6 +1,7 @@
 <template>
   <div>
     <debug-panel id="debug"></debug-panel>
+    <settings-modal></settings-modal>
     <div
       @touchmove="handleScroll"
       @scroll="handleScroll"
@@ -20,10 +21,12 @@ const { height, width } = dom;
 // returns Numbers instead of Strings:
 import Board from "components/Board.vue";
 import DebugPanel from "components/DebugPanel.vue";
+import SettingsModal from "components/SettingsModal.vue";
 export default {
   components: {
     Board,
-    DebugPanel
+    DebugPanel,
+    SettingsModal
   },
   created() {
     this.handleResize();
@@ -46,16 +49,11 @@ export default {
       event.stopPropagation();
     },
     handleResize() {
-      console.log("resizing...");
       const b = document.body;
       const rows = Math.floor(height(b) / this.$store.getters.getSquareSize);
       const cols = Math.floor(width(b) / this.$store.getters.getSquareSize);
       this.$store.commit("setRows", rows);
       this.$store.commit("setCols", cols);
-      console.log(rows, cols);
-      console.log("actual rows, col in store");
-      console.log(this.$store.getters.getRows, this.$store.getters.getCols);
-      console.log(this.$store.getters.getArea);
     }
   }
 };
