@@ -49,8 +49,6 @@ const b = n =>
           return {
             emoji: randomSquare(),
             color: randomColor(),
-            // i is row
-            // j is col
             position: [i, j]
           };
         });
@@ -61,7 +59,7 @@ const state = {
   rows: 0,
   cols: 0,
   area: 0,
-  board: b(50),
+  board: b(20),
   position: [2, 3],
   currentEmoji: "elf"
 };
