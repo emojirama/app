@@ -2,7 +2,7 @@
   <div class="square" :style="style">
     <template v-if="emoji">
       <emoji
-        :native="true"
+        :native="false"
         :emoji="getSquareEmoji"
         :size="($store.getters.getSquareSize * 4) / 5"
       />
@@ -10,7 +10,7 @@
     <template v-else>
       <emoji
         v-if="isCurrentSquare"
-        :native="true"
+        :native="false"
         :emoji="$store.getters.getCurrentEmoji"
         :size="($store.getters.getSquareSize * 4) / 5"
       />

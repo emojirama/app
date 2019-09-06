@@ -2,6 +2,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 import ui from "./ui";
 import board from "./board";
+import squarePicker from "./squarePicker";
 
 // import example from './module-example'
 
@@ -16,7 +17,8 @@ export default function(/* { ssrContext } */) {
   const Store = new Vuex.Store({
     modules: {
       board,
-      ui
+      ui,
+      squarePicker
       // example
     },
 

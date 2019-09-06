@@ -61,7 +61,7 @@ const state = {
   rows: 0,
   cols: 0,
   area: 0,
-  board: b(20),
+  board: b(50),
   position: [2, 3],
   currentEmoji: "elf"
 };
