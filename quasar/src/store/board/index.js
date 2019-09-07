@@ -43,11 +43,11 @@ const randomSquare = () =>
 const randomColor = () =>
   colorChoices[Math.floor(Math.random() * colorChoices.length)];
 
-const b = n =>
-  Array(n)
+const b = (h, w) =>
+  Array(h)
     .fill()
     .map((_, i) => {
-      return Array(n)
+      return Array(w)
         .fill()
         .map((_, j) => {
           return {
@@ -63,8 +63,8 @@ const state = {
   rows: 0,
   cols: 0,
   area: 0,
-  board: b(20),
-  position: [2, 3],
+  board: b(30, 50),
+  position: [10, 10],
   currentEmoji: "elf"
 };
 
