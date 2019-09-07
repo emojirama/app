@@ -5,7 +5,7 @@ module.exports = function(ctx) {
   return {
     // app boot file (/src/boot)
     // --> boot files are part of "main.js"
-    boot: ["i18n", "axios"],
+    boot: ["i18n", "axios", "components"],
 
     css: ["app.styl"],
 
@@ -45,7 +45,8 @@ module.exports = function(ctx) {
         "QCard",
         "QCardSection",
         "QCardActions",
-        "QColor"
+        "QColor",
+        "QOptionGroup"
       ],
 
       directives: ["Ripple", "TouchSwipe"],

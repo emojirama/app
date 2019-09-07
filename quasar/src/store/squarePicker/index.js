@@ -1,20 +1,25 @@
 const state = {
   showSquarePicker: false,
-  color: "red",
+  color: "#ffffff",
   emoji: "boy",
-  tab: "emoji"
+  tab: "emoji",
+  mode: "both"
 };
 
 const getters = {
   showSquarePicker: s => s.showSquarePicker,
   getSquarePickerColor: s => s.color,
   getSquarePickerEmoji: s => s.emoji,
-  getSquarePickerTab: s => s.tab
+  getSquarePickerTab: s => s.tab,
+  getMode: s => s.mode
 };
 
 const mutations = {
   setSquarePickerTab: (state, payload) => {
     state.tab = payload;
+  },
+  setMode: (state, payload) => {
+    state.mode = payload;
   },
   toggleSquarePicker: state => {
     state.showSquarePicker = !state.showSquarePicker;

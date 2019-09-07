@@ -7,13 +7,17 @@
         :style="`background: ${$store.getters.getSquarePickerColor}`"
         ><div z-index="100000">
           <div class="emoji-btn">
-            <emoji :emoji="$store.getters.getSquarePickerEmoji" :size="32" />
+            <emoji
+              :data="emojiIndex"
+              :emoji="$store.getters.getSquarePickerEmoji"
+              :size="32"
+            />
           </div>
         </div>
       </q-btn>
     </div>
-    <q-dialog v-model="showSquarePicker">
-      <q-card class="q-card">
+    <q-dialog transition-show="fade" v-model="showSquarePicker">
+      <q-card>
         <q-card-section class="welcome">
           <q-color
             v-if="$store.getters.getSquarePickerTab === 'color'"
@@ -22,23 +26,32 @@
             class="my-picker"
           />
 
-          <div
-            v-else-if="$store.getters.getSquarePickerTab === 'emoji'"
-            class="picker-wrapper"
-          >
-            <picker
-              :emoji="$store.getters.getSquarePickerEmoji"
-              @select="setSquarePickerEmoji"
-              :perLine="7"
-              :showPreview="true"
-              :showCategories="false"
-              :pickerStyles="{ textAlign: 'center' }"
+          <div v-else-if="$store.getters.getSquarePickerTab === 'emoji'">
+            <emoji-picker />
+          </div>
+          <div v-else>
+            Mode:
+            <q-option-group
+              :options="options"
+              label="Mode"
+              type="radio"
+              v-model="mode"
             />
           </div>
-          <div v-else>Other</div>
         </q-card-section>
 
-        <q-card-actions align="right">
+        <q-card-actions class="buttons" align="right">
+          <q-btn
+            @click="$store.commit('setSquarePickerTab', 'mode')"
+            push
+            round
+            :style="`background: white`"
+            ><div z-index="100000">
+              <div class="emoji-btn">
+                <emoji :data="emojiIndex" emoji="gear" :size="32" />
+              </div>
+            </div>
+          </q-btn>
           <q-btn
             @click="$store.commit('setSquarePickerTab', 'emoji')"
             push
@@ -47,6 +60,7 @@
             ><div z-index="100000">
               <div class="emoji-btn">
                 <emoji
+                  :data="emojiIndex"
                   :emoji="$store.getters.getSquarePickerEmoji"
                   :size="32"
                 />
@@ -60,7 +74,7 @@
             :style="`background: ${$store.getters.getSquarePickerColor}`"
             ><div z-index="100000">
               <div class="emoji-btn">
-                <emoji emoji="art" :size="32" />
+                <emoji :data="emojiIndex" emoji="art" :size="32" />
               </div>
             </div>
           </q-btn>
@@ -77,10 +91,26 @@
 </template>
 
 <script>
-import { Picker, Emoji } from "emoji-mart-vue";
+import "emoji-mart-vue-fast/css/emoji-mart.css";
+import data from "emoji-mart-vue-fast/data/all.json";
+import { EmojiIndex } from "emoji-mart-vue-fast";
+import { Emoji } from "emoji-mart-vue-fast";
+import EmojiPicker from "./EmojiPicker.vue";
+let emojiIndex = new EmojiIndex(data);
 export default {
+  data() {
+    return {
+      options: [
+        { label: "Emoji & Color", value: "both" },
+        { label: "Only Emoji", value: "only_emoji" },
+        { label: "Only Color", value: "only_color" },
+        { label: "Clear Emoji", value: "delete_emoji" }
+      ],
+      emojiIndex: emojiIndex
+    };
+  },
   components: {
-    Picker,
+    EmojiPicker,
     Emoji
   },
   created() {
@@ -93,7 +123,7 @@ export default {
     setSquarePickerEmoji(emoji) {
       // console.log(emoji);
       // this.$q.notify(emoji.colons);
-      this.$store.commit("setSquarePickerEmoji", emoji.colons);
+      this.$store.commit("setSquarePickerEmoji", emoji.id);
     },
     openSquarePicker(e) {
       console.log(e);
@@ -108,6 +138,14 @@ export default {
         return this.$store.getters.showSquarePicker;
       },
       set() {}
+    },
+    mode: {
+      get() {
+        return this.$store.getters.getMode;
+      },
+      set(mode) {
+        this.$store.commit("setMode", mode);
+      }
     },
     hex: {
       get() {
@@ -124,8 +162,7 @@ export default {
 <style scoped>
 .q-card {
   background: white;
-  min-height: 350px;
-  height: fit-content;
+  height: 500px !important;
 }
 
 .trigger {
@@ -138,21 +175,23 @@ export default {
   height: 40px !important;
 } */
 
-div .emoji-mart {
-  height: 260px;
-}
-.picker-wrapper {
+/* .picker-wrapper {
   display: grid;
   justify-items: center;
-}
+} */
 .welcome {
-  height: fit-content;
+  /* height: fit-content; */
 }
-span.emoji-mart-emoji {
+/* span.emoji-mart-emoji {
   height: 32px;
-}
+} */
 .emoji-btn {
   display: grid;
   justify-items: center;
+}
+
+.emoji-mart-emoji {
+  /* height: 44px !important; */
+  bottom: 1px;
 }
 </style>

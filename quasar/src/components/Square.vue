@@ -1,8 +1,9 @@
 <template>
-  <div class="square" :style="style">
-    <template v-if="emoji">
+  <div @click="setSquare" class="square" :style="style">
+    <template v-if="emoji && !isCurrentSquare">
       <emoji
-        :native="false"
+        :native="$q.platform.is.mobile && $q.platform.is.desktop"
+        :skin="2"
         :emoji="getSquareEmoji"
         :size="($store.getters.getSquareSize * 4) / 5"
       />
@@ -10,7 +11,8 @@
     <template v-else>
       <emoji
         v-if="isCurrentSquare"
-        :native="false"
+        :native="$q.platform.is.mobile && $q.platform.is.desktop"
+        :skin="5"
         :emoji="$store.getters.getCurrentEmoji"
         :size="($store.getters.getSquareSize * 4) / 5"
       />
@@ -56,7 +58,6 @@ export default {
         this.position[0] === this.$store.getters.getPosition[0] &&
         this.position[1] === this.$store.getters.getPosition[1]
       ) {
-        console.log("current!!");
         return this.$store.getters.getCurrentEmoji; // this.emoji;
       }
       return this.emoji;
@@ -73,6 +74,9 @@ export default {
     // this.emoji = this.getEmoji;
   },
   methods: {
+    setSquare() {
+      this.$store.dispatch("setSquare", this.position);
+    },
     choose(choices) {
       const index = Math.floor(Math.random() * choices.length);
       return choices[index];
@@ -113,6 +117,9 @@ export default {
 </script>
 
 <style scoped>
+span.emoji-mart-emoji {
+  padding: 0px;
+}
 .square {
   display: grid;
   align-content: center;

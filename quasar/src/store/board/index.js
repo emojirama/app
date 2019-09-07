@@ -1,10 +1,14 @@
 /* eslint-disable no-unused-vars */
 
+import { Notify } from "quasar";
+
 const emojiChoices = [
   null,
-  "palm_tree",
-  "camel",
-  "circus_tent",
+  "deciduous_tree",
+  "deciduous_tree",
+  "deciduous_tree",
+  "butterfly",
+  "elf",
   null,
   null,
   null,
@@ -25,13 +29,13 @@ const emojiChoices = [
   null
 ];
 const colorChoices = [
-  "#ffd27f",
-  "#ffc04c",
-  "#ffd27f",
-  "#ffc04c",
-  "#ffd27f",
-  "#ffc04c",
-  "lightblue"
+  "darkgreen",
+  // "#4F7942",
+  "#228B22"
+  // "#ffc04c",
+  // "#ffd27f",
+  // "#ffc04c",
+  // "lightblue"
 ];
 
 const randomSquare = () =>
@@ -74,7 +78,36 @@ const getters = {
   getCurrentEmoji: s => s.currentEmoji
 };
 
+const actions = {
+  setSquare: ({ state, commit, rootState, getters }, payload) => {
+    const currentEmoji = getters.getSquarePickerEmoji;
+    const currentColor = getters.getSquarePickerColor;
+    const mode = getters.getMode;
+    const data = {
+      mode,
+      location: payload,
+      color: currentColor,
+      emoji: currentEmoji
+    };
+    commit("setSquare", data);
+  }
+};
+
 const mutations = {
+  setSquare: (state, payload) => {
+    const [x, y] = payload["location"];
+    if (payload.mode === "both") {
+      state.board[x][y]["emoji"] = payload.emoji;
+      state.board[x][y]["color"] = payload.color;
+    } else if (payload.mode === "only_emoji") {
+      state.board[x][y]["emoji"] = payload.emoji;
+    } else if (payload.mode === "only_color") {
+      state.board[x][y]["color"] = payload.color;
+    } else if (payload.mode === "delete_emoji") {
+      state.board[x][y]["emoji"] = null;
+    }
+    // Notify.create(`${payload[0]}, ${payload[1]}`);
+  },
   setRows: (state, payload) => {
     state.rows = payload + 1;
     state.area = state.rows * state.cols;
@@ -100,8 +133,6 @@ const mutations = {
     }
   }
 };
-
-const actions = {};
 
 export default {
   state,
