@@ -29,20 +29,9 @@
 <script>
 export default {
   components: {},
-  created() {
-    window.addEventListener("keypress", this.openSettingsModal);
-  },
-  destroyed() {
-    window.removeEventListener("keypress", this.openSettingsModal);
-  },
-  methods: {
-    openSettingsModal(e) {
-      console.log(e);
-      if (e.key == "m" || e.key == "M") {
-        this.$store.commit("toggleSettingsModal");
-      }
-    }
-  },
+  created() {},
+  destroyed() {},
+  methods: {},
   computed: {
     showSettingsModal: {
       get() {

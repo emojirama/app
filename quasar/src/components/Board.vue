@@ -14,6 +14,12 @@
 <script>
 import Square from "./Square.vue";
 export default {
+  created() {
+    window.addEventListener("keydown", this.handleKeyDown);
+  },
+  destroyed() {
+    window.removeEventListener("keydown", this.handleKeyDown);
+  },
   components: {
     Square
   },
@@ -28,11 +34,26 @@ export default {
     }
   },
   methods: {
+    handleKeyDown(e) {
+      if (this.$store.getters.showSquarePicker) {
+        return;
+      }
+      const directions = {
+        w: "up",
+        i: "up",
+        a: "left",
+        j: "left",
+        s: "down",
+        k: "down",
+        d: "right",
+        l: "right"
+      };
+      this.$store.commit("move", directions[e.key]);
+    },
     move(e) {
       this.$store.commit("move", e.direction);
     }
   },
-  destroyed() {},
   computed: {
     style() {
       return {

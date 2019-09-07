@@ -113,23 +113,13 @@ export default {
     EmojiPicker,
     Emoji
   },
-  created() {
-    window.addEventListener("keypress", this.openSquarePicker);
-  },
-  destroyed() {
-    window.removeEventListener("keypress", this.openSquarePicker);
-  },
+  created() {},
+  destroyed() {},
   methods: {
     setSquarePickerEmoji(emoji) {
       // console.log(emoji);
       // this.$q.notify(emoji.colons);
       this.$store.commit("setSquarePickerEmoji", emoji.id);
-    },
-    openSquarePicker(e) {
-      console.log(e);
-      if (e.key == "m" || e.key == "M") {
-        this.$store.commit("toggleSquarePicker");
-      }
     }
   },
   computed: {
