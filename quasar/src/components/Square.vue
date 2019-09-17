@@ -1,9 +1,17 @@
 <template>
-  <div @click="setSquare" class="square" :style="style">
+  <div
+    @mousedown="$store.commit('setMouseDown', true)"
+    @mouseup="$store.commit('setMouseDown', false)"
+    @mouseenter="handleMouseEnter"
+    @click="setSquare"
+    class="square"
+    :style="style"
+  >
     <template v-if="emoji && !isCurrentSquare">
       <emoji
         :native="$q.platform.is.mobile && $q.platform.is.desktop"
         :skin="2"
+        set="apple"
         :emoji="getSquareEmoji"
         :size="($store.getters.getSquareSize * 4) / 5"
       />
@@ -74,6 +82,12 @@ export default {
     // this.emoji = this.getEmoji;
   },
   methods: {
+    handleMouseEnter() {
+      console.log("handling mouse enter");
+      if (this.$store.getters.getMouseDown) {
+        this.setSquare();
+      }
+    },
     setSquare() {
       this.$store.dispatch("setSquare", this.position);
     },

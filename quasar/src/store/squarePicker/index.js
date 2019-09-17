@@ -3,10 +3,12 @@ const state = {
   color: "#ffffff",
   emoji: "boy",
   tab: "emoji",
-  mode: "both"
+  mode: "only_emoji",
+  mouseDown: false
 };
 
 const getters = {
+  getMouseDown: s => s.mouseDown,
   showSquarePicker: s => s.showSquarePicker,
   getSquarePickerColor: s => s.color,
   getSquarePickerEmoji: s => s.emoji,
@@ -15,6 +17,9 @@ const getters = {
 };
 
 const mutations = {
+  setMouseDown: (state, payload) => {
+    state.mouseDown = payload;
+  },
   setSquarePickerTab: (state, payload) => {
     state.tab = payload;
   },

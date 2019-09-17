@@ -59,7 +59,7 @@ const b = (h, w) =>
     });
 
 const state = {
-  squareSize: 40,
+  squareSize: 80,
   rows: 0,
   cols: 0,
   area: 0,
