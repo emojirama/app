@@ -4,6 +4,7 @@
     :data="emojiIndex"
     @select="setSquarePickerEmoji"
     :perLine="7"
+    :skin="$store.getters.getSquarePickerToneNumber"
     :showPreview="false"
     :showCategories="false"
     :pickerStyles="{ textAlign: 'center' }"

@@ -1,6 +1,10 @@
 <template>
   <div>
-    <div class="trigger" @click="$store.commit('toggleSquarePicker')">
+    <div
+      @touchmove="handleScroll"
+      class="trigger"
+      @click="$store.commit('toggleSquarePicker')"
+    >
       <q-btn
         push
         round
@@ -9,6 +13,7 @@
           <div class="emoji-btn">
             <emoji
               :data="emojiIndex"
+              :skin="$store.getters.getSquarePickerToneNumber"
               :emoji="$store.getters.getSquarePickerEmoji"
               :size="32"
             />
@@ -24,6 +29,22 @@
             v-model="hex"
             no-header
             class="my-picker"
+          />
+          <q-color
+            v-else-if="$store.getters.getSquarePickerTab === 'tone'"
+            v-model="tone"
+            no-header
+            no-footer
+            default-view="palette"
+            class="my-picker"
+            :palette="[
+              '#ffc93a',
+              '#fadcbc',
+              '#e0bb94',
+              '#bf8e68',
+              '#9b643c',
+              '#584539'
+            ]"
           />
 
           <div v-else-if="$store.getters.getSquarePickerTab === 'emoji'">
@@ -61,10 +82,20 @@
               <div class="emoji-btn">
                 <emoji
                   :data="emojiIndex"
+                  :skin="$store.getters.getSquarePickerToneNumber"
                   :emoji="$store.getters.getSquarePickerEmoji"
                   :size="32"
                 />
               </div>
+            </div>
+          </q-btn>
+          <q-btn
+            @click="$store.commit('setSquarePickerTab', 'tone')"
+            push
+            round
+            :style="`background: ${$store.getters.getSquarePickerTone}`"
+            ><div z-index="100000">
+              <div class="emoji-btn"></div>
             </div>
           </q-btn>
           <q-btn
@@ -116,6 +147,10 @@ export default {
   created() {},
   destroyed() {},
   methods: {
+    handleScroll(event) {
+      event.preventDefault();
+      event.stopPropagation();
+    },
     setSquarePickerEmoji(emoji) {
       // console.log(emoji);
       // this.$q.notify(emoji.colons);
@@ -135,6 +170,14 @@ export default {
       },
       set(mode) {
         this.$store.commit("setMode", mode);
+      }
+    },
+    tone: {
+      get() {
+        return this.$store.getters.getSquarePickerTone;
+      },
+      set(v) {
+        this.$store.commit("setSquarePickerTone", v);
       }
     },
     hex: {
@@ -183,5 +226,8 @@ export default {
 .emoji-mart-emoji {
   /* height: 44px !important; */
   bottom: 1px;
+}
+
+.trigger {
 }
 </style>

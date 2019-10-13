@@ -53,7 +53,8 @@ const b = (h, w) =>
           return {
             emoji: randomSquare(),
             color: randomColor(),
-            position: [i, j]
+            position: [i, j],
+            tone: null
           };
         });
     });
@@ -63,7 +64,7 @@ const state = {
   rows: 0,
   cols: 0,
   area: 0,
-  board: b(30, 50),
+  board: b(16, 26),
   position: [10, 10],
   currentEmoji: "elf"
 };
@@ -82,12 +83,14 @@ const actions = {
   setSquare: ({ state, commit, rootState, getters }, payload) => {
     const currentEmoji = getters.getSquarePickerEmoji;
     const currentColor = getters.getSquarePickerColor;
+    const currentTone = getters.getSquarePickerToneNumber;
     const mode = getters.getMode;
     const data = {
       mode,
       location: payload,
       color: currentColor,
-      emoji: currentEmoji
+      emoji: currentEmoji,
+      tone: currentTone
     };
     commit("setSquare", data);
   }
@@ -99,12 +102,15 @@ const mutations = {
     if (payload.mode === "both") {
       state.board[x][y]["emoji"] = payload.emoji;
       state.board[x][y]["color"] = payload.color;
+      state.board[x][y]["tone"] = payload.tone;
     } else if (payload.mode === "only_emoji") {
       state.board[x][y]["emoji"] = payload.emoji;
+      state.board[x][y]["tone"] = payload.tone;
     } else if (payload.mode === "only_color") {
       state.board[x][y]["color"] = payload.color;
     } else if (payload.mode === "delete_emoji") {
       state.board[x][y]["emoji"] = null;
+      state.board[x][y]["tone"] = null;
     }
     // Notify.create(`${payload[0]}, ${payload[1]}`);
   },

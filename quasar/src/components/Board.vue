@@ -6,6 +6,7 @@
       :emoji="e.emoji"
       :color="e.color"
       :position="e.position"
+      :tone="e.tone"
       >f</square
     >
   </div>
@@ -16,9 +17,13 @@ import Square from "./Square.vue";
 export default {
   created() {
     window.addEventListener("keydown", this.handleKeyDown);
+    window.addEventListener("mousedown", this.handleMouseDown);
+    window.addEventListener("mouseup", this.handleMouseUp);
   },
   destroyed() {
     window.removeEventListener("keydown", this.handleKeyDown);
+    window.removeEventListener("mousedown", this.handleMouseDown);
+    window.removeEventListener("mouseup", this.handleMouseUp);
   },
   components: {
     Square
@@ -34,8 +39,18 @@ export default {
     }
   },
   methods: {
+    handleMouseUp() {
+      this.$store.commit("setMouseDown", false);
+    },
+    handleMouseDown() {
+      this.$store.commit("setMouseDown", true);
+    },
     handleKeyDown(e) {
       if (this.$store.getters.showSquarePicker) {
+        return;
+      }
+      if (e.key === "e") {
+        this.$store.commit("toggleSquarePicker");
         return;
       }
       const directions = {

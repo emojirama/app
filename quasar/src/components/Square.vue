@@ -1,7 +1,5 @@
 <template>
   <div
-    @mousedown="$store.commit('setMouseDown', true)"
-    @mouseup="$store.commit('setMouseDown', false)"
     @mouseenter="handleMouseEnter"
     @click="setSquare"
     class="square"
@@ -10,7 +8,7 @@
     <template v-if="emoji && !isCurrentSquare">
       <emoji
         :native="$q.platform.is.mobile && $q.platform.is.desktop"
-        :skin="2"
+        :skin="tone"
         set="apple"
         :emoji="getSquareEmoji"
         :size="($store.getters.getSquareSize * 4) / 5"
@@ -20,7 +18,7 @@
       <emoji
         v-if="isCurrentSquare"
         :native="$q.platform.is.mobile && $q.platform.is.desktop"
-        :skin="5"
+        :skin="$store.getters.getSquarePickerToneNumber"
         :emoji="$store.getters.getCurrentEmoji"
         :size="($store.getters.getSquareSize * 4) / 5"
       />
@@ -47,6 +45,10 @@ export default {
     position: {
       type: Array,
       default: () => [0, 0]
+    },
+    tone: {
+      type: Number,
+      default: 1
     }
   },
   computed: {
