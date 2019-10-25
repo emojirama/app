@@ -60,14 +60,14 @@ const b = (h, w) =>
     });
 
 const state = {
-  squareSize: 40,
+  squareSize: 60,
   rows: 0,
   cols: 0,
   area: 0,
-  board: b(50, 50),
+  board: b(100, 100),
   position: [10, 10],
   currentEmoji: "poop",
-  anchor: [5, 5]
+  anchor: [6, 6]
 };
 
 const getters = {
@@ -83,7 +83,8 @@ const getters = {
       .slice(s.anchor[0], s.anchor[0] + s.rows)
       .map(x => x.slice(s.anchor[1], s.anchor[1] + s.cols)),
   getPosition: s => s.position,
-  getCurrentEmoji: s => s.currentEmoji
+  getCurrentEmoji: s => s.currentEmoji,
+  getAnchor: s => s.anchor
 };
 
 const actions = {
@@ -146,20 +147,44 @@ const mutations = {
     state.area = state.rows * state.cols;
   },
   move: (state, payload) => {
+    let nextPos;
     switch (payload) {
       case "left":
+        nextPos = [state.position[0], state.position[1] - 1];
+        if (nextPos[1] < state.anchor[1] + 1) {
+          state.anchor = [state.anchor[0], state.anchor[1] - state.cols + 2];
+          state.position = nextPos;
+          break;
+        }
         state.position = [state.position[0], state.position[1] - 1];
         break;
       case "right":
+        nextPos = [state.position[0], state.position[1] + 1];
+        if (nextPos[1] > state.anchor[1] + state.cols - 2) {
+          state.anchor = [state.anchor[0], state.anchor[1] + state.cols - 2];
+          state.position = nextPos;
+          break;
+        }
         // state.anchor = [state.anchor[0], state.anchor[1] + 1];
-        state.position = [state.position[0], state.position[1] + 1];
+        state.position = nextPos;
         break;
       case "up":
+        nextPos = [state.position[0] - 1, state.position[1]];
+        if (nextPos[0] < state.anchor[0] + 1) {
+          state.anchor = [state.anchor[0] - state.rows + 2, state.anchor[1]];
+          state.position = nextPos;
+          break;
+        }
         state.position = [state.position[0] - 1, state.position[1]];
         break;
       case "down":
-        // state.anchor = [state.anchor[0] + 1, state.anchor[1]];
-        state.position = [state.position[0] + 1, state.position[1]];
+        nextPos = [state.position[0] + 1, state.position[1]];
+        if (nextPos[0] > state.anchor[0] + state.rows - 2) {
+          state.anchor = [state.anchor[0] + state.rows - 2, state.anchor[1]];
+          state.position = nextPos;
+          break;
+        }
+        state.position = nextPos;
         break;
     }
   }

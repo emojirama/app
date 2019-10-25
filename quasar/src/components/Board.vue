@@ -71,14 +71,18 @@ export default {
   },
   computed: {
     style() {
+      const boardRows = this.$store.state.board.board.lenght;
+      const boardCols = this.$store.state.board.board[0].length;
       return {
         display: "grid",
-        gridTemplateColumns: `repeat(${this.$store.getters.getCols}, ${
-          this.$store.getters.getSquareSize
-        }px)`,
-        gridTemplateRows: `repeat(${this.$store.getters.getRows}, ${
-          this.$store.getters.getSquareSize
-        }px)`
+        gridTemplateColumns: `repeat(${Math.min(
+          this.$store.getters.getCols,
+          boardCols
+        )}, ${this.$store.getters.getSquareSize}px)`,
+        gridTemplateRows: `repeat(${Math.min(
+          this.$store.getters.getRows,
+          boardRows
+        )}, ${this.$store.getters.getSquareSize}px)`
       };
     }
   }

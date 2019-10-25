@@ -2,6 +2,7 @@
   <div>
     <debug-panel id="debug"></debug-panel>
     <settings-modal></settings-modal>
+    <stats-panel></stats-panel>
     <square-picker></square-picker>
     <div
       @touchmove="handleScroll"
@@ -24,12 +25,15 @@ import Board from "components/Board.vue";
 import DebugPanel from "components/DebugPanel.vue";
 import SettingsModal from "components/SettingsModal.vue";
 import SquarePicker from "components/SquarePicker/index.vue";
+import StatsPanel from "components/StatsPanel.vue";
+
 export default {
   components: {
     Board,
     DebugPanel,
     SettingsModal,
-    SquarePicker
+    SquarePicker,
+    StatsPanel
   },
   created() {
     this.handleResize();
