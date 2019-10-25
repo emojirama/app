@@ -63,10 +63,10 @@ export default {
         d: "right",
         l: "right"
       };
-      this.$store.commit("move", directions[e.key]);
+      this.$store.dispatch("move", directions[e.key]);
     },
     move(e) {
-      this.$store.commit("move", e.direction);
+      this.$store.dispatch("move", e.direction);
     }
   },
   computed: {

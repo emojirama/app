@@ -100,6 +100,22 @@ const actions = {
       tone: currentTone
     };
     commit("setSquare", data);
+  },
+  move: ({ state, commit, rootState, getters }, payload) => {
+    switch (payload) {
+      case "left":
+        commit("move", "left");
+        break;
+      case "right":
+        commit("move", "right");
+        break;
+      case "up":
+        commit("move", "up");
+        break;
+      case "down":
+        commit("move", "down");
+        break;
+    }
   }
 };
 
