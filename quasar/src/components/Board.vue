@@ -1,5 +1,5 @@
 <template>
-  <div v-touch-swipe.mouse="move" class="grid" :style="style">
+  <div v-touch-swipe="move" class="grid" :style="style">
     <square
       v-for="(e, i) in $store.getters.getBoard.flat()"
       :key="i"

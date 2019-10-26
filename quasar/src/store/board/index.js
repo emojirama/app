@@ -65,9 +65,9 @@ const state = {
   cols: 0,
   area: 0,
   board: b(100, 100),
-  position: [80, 80],
+  position: [50, 50],
   currentEmoji: "poop",
-  anchor: [70, 70]
+  anchor: [48, 48]
 };
 
 const getters = {
@@ -102,7 +102,10 @@ const actions = {
     };
     commit("setSquare", data);
   },
-  move: ({ state, commit, rootState, getters }, payload) => {
+  move: ({ state, commit, rootState, getters, rootGetters }, payload) => {
+    if (rootGetters.getMouseDown) {
+      return;
+    }
     switch (payload) {
       case "left":
         commit("move", "left");
