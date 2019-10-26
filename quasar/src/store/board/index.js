@@ -139,7 +139,6 @@ const mutations = {
       state.board[x][y]["emoji"] = null;
       state.board[x][y]["tone"] = null;
     }
-    // Notify.create(`${payload[0]}, ${payload[1]}`);
   },
   setRows: (state, payload) => {
     state.rows = payload + 1;

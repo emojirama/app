@@ -92,42 +92,7 @@ export default {
     },
     setSquare() {
       this.$store.dispatch("setSquare", this.position);
-    },
-    choose(choices) {
-      const index = Math.floor(Math.random() * choices.length);
-      return choices[index];
     }
-  },
-  data() {
-    return {
-      // emoji: "king",
-      choices: [
-        "evergreen_tree",
-        // "king",
-        // "deciduous_tree",
-        // "evergreen_tree",
-        // "deciduous_tree",
-        // "evergreen_tree",
-        // "deciduous_tree",
-        // "european_castle",
-        // "prince",
-        // "circus_tent",
-        // "tulip",
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        "elf",
-
-        "female_elf"
-      ],
-      colors: ["#23682f", "#194119", "#235b23", "#235b23", "#235b23"]
-    };
   }
 };
 </script>
