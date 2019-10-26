@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="false" class="stats">
+    <div v-if="true" class="stats">
       <div>Cols: {{ $store.getters.getCols }}</div>
       <div>Rows: {{ $store.getters.getRows }}</div>
       <div>Position: {{ $store.getters.getPosition }}</div>

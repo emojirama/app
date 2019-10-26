@@ -65,9 +65,9 @@ const state = {
   cols: 0,
   area: 0,
   board: b(100, 100),
-  position: [10, 10],
+  position: [80, 80],
   currentEmoji: "poop",
-  anchor: [6, 6]
+  anchor: [70, 70]
 };
 
 const getters = {
@@ -152,7 +152,10 @@ const mutations = {
       case "left":
         nextPos = [state.position[0], state.position[1] - 1];
         if (nextPos[1] < state.anchor[1] + 1) {
-          state.anchor = [state.anchor[0], state.anchor[1] - state.cols + 2];
+          state.anchor = [
+            state.anchor[0],
+            Math.max(state.anchor[1] - state.cols + 2, 0)
+          ];
           state.position = nextPos;
           break;
         }
@@ -161,7 +164,13 @@ const mutations = {
       case "right":
         nextPos = [state.position[0], state.position[1] + 1];
         if (nextPos[1] > state.anchor[1] + state.cols - 2) {
-          state.anchor = [state.anchor[0], state.anchor[1] + state.cols - 2];
+          state.anchor = [
+            state.anchor[0],
+            Math.min(
+              state.anchor[1] + state.cols - 2,
+              state.board[0].length - state.cols
+            )
+          ];
           state.position = nextPos;
           break;
         }
@@ -171,7 +180,10 @@ const mutations = {
       case "up":
         nextPos = [state.position[0] - 1, state.position[1]];
         if (nextPos[0] < state.anchor[0] + 1) {
-          state.anchor = [state.anchor[0] - state.rows + 2, state.anchor[1]];
+          state.anchor = [
+            Math.max(state.anchor[0] - state.rows + 2, 0),
+            state.anchor[1]
+          ];
           state.position = nextPos;
           break;
         }
@@ -180,7 +192,13 @@ const mutations = {
       case "down":
         nextPos = [state.position[0] + 1, state.position[1]];
         if (nextPos[0] > state.anchor[0] + state.rows - 2) {
-          state.anchor = [state.anchor[0] + state.rows - 2, state.anchor[1]];
+          state.anchor = [
+            Math.min(
+              state.anchor[0] + state.rows - 2,
+              state.board[0].length - state.rows
+            ),
+            state.anchor[1]
+          ];
           state.position = nextPos;
           break;
         }
