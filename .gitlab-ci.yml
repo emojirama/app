@@ -1,0 +1,31 @@
+stages:
+  - build
+  - deploy
+
+pwa:
+  image: node:8
+  stage: build
+  only:
+    - master
+  artifacts:
+    paths:
+      - quasar/dist/pwa
+  before_script:
+    - npm install -g @quasar/cli
+    - cd proj
+    - npm install --progress=false
+  script:
+    - quasar build -m pwa
+
+pages:
+  only:
+    - master
+  image: node:latest
+  stage: deploy
+  script:
+    - mv quasar/dist/pwa public
+    - cp public/index.html public/404.html
+  artifacts:
+    paths:
+      - public
+

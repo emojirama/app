@@ -60,6 +60,7 @@ module.exports = function(ctx) {
     build: {
       scopeHoisting: true,
       vueRouterMode: "history",
+      publicPath: "game",
       // vueCompiler: true,
       // gzip: true,
       // analyze: true,
