@@ -1,7 +1,7 @@
 const state = {
   showSquarePicker: false,
   color: "#ffffff",
-  emoji: "boy",
+  emoji: "deciduous_tree",
   tab: "emoji",
   mode: "only_emoji",
   mouseDown: false,
