@@ -23,7 +23,6 @@ const getters = {
       "#584539": 6
     };
     const toneNumber = toneMap[s.tone];
-    console.log(toneNumber);
     return toneNumber;
   },
   getSquarePickerEmoji: s => s.emoji,
@@ -52,15 +51,12 @@ const mutations = {
     state.showSquarePicker = !state.showSquarePicker;
   },
   setSquarePickerColor: (state, payload) => {
-    console.log(payload);
     state.color = payload;
   },
   setSquarePickerTone: (state, payload) => {
-    console.log(payload);
     state.tone = payload;
   },
   setSquarePickerEmoji: (state, payload) => {
-    console.log(payload);
     state.emoji = payload;
   }
 };

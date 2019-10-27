@@ -107,7 +107,7 @@ const state = {
   rows: 0,
   cols: 0,
   area: 0,
-  board: sample, //b(50, 50),
+  board: { scenes: { default: b(50, 50), new: b(10, 10) } },
   position: [5, 5],
   currentEmoji: { emoji: "elf", tone: 3 },
   anchor: [0, 0],
@@ -118,7 +118,8 @@ const state = {
     facebook: "Facebook",
     emojione: "EmojiOne"
   },
-  set: "apple"
+  set: "apple",
+  currentScene: "new"
 };
 
 const getters = {
@@ -130,14 +131,15 @@ const getters = {
   // starts at the anchor coordinates
   // width based on columns, height based on rows
   getBoard: s =>
-    s.board
+    s.board.scenes[s.currentScene]
       .slice(s.anchor[0], s.anchor[0] + s.rows)
       .map(x => x.slice(s.anchor[1], s.anchor[1] + s.cols)),
   getPosition: s => s.position,
   getCurrentEmoji: s => s.currentEmoji,
   getAnchor: s => s.anchor,
   getEmojiSetOptions: s => Object.keys(s.sets),
-  getEmojiSet: s => s.set
+  getEmojiSet: s => s.set,
+  getCurrentScene: s => s.currentScene
 };
 
 const actions = {
@@ -178,19 +180,20 @@ const actions = {
 
 const mutations = {
   setSquare: (state, payload) => {
+    const currentScene = state.board["scenes"][state.currentScene];
     const [x, y] = payload["location"];
     if (payload.mode === "both") {
-      state.board[x][y]["emoji"] = payload.emoji;
-      state.board[x][y]["color"] = payload.color;
-      state.board[x][y]["tone"] = payload.tone;
+      currentScene[x][y]["emoji"] = payload.emoji;
+      currentScene[x][y]["color"] = payload.color;
+      currentScene[x][y]["tone"] = payload.tone;
     } else if (payload.mode === "only_emoji") {
-      state.board[x][y]["emoji"] = payload.emoji;
-      state.board[x][y]["tone"] = payload.tone;
+      currentScene[x][y]["emoji"] = payload.emoji;
+      currentScene[x][y]["tone"] = payload.tone;
     } else if (payload.mode === "only_color") {
-      state.board[x][y]["color"] = payload.color;
+      currentScene[x][y]["color"] = payload.color;
     } else if (payload.mode === "delete_emoji") {
-      state.board[x][y]["emoji"] = null;
-      state.board[x][y]["tone"] = null;
+      currentScene[x][y]["emoji"] = null;
+      currentScene[x][y]["tone"] = null;
     }
   },
   setEmojiSet: (state, payload) => {
@@ -229,7 +232,7 @@ const mutations = {
             state.anchor[0],
             Math.min(
               state.anchor[1] + state.cols - 2,
-              state.board[0].length - state.cols
+              state.board["scenes"][state.currentScene][0].length - state.cols
             )
           ];
           state.position = nextPos;
@@ -256,7 +259,7 @@ const mutations = {
           state.anchor = [
             Math.min(
               state.anchor[0] + state.rows - 2,
-              state.board[0].length - state.rows
+              state.board["scenes"][state.currentScene].length - state.rows
             ),
             state.anchor[1]
           ];

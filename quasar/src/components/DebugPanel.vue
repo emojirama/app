@@ -77,11 +77,9 @@ export default {
     },
     squareSize: {
       get() {
-        console.log(this.$store.getters.getSquareSize);
         return this.$store.getters.getSquareSize;
       },
       set(size) {
-        console.log(size);
         this.$store.commit("setSquareSize", size);
         window.dispatchEvent(new Event("resize"));
       }

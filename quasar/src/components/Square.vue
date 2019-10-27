@@ -86,7 +86,6 @@ export default {
   },
   methods: {
     handleMouseEnter() {
-      console.log("handling mouse enter");
       if (this.$store.getters.getMouseDown) {
         this.setSquare();
       }

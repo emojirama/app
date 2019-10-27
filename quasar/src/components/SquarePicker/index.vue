@@ -165,8 +165,6 @@ export default {
       event.stopPropagation();
     },
     setSquarePickerEmoji(emoji) {
-      // console.log(emoji);
-      // this.$q.notify(emoji.colons);
       this.$store.commit("setSquarePickerEmoji", emoji.id);
     }
   },

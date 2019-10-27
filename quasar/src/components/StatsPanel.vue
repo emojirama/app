@@ -1,15 +1,17 @@
 <template>
   <div>
     <div v-if="true" class="stats">
-      <div>Cols: {{ $store.getters.getCols }}</div>
-      <div>Rows: {{ $store.getters.getRows }}</div>
+      <div>
+        cols, rows: [{{ $store.getters.getCols }}, {{ $store.getters.getRows }}]
+      </div>
       <div>Position: {{ $store.getters.getPosition }}</div>
       <div>Anchor: {{ $store.getters.getAnchor }}</div>
       <div>Square Size: {{ $store.getters.getSquareSize }}px</div>
-      <div>Board Length: {{ $store.state.board.board.length }}</div>
-      <div>Board Width: {{ $store.state.board.board[0].length }}</div>
+      <div>Cur Scene l: {{ $store.getters.getCurrentSceneLength }}</div>
+      <div>Cur Scene w: {{ $store.getters.getCurrentSceneWidth }}</div>
       <div>Mouse Down: {{ $store.getters.getMouseDown }}</div>
       <div>Emoji Set: {{ $store.getters.getEmojiSet }}</div>
+      <div>Current Scene: {{ $store.getters.getCurrentScene }}</div>
     </div>
   </div>
 </template>

@@ -71,8 +71,13 @@ export default {
   },
   computed: {
     style() {
-      const boardRows = this.$store.state.board.board.lenght;
-      const boardCols = this.$store.state.board.board[0].length;
+      const boardRows = this.$store.state.board.board["scenes"][
+        this.$store.getters.getCurrentScene
+      ].length;
+      const boardCols = this.$store.state.board.board["scenes"][
+        this.$store.getters.getCurrentScene
+      ][0].length;
+      // const boardCols = this.$store.state.board.board[0].length;
       return {
         display: "grid",
         gridTemplateColumns: `repeat(${Math.min(
