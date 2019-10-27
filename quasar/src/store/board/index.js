@@ -182,6 +182,9 @@ const mutations = {
       state.board[x][y]["tone"] = null;
     }
   },
+  setSquareSize: (state, payload) => {
+    state.squareSize = payload;
+  },
   setRows: (state, payload) => {
     state.rows = payload + 1;
     state.area = state.rows * state.cols;

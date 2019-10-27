@@ -46,7 +46,9 @@ module.exports = function(ctx) {
         "QCardSection",
         "QCardActions",
         "QColor",
-        "QOptionGroup"
+        "QOptionGroup",
+        "QInput",
+        "QSlider"
       ],
 
       directives: ["Ripple", "TouchSwipe"],

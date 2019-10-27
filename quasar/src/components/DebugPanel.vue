@@ -13,7 +13,8 @@
       <q-card class="q-card">
         <q-card-section class="welcome">
           <div class="text-h6">
-            Debug Info
+            Settings
+            <q-slider v-model="squareSize"></q-slider>
           </div>
         </q-card-section>
 
@@ -59,6 +60,17 @@ export default {
         return this.$store.getters.showDebugModal;
       },
       set() {}
+    },
+    squareSize: {
+      get() {
+        console.log(this.$store.getters.getSquareSize);
+        return this.$store.getters.getSquareSize;
+      },
+      set(size) {
+        console.log(size);
+        this.$store.commit("setSquareSize", size);
+        window.dispatchEvent(new Event("resize"));
+      }
     }
   },
   methods: {
