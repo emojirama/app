@@ -107,7 +107,7 @@ const state = {
   rows: 0,
   cols: 0,
   area: 0,
-  board: { scenes: { default: b(50, 50), new: b(10, 10) } },
+  board: { scenes: { default: b(50, 50), new: b(50, 50) } },
   position: [5, 5],
   currentEmoji: { emoji: "elf", tone: 3 },
   anchor: [0, 0],
@@ -119,7 +119,8 @@ const state = {
     emojione: "EmojiOne"
   },
   set: "apple",
-  currentScene: "new"
+  currentScene: "new",
+  showSquareConfig: false
 };
 
 const getters = {
@@ -139,7 +140,8 @@ const getters = {
   getAnchor: s => s.anchor,
   getEmojiSetOptions: s => Object.keys(s.sets),
   getEmojiSet: s => s.set,
-  getCurrentScene: s => s.currentScene
+  getCurrentScene: s => s.currentScene,
+  getShowSquareConfig: s => s.showSquareConfig
 };
 
 const actions = {
@@ -179,6 +181,9 @@ const actions = {
 };
 
 const mutations = {
+  toggleShowSquareConfig: state => {
+    state.showSquareConfig = !state.showSquareConfig;
+  },
   setSquare: (state, payload) => {
     const currentScene = state.board["scenes"][state.currentScene];
     const [x, y] = payload["location"];

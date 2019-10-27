@@ -52,7 +52,7 @@ module.exports = function(ctx) {
         "QSelect"
       ],
 
-      directives: ["Ripple", "TouchSwipe"],
+      directives: ["Ripple", "TouchSwipe", "TouchHold", "TouchRepeat"],
 
       // Quasar plugins
       plugins: ["Notify"]
