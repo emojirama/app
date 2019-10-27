@@ -35,13 +35,8 @@ export default {
   },
   props: {
     emoji: {
-      type: Object,
-      default: () => {
-        return {
-          emoji: "elf",
-          tone: 3
-        };
-      }
+      type: String,
+      default: "elf"
     },
     color: {
       type: String,

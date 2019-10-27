@@ -31,6 +31,13 @@ const getters = {
   getMode: s => s.mode
 };
 
+const actions = {
+  setSquarePickerEmoji: ({ commit }, payload) => {
+    commit("setMode", "only_emoji");
+    commit("setSquarePickerEmoji", payload);
+  }
+};
+
 const mutations = {
   setMouseDown: (state, payload) => {
     state.mouseDown = payload;
@@ -61,5 +68,6 @@ const mutations = {
 export default {
   state,
   getters,
+  actions,
   mutations
 };

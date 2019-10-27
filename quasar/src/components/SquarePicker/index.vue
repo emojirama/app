@@ -29,6 +29,7 @@
             v-model="hex"
             no-header
             class="my-picker"
+            @change="$store.commit('setMode', 'only_color')"
           />
           <q-color
             v-else-if="$store.getters.getSquarePickerTab === 'tone'"
