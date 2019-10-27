@@ -12,6 +12,7 @@
         ><div z-index="100000">
           <div class="emoji-btn">
             <emoji
+              :set="$store.getters.getEmojiSet"
               :data="emojiIndex"
               :skin="$store.getters.getSquarePickerToneNumber"
               :emoji="$store.getters.getSquarePickerEmoji"
@@ -29,6 +30,7 @@
             v-model="hex"
             no-header
             class="my-picker"
+            @change="$store.commit('setMode', 'only_color')"
           />
           <q-color
             v-else-if="$store.getters.getSquarePickerTab === 'tone'"
@@ -69,7 +71,12 @@
             :style="`background: white`"
             ><div z-index="100000">
               <div class="emoji-btn">
-                <emoji :data="emojiIndex" emoji="gear" :size="32" />
+                <emoji
+                  :data="emojiIndex"
+                  emoji="gear"
+                  :size="32"
+                  :set="$store.getters.getEmojiSet"
+                />
               </div>
             </div>
           </q-btn>
@@ -81,6 +88,7 @@
             ><div z-index="100000">
               <div class="emoji-btn">
                 <emoji
+                  :set="$store.getters.getEmojiSet"
                   :data="emojiIndex"
                   :skin="$store.getters.getSquarePickerToneNumber"
                   :emoji="$store.getters.getSquarePickerEmoji"
@@ -105,7 +113,12 @@
             :style="`background: ${$store.getters.getSquarePickerColor}`"
             ><div z-index="100000">
               <div class="emoji-btn">
-                <emoji :data="emojiIndex" emoji="art" :size="32" />
+                <emoji
+                  :data="emojiIndex"
+                  emoji="art"
+                  :size="32"
+                  :set="$store.getters.getEmojiSet"
+                />
               </div>
             </div>
           </q-btn>
@@ -152,8 +165,6 @@ export default {
       event.stopPropagation();
     },
     setSquarePickerEmoji(emoji) {
-      // console.log(emoji);
-      // this.$q.notify(emoji.colons);
       this.$store.commit("setSquarePickerEmoji", emoji.id);
     }
   },

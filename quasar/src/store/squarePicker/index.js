@@ -23,12 +23,18 @@ const getters = {
       "#584539": 6
     };
     const toneNumber = toneMap[s.tone];
-    console.log(toneNumber);
     return toneNumber;
   },
   getSquarePickerEmoji: s => s.emoji,
   getSquarePickerTab: s => s.tab,
   getMode: s => s.mode
+};
+
+const actions = {
+  setSquarePickerEmoji: ({ commit }, payload) => {
+    commit("setMode", "only_emoji");
+    commit("setSquarePickerEmoji", payload);
+  }
 };
 
 const mutations = {
@@ -45,15 +51,12 @@ const mutations = {
     state.showSquarePicker = !state.showSquarePicker;
   },
   setSquarePickerColor: (state, payload) => {
-    console.log(payload);
     state.color = payload;
   },
   setSquarePickerTone: (state, payload) => {
-    console.log(payload);
     state.tone = payload;
   },
   setSquarePickerEmoji: (state, payload) => {
-    console.log(payload);
     state.emoji = payload;
   }
 };
@@ -61,5 +64,6 @@ const mutations = {
 export default {
   state,
   getters,
+  actions,
   mutations
 };

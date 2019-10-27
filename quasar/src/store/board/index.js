@@ -1,13 +1,56 @@
 /* eslint-disable no-unused-vars */
 
 import { Notify } from "quasar";
+import sample from "./demo";
 
 const emojiChoices = [
   "deciduous_tree",
   "deciduous_tree",
   "deciduous_tree",
+  "deciduous_tree",
+  "deciduous_tree",
+  "deciduous_tree",
   "butterfly",
   "elf",
+  "female_elf",
+  "owl",
+  "snail",
+  "circus_tent",
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
   null,
   null,
   null,
@@ -54,7 +97,7 @@ const b = (h, w) =>
             emoji: randomSquare(),
             color: randomColor(),
             position: [i, j],
-            tone: null
+            tone: Math.floor(Math.random() * 6) + 1
           };
         });
     });
@@ -64,10 +107,20 @@ const state = {
   rows: 0,
   cols: 0,
   area: 0,
-  board: b(100, 100),
-  position: [50, 50],
-  currentEmoji: "poop",
-  anchor: [48, 48]
+  board: { scenes: { default: b(50, 50), new: b(50, 50) } },
+  position: [5, 5],
+  currentEmoji: { emoji: "elf", tone: 3 },
+  anchor: [0, 0],
+  sets: {
+    apple: "Apple",
+    google: "Google",
+    twitter: "Twitter",
+    facebook: "Facebook",
+    emojione: "EmojiOne"
+  },
+  set: "apple",
+  currentScene: "new",
+  showSquareConfig: false
 };
 
 const getters = {
@@ -79,12 +132,16 @@ const getters = {
   // starts at the anchor coordinates
   // width based on columns, height based on rows
   getBoard: s =>
-    s.board
+    s.board.scenes[s.currentScene]
       .slice(s.anchor[0], s.anchor[0] + s.rows)
       .map(x => x.slice(s.anchor[1], s.anchor[1] + s.cols)),
   getPosition: s => s.position,
   getCurrentEmoji: s => s.currentEmoji,
-  getAnchor: s => s.anchor
+  getAnchor: s => s.anchor,
+  getEmojiSetOptions: s => Object.keys(s.sets),
+  getEmojiSet: s => s.set,
+  getCurrentScene: s => s.currentScene,
+  getShowSquareConfig: s => s.showSquareConfig
 };
 
 const actions = {
@@ -124,21 +181,31 @@ const actions = {
 };
 
 const mutations = {
+  toggleShowSquareConfig: state => {
+    state.showSquareConfig = !state.showSquareConfig;
+  },
   setSquare: (state, payload) => {
+    const currentScene = state.board["scenes"][state.currentScene];
     const [x, y] = payload["location"];
     if (payload.mode === "both") {
-      state.board[x][y]["emoji"] = payload.emoji;
-      state.board[x][y]["color"] = payload.color;
-      state.board[x][y]["tone"] = payload.tone;
+      currentScene[x][y]["emoji"] = payload.emoji;
+      currentScene[x][y]["color"] = payload.color;
+      currentScene[x][y]["tone"] = payload.tone;
     } else if (payload.mode === "only_emoji") {
-      state.board[x][y]["emoji"] = payload.emoji;
-      state.board[x][y]["tone"] = payload.tone;
+      currentScene[x][y]["emoji"] = payload.emoji;
+      currentScene[x][y]["tone"] = payload.tone;
     } else if (payload.mode === "only_color") {
-      state.board[x][y]["color"] = payload.color;
+      currentScene[x][y]["color"] = payload.color;
     } else if (payload.mode === "delete_emoji") {
-      state.board[x][y]["emoji"] = null;
-      state.board[x][y]["tone"] = null;
+      currentScene[x][y]["emoji"] = null;
+      currentScene[x][y]["tone"] = null;
     }
+  },
+  setEmojiSet: (state, payload) => {
+    state.set = payload;
+  },
+  setSquareSize: (state, payload) => {
+    state.squareSize = payload;
   },
   setRows: (state, payload) => {
     state.rows = payload + 1;
@@ -170,7 +237,7 @@ const mutations = {
             state.anchor[0],
             Math.min(
               state.anchor[1] + state.cols - 2,
-              state.board[0].length - state.cols
+              state.board["scenes"][state.currentScene][0].length - state.cols
             )
           ];
           state.position = nextPos;
@@ -197,7 +264,7 @@ const mutations = {
           state.anchor = [
             Math.min(
               state.anchor[0] + state.rows - 2,
-              state.board[0].length - state.rows
+              state.board["scenes"][state.currentScene].length - state.rows
             ),
             state.anchor[1]
           ];

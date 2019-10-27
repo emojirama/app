@@ -46,10 +46,13 @@ module.exports = function(ctx) {
         "QCardSection",
         "QCardActions",
         "QColor",
-        "QOptionGroup"
+        "QOptionGroup",
+        "QInput",
+        "QSlider",
+        "QSelect"
       ],
 
-      directives: ["Ripple", "TouchSwipe"],
+      directives: ["Ripple", "TouchSwipe", "TouchHold", "TouchRepeat"],
 
       // Quasar plugins
       plugins: ["Notify"]

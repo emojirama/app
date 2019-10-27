@@ -1,7 +1,8 @@
 <template>
   <div
-    @mouseenter="handleMouseEnter"
     @click="setSquare"
+    v-touch-hold.mouse="handleHold"
+    @mouseenter="handleMouseEnter"
     class="square"
     :style="style"
   >
@@ -9,7 +10,7 @@
       <emoji
         :native="$q.platform.is.mobile && $q.platform.is.desktop"
         :skin="tone"
-        set="apple"
+        :set="$store.getters.getEmojiSet"
         :emoji="getSquareEmoji"
         :size="($store.getters.getSquareSize * 4) / 5"
       />
@@ -18,9 +19,10 @@
       <emoji
         v-if="isCurrentSquare"
         :native="$q.platform.is.mobile && $q.platform.is.desktop"
-        :skin="$store.getters.getSquarePickerToneNumber"
-        :emoji="$store.getters.getCurrentEmoji"
+        :emoji="$store.getters.getCurrentEmoji['emoji']"
+        :skin="$store.getters.getCurrentEmoji['tone']"
         :size="($store.getters.getSquareSize * 4) / 5"
+        :set="$store.getters.getEmojiSet"
       />
     </template>
   </div>
@@ -36,7 +38,7 @@ export default {
   props: {
     emoji: {
       type: String,
-      default: ""
+      default: "elf"
     },
     color: {
       type: String,
@@ -84,8 +86,12 @@ export default {
     // this.emoji = this.getEmoji;
   },
   methods: {
+    handleHold({ evt, ...info }) {
+      console.log("holding");
+      console.log(evt, info);
+      this.$store.commit("toggleShowSquareConfig");
+    },
     handleMouseEnter() {
-      console.log("handling mouse enter");
       if (this.$store.getters.getMouseDown) {
         this.setSquare();
       }

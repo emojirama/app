@@ -1,5 +1,6 @@
 <template>
   <picker
+    :set="$store.getters.getEmojiSet"
     :autoFocus="!$q.platform.is.mobile"
     :data="emojiIndex"
     @select="setSquarePickerEmoji"
@@ -28,9 +29,7 @@ export default {
   },
   methods: {
     setSquarePickerEmoji(emoji) {
-      // console.log(emoji);
-      // this.$q.notify(emoji.colons);
-      this.$store.commit("setSquarePickerEmoji", emoji.id);
+      this.$store.dispatch("setSquarePickerEmoji", emoji.id);
     }
   }
 };

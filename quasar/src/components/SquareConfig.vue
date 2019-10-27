@@ -1,12 +1,12 @@
 <template>
   <div @touchmove="handleScroll">
-    <div class="trigger" @click="$store.commit('toggleDebugModal')">
+    <div class="trigger" @click="$store.commit('toggleShowSquareConfig')">
       <q-btn push round
         ><div z-index="100000">
           <div class="emoji-btn">
             <emoji
               :data="emojiIndex"
-              :emoji="`gear`"
+              :emoji="`control_knobs`"
               :size="32"
               :set="$store.getters.getEmojiSet"
             />
@@ -14,28 +14,20 @@
         </div>
       </q-btn>
     </div>
-    <q-dialog v-model="showDebugModal">
+    <q-dialog v-model="showSquareConfig">
       <q-card class="q-card">
-        <q-card-section class="welcome">
-          <div class="text-h6">
-            Settings
-            <q-slider v-model="squareSize" :min="5" :max="300"></q-slider>
-          </div>
+        <q-card-section class="welcome"
+          ><div class="text-h6">Settings</div>
         </q-card-section>
 
-        <q-card-section>
-          <q-select
-            v-model="emojiSet"
-            :options="$store.getters.getEmojiSetOptions"
-          ></q-select>
-        </q-card-section>
+        <q-card-section> </q-card-section>
 
         <q-card-actions align="right">
           <q-btn
             push
             label="OK"
             color="primary"
-            @click="$store.commit('toggleDebugModal')"
+            @click="$store.commit('toggleShowSquareConfig')"
           />
         </q-card-actions>
       </q-card>
@@ -49,7 +41,6 @@ import data from "emoji-mart-vue-fast/data/all.json";
 import { EmojiIndex } from "emoji-mart-vue-fast";
 import { Emoji } from "emoji-mart-vue-fast";
 let emojiIndex = new EmojiIndex(data);
-import { mapGetters } from "vuex";
 export default {
   components: {
     Emoji
@@ -59,8 +50,9 @@ export default {
       emojiIndex: emojiIndex
     };
   },
+  created() {},
+  destroyed() {},
   computed: {
-    ...mapGetters(["getArea", "getRows", "getCols"]),
     showDebugModal: {
       get() {
         return this.$store.getters.showDebugModal;
@@ -83,6 +75,12 @@ export default {
         this.$store.commit("setSquareSize", size);
         window.dispatchEvent(new Event("resize"));
       }
+    },
+    showSquareConfig: {
+      get() {
+        return this.$store.getters.getShowSquareConfig;
+      },
+      set() {}
     }
   },
   methods: {
@@ -95,24 +93,16 @@ export default {
 </script>
 
 <style scoped>
-.meta {
-  position: absolute;
-  background-color: beige;
-  top: 44px;
-  height: 100px;
-  right: 16px;
-  color: red;
-  z-index: 100;
+.q-card {
+  background: white;
 }
 
 .trigger {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  bottom: 0px;
+  right: 0px;
+  height: 50px;
+  width: 50px;
   z-index: 100;
-}
-
-.q-card {
-  width: 300px;
 }
 </style>
