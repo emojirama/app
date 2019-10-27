@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="false" class="stats">
+    <div v-if="true" class="stats">
       <div>Cols: {{ $store.getters.getCols }}</div>
       <div>Rows: {{ $store.getters.getRows }}</div>
       <div>Position: {{ $store.getters.getPosition }}</div>
@@ -9,6 +9,7 @@
       <div>Board Length: {{ $store.state.board.board.length }}</div>
       <div>Board Width: {{ $store.state.board.board[0].length }}</div>
       <div>Mouse Down: {{ $store.getters.getMouseDown }}</div>
+      <div>Emoji Set: {{ $store.getters.getEmojiSet }}</div>
     </div>
   </div>
 </template>

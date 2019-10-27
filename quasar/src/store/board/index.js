@@ -110,7 +110,15 @@ const state = {
   board: sample, //b(50, 50),
   position: [5, 5],
   currentEmoji: { emoji: "elf", tone: 3 },
-  anchor: [0, 0]
+  anchor: [0, 0],
+  sets: {
+    apple: "Apple",
+    google: "Google",
+    twitter: "Twitter",
+    facebook: "Facebook",
+    emojione: "EmojiOne"
+  },
+  set: "apple"
 };
 
 const getters = {
@@ -127,7 +135,9 @@ const getters = {
       .map(x => x.slice(s.anchor[1], s.anchor[1] + s.cols)),
   getPosition: s => s.position,
   getCurrentEmoji: s => s.currentEmoji,
-  getAnchor: s => s.anchor
+  getAnchor: s => s.anchor,
+  getEmojiSetOptions: s => Object.keys(s.sets),
+  getEmojiSet: s => s.set
 };
 
 const actions = {
@@ -182,6 +192,9 @@ const mutations = {
       state.board[x][y]["emoji"] = null;
       state.board[x][y]["tone"] = null;
     }
+  },
+  setEmojiSet: (state, payload) => {
+    state.set = payload;
   },
   setSquareSize: (state, payload) => {
     state.squareSize = payload;

@@ -4,7 +4,12 @@
       <q-btn push round
         ><div z-index="100000">
           <div class="emoji-btn">
-            <emoji :data="emojiIndex" :emoji="`gear`" :size="32" />
+            <emoji
+              :data="emojiIndex"
+              :emoji="`gear`"
+              :size="32"
+              :set="$store.getters.getEmojiSet"
+            />
           </div>
         </div>
       </q-btn>
@@ -14,14 +19,15 @@
         <q-card-section class="welcome">
           <div class="text-h6">
             Settings
-            <q-slider v-model="squareSize"></q-slider>
+            <q-slider v-model="squareSize" :min="5" :max="300"></q-slider>
           </div>
         </q-card-section>
 
         <q-card-section>
-          Rows: {{ getRows }}, Cols: {{ getCols }}, Area: {{ getArea }}
-          <br />
-          Mode: {{ $store.getters.getMode }}
+          <q-select
+            v-model="emojiSet"
+            :options="$store.getters.getEmojiSetOptions"
+          ></q-select>
         </q-card-section>
 
         <q-card-actions align="right">
@@ -61,6 +67,14 @@ export default {
       },
       set() {}
     },
+    emojiSet: {
+      get() {
+        return this.$store.getters.getEmojiSet;
+      },
+      set(v) {
+        this.$store.commit("setEmojiSet", v);
+      }
+    },
     squareSize: {
       get() {
         console.log(this.$store.getters.getSquareSize);
@@ -98,5 +112,9 @@ export default {
   top: 10px;
   right: 10px;
   z-index: 100;
+}
+
+.q-card {
+  width: 300px;
 }
 </style>

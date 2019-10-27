@@ -1,5 +1,6 @@
 <template>
   <picker
+    :set="$store.getters.getEmojiSet"
     :autoFocus="!$q.platform.is.mobile"
     :data="emojiIndex"
     @select="setSquarePickerEmoji"

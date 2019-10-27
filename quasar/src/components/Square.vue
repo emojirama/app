@@ -9,7 +9,7 @@
       <emoji
         :native="$q.platform.is.mobile && $q.platform.is.desktop"
         :skin="tone"
-        set="apple"
+        :set="$store.getters.getEmojiSet"
         :emoji="getSquareEmoji"
         :size="($store.getters.getSquareSize * 4) / 5"
       />
@@ -21,6 +21,7 @@
         :emoji="$store.getters.getCurrentEmoji['emoji']"
         :skin="$store.getters.getCurrentEmoji['tone']"
         :size="($store.getters.getSquareSize * 4) / 5"
+        :set="$store.getters.getEmojiSet"
       />
     </template>
   </div>

@@ -48,7 +48,8 @@ module.exports = function(ctx) {
         "QColor",
         "QOptionGroup",
         "QInput",
-        "QSlider"
+        "QSlider",
+        "QSelect"
       ],
 
       directives: ["Ripple", "TouchSwipe"],
