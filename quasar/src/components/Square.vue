@@ -86,9 +86,7 @@ export default {
     // this.emoji = this.getEmoji;
   },
   methods: {
-    handleHold({ evt, ...info }) {
-      console.log("holding");
-      console.log(evt, info);
+    handleHold() {
       this.$store.commit("toggleShowSquareConfig");
     },
     handleMouseEnter() {
