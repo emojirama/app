@@ -18,8 +18,8 @@
       <emoji
         v-if="isCurrentSquare"
         :native="$q.platform.is.mobile && $q.platform.is.desktop"
-        :skin="$store.getters.getSquarePickerToneNumber"
-        :emoji="$store.getters.getCurrentEmoji"
+        :emoji="$store.getters.getCurrentEmoji['emoji']"
+        :skin="$store.getters.getCurrentEmoji['tone']"
         :size="($store.getters.getSquareSize * 4) / 5"
       />
     </template>
@@ -35,8 +35,13 @@ export default {
   },
   props: {
     emoji: {
-      type: String,
-      default: ""
+      type: Object,
+      default: () => {
+        return {
+          emoji: "elf",
+          tone: 3
+        };
+      }
     },
     color: {
       type: String,
