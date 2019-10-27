@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 
 import { Notify } from "quasar";
+import sample from "./demo";
 
 const emojiChoices = [
   "deciduous_tree",
@@ -106,7 +107,7 @@ const state = {
   rows: 0,
   cols: 0,
   area: 0,
-  board: b(50, 50),
+  board: sample, //b(50, 50),
   position: [5, 5],
   currentEmoji: { emoji: "elf", tone: 3 },
   anchor: [0, 0]
