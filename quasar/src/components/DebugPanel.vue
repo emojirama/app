@@ -5,6 +5,7 @@
         ><div z-index="100000">
           <div class="emoji-btn">
             <emoji
+              :native="$store.getters.getUseNativeEmoji"
               :data="emojiIndex"
               :emoji="`gear`"
               :size="32"
@@ -19,11 +20,18 @@
         <q-card-section class="welcome">
           <div class="text-h6">
             Settings
-            <q-slider v-model="squareSize" :min="5" :max="300"></q-slider>
+            <q-slider v-model="squareSize" :min="5" :max="200"></q-slider>
           </div>
         </q-card-section>
 
         <q-card-section>
+          <q-toggle
+            v-model="useNativeEmoji"
+            label="Use native emoji"
+          ></q-toggle>
+        </q-card-section>
+
+        <q-card-section v-if="!$store.getters.getUseNativeEmoji">
           <q-select
             v-model="emojiSet"
             :options="$store.getters.getEmojiSetOptions"
@@ -82,6 +90,15 @@ export default {
       set(size) {
         this.$store.commit("setSquareSize", size);
         window.dispatchEvent(new Event("resize"));
+      }
+    },
+    useNativeEmoji: {
+      get() {
+        //
+        return this.$store.getters.getUseNativeEmoji;
+      },
+      set() {
+        this.$store.commit("toggleUseNativeEmoji");
       }
     }
   },

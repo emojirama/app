@@ -49,7 +49,8 @@ module.exports = function(ctx) {
         "QOptionGroup",
         "QInput",
         "QSlider",
-        "QSelect"
+        "QSelect",
+        "QToggle"
       ],
 
       directives: ["Ripple", "TouchSwipe", "TouchHold", "TouchRepeat"],

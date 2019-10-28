@@ -8,7 +8,7 @@
   >
     <template v-if="emoji && !isCurrentSquare">
       <emoji
-        :native="$q.platform.is.mobile && $q.platform.is.desktop"
+        :native="$store.getters.getUseNativeEmoji"
         :skin="tone"
         :set="$store.getters.getEmojiSet"
         :emoji="getSquareEmoji"
@@ -18,7 +18,7 @@
     <template v-else>
       <emoji
         v-if="isCurrentSquare"
-        :native="$q.platform.is.mobile && $q.platform.is.desktop"
+        :native="$store.getters.getUseNativeEmoji"
         :emoji="$store.getters.getCurrentEmoji['emoji']"
         :skin="$store.getters.getCurrentEmoji['tone']"
         :size="($store.getters.getSquareSize * 4) / 5"

@@ -1,5 +1,6 @@
 <template>
   <picker
+    :native="$store.getters.getUseNativeEmoji"
     :set="$store.getters.getEmojiSet"
     :autoFocus="!$q.platform.is.mobile"
     :data="emojiIndex"

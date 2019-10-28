@@ -5,6 +5,7 @@
         ><div z-index="100000">
           <div class="emoji-btn">
             <emoji
+              :native="$store.getters.getUseNativeEmoji"
               :data="emojiIndex"
               :emoji="`control_knobs`"
               :size="32"

@@ -12,6 +12,7 @@
         ><div z-index="100000">
           <div class="emoji-btn">
             <emoji
+              :native="$store.getters.getUseNativeEmoji"
               :set="$store.getters.getEmojiSet"
               :data="emojiIndex"
               :skin="$store.getters.getSquarePickerToneNumber"
@@ -72,6 +73,7 @@
             ><div z-index="100000">
               <div class="emoji-btn">
                 <emoji
+                  :native="$store.getters.getUseNativeEmoji"
                   :data="emojiIndex"
                   emoji="gear"
                   :size="32"
@@ -88,6 +90,7 @@
             ><div z-index="100000">
               <div class="emoji-btn">
                 <emoji
+                  :native="$store.getters.getUseNativeEmoji"
                   :set="$store.getters.getEmojiSet"
                   :data="emojiIndex"
                   :skin="$store.getters.getSquarePickerToneNumber"
@@ -114,6 +117,7 @@
             ><div z-index="100000">
               <div class="emoji-btn">
                 <emoji
+                  :native="$store.getters.getUseNativeEmoji"
                   :data="emojiIndex"
                   emoji="art"
                   :size="32"
