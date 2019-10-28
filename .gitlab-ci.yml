@@ -12,7 +12,7 @@ pwa:
       - quasar/dist/pwa
   before_script:
     - npm install -g @quasar/cli
-    - cd proj
+    - cd quasar
     - npm install --progress=false
   script:
     - quasar build -m pwa
