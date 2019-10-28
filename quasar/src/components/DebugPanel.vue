@@ -38,6 +38,13 @@
           ></q-select>
         </q-card-section>
 
+        <q-card-section>
+          <q-toggle
+            v-model="showStatsPanel"
+            label="Show Debug Panel"
+          ></q-toggle>
+        </q-card-section>
+
         <q-card-actions align="right">
           <q-btn
             push
@@ -99,6 +106,14 @@ export default {
       },
       set() {
         this.$store.commit("toggleUseNativeEmoji");
+      }
+    },
+    showStatsPanel: {
+      get() {
+        return this.$store.getters.showStatsPanel;
+      },
+      set() {
+        this.$store.commit("toggleStatsPanel");
       }
     }
   },
