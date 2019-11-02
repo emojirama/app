@@ -120,7 +120,8 @@ const state = {
   },
   set: "apple",
   currentScene: "new",
-  showSquareConfig: false
+  showSquareConfig: false,
+  squareConfigPosition: null
 };
 
 const getters = {
@@ -141,10 +142,24 @@ const getters = {
   getEmojiSetOptions: s => Object.keys(s.sets),
   getEmojiSet: s => s.set,
   getCurrentScene: s => s.currentScene,
-  getShowSquareConfig: s => s.showSquareConfig
+  getSquareConfigPosition: s => s.squareConfigPosition,
+  getShowSquareConfig: s => s.showSquareConfig,
+  getSquareConfig: s => position => {
+    return s.board["scenes"][s.currentScene][s.squareConfigPosition[0]][
+      s.squareConfigPosition[1]
+    ];
+  }
 };
 
 const actions = {
+  toggleShowSquareConfig: (
+    { state, commit, rootState, rootGetters },
+    payload
+  ) => {
+    commit("toggleShowSquareConfig");
+    commit("setSquareConfigPosition", payload);
+    //         vm.$store.commit("setSquareConfigPosition", position);
+  },
   setSquare: ({ state, commit, rootState, getters }, payload) => {
     const currentEmoji = getters.getSquarePickerEmoji;
     const currentColor = getters.getSquarePickerColor;
@@ -181,6 +196,9 @@ const actions = {
 };
 
 const mutations = {
+  setSquareConfigPosition: (state, payload) => {
+    state.squareConfigPosition = payload;
+  },
   toggleShowSquareConfig: state => {
     state.showSquareConfig = !state.showSquareConfig;
   },

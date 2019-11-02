@@ -1,7 +1,7 @@
 <template>
   <div
     @click="setSquare"
-    v-touch-hold.mouse="handleHold"
+    v-touch-hold.mouse="handleHold(position)"
     @mouseenter="handleMouseEnter"
     class="square"
     :style="style"
@@ -86,8 +86,11 @@ export default {
     // this.emoji = this.getEmoji;
   },
   methods: {
-    handleHold() {
-      this.$store.commit("toggleShowSquareConfig");
+    handleHold(position) {
+      const vm = this;
+      return function() {
+        vm.$store.dispatch("toggleShowSquareConfig", position);
+      };
     },
     handleMouseEnter() {
       if (this.$store.getters.getMouseDown) {

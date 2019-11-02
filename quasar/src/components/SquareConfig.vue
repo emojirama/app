@@ -17,11 +17,22 @@
     </div>
     <q-dialog v-model="showSquareConfig">
       <q-card class="q-card">
-        <q-card-section class="welcome"
-          ><div class="text-h6">Settings</div>
-        </q-card-section>
-
-        <q-card-section> </q-card-section>
+        <div class="square-config">
+          <q-card-section>
+            <div
+              :style="`backgroundColor: ${squareConfigBackgroundColor}`"
+              class="square-preview"
+            >
+              <emoji
+                :native="$store.getters.getUseNativeEmoji"
+                :data="emojiIndex"
+                :emoji="squareConfigEmoji"
+                :size="64"
+                :set="$store.getters.getEmojiSet"
+              />
+            </div>
+          </q-card-section>
+        </div>
 
         <q-card-actions align="right">
           <q-btn
@@ -82,6 +93,20 @@ export default {
         return this.$store.getters.getShowSquareConfig;
       },
       set() {}
+    },
+    squareConfigBackgroundColor: {
+      get() {
+        return this.$store.getters.getSquareConfig(
+          this.$store.getters.getSquareConfigPosition
+        )["color"];
+      }
+    },
+    squareConfigEmoji: {
+      get() {
+        return this.$store.getters.getSquareConfig(
+          this.$store.getters.getSquareConfigPosition
+        )["emoji"];
+      }
     }
   },
   methods: {
@@ -105,5 +130,16 @@ export default {
   height: 50px;
   width: 50px;
   z-index: 100;
+}
+
+.square-config {
+  justify-content: center;
+  width: 250px;
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+}
+
+.square-preview {
+  border-radius: 5px;
 }
 </style>
