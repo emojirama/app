@@ -1,5 +1,5 @@
 <template>
-  <div v-touch-swipe="move" class="grid" :style="style">
+  <div class="grid" :style="style" v-touch-pan="pan">
     <square
       v-for="(e, i) in $store.getters.getBoard.flat()"
       :key="i"
@@ -15,6 +15,12 @@
 <script>
 import Square from "./Square.vue";
 export default {
+  data() {
+    return {
+      panning: false,
+      lastMove: new Date().getTime()
+    };
+  },
   created() {
     window.addEventListener("keydown", this.handleKeyDown);
     window.addEventListener("mousedown", this.handleMouseDown);
@@ -63,10 +69,18 @@ export default {
         d: "right",
         l: "right"
       };
+      console.log(directions[e.key]);
       this.$store.dispatch("move", directions[e.key]);
     },
     move(e) {
+      console.log(e.direction);
       this.$store.dispatch("move", e.direction);
+    },
+    pan(e) {
+      if (new Date().getTime() > this.lastMove + 150) {
+        this.lastMove = new Date().getTime();
+        this.move(e);
+      }
     }
   },
   computed: {

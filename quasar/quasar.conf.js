@@ -53,7 +53,13 @@ module.exports = function(ctx) {
         "QToggle"
       ],
 
-      directives: ["Ripple", "TouchSwipe", "TouchHold", "TouchRepeat"],
+      directives: [
+        "Ripple",
+        "TouchSwipe",
+        "TouchHold",
+        "TouchRepeat",
+        "TouchPan"
+      ],
 
       // Quasar plugins
       plugins: ["Notify"]
