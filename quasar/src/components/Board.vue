@@ -69,11 +69,9 @@ export default {
         d: "right",
         l: "right"
       };
-      console.log(directions[e.key]);
       this.$store.dispatch("move", directions[e.key]);
     },
     move(e) {
-      console.log(e.direction);
       this.$store.dispatch("move", e.direction);
     },
     pan(e) {
