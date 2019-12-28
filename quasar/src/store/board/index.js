@@ -121,7 +121,7 @@ const state = {
   set: "apple",
   currentScene: "new",
   showSquareConfig: false,
-  squareConfigPosition: null
+  squareConfigPosition: [0, 0]
 };
 
 const getters = {

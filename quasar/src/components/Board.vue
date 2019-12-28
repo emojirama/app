@@ -1,5 +1,5 @@
 <template>
-  <div class="grid" :style="style" v-touch-pan="pan">
+  <div :style="style" class="grid" v-touch-pan="pan">
     <square
       v-for="(e, i) in $store.getters.getBoard.flat()"
       :key="i"
@@ -7,8 +7,7 @@
       :color="e.color"
       :position="e.position"
       :tone="e.tone"
-      >f</square
-    >
+    ></square>
   </div>
 </template>
 
@@ -23,13 +22,9 @@ export default {
   },
   created() {
     window.addEventListener("keydown", this.handleKeyDown);
-    window.addEventListener("mousedown", this.handleMouseDown);
-    window.addEventListener("mouseup", this.handleMouseUp);
   },
   destroyed() {
     window.removeEventListener("keydown", this.handleKeyDown);
-    window.removeEventListener("mousedown", this.handleMouseDown);
-    window.removeEventListener("mouseup", this.handleMouseUp);
   },
   components: {
     Square
@@ -106,4 +101,4 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style></style>
