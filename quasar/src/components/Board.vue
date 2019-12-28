@@ -80,10 +80,10 @@ export default {
     style() {
       const boardRows = this.$store.state.board.board["scenes"][
         this.$store.getters.getCurrentScene
-      ].length;
+      ]["data"].length;
       const boardCols = this.$store.state.board.board["scenes"][
         this.$store.getters.getCurrentScene
-      ][0].length;
+      ]["data"][0].length;
       // const boardCols = this.$store.state.board.board[0].length;
       return {
         display: "grid",

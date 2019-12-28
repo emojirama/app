@@ -107,7 +107,16 @@ const state = {
   rows: 0,
   cols: 0,
   area: 0,
-  board: { scenes: { default: b(50, 50), new: b(50, 50) } },
+  board: {
+    scenes: {
+      default: {
+        data: b(50, 50)
+      },
+      new: {
+        data: b(50, 50)
+      }
+    }
+  },
   position: [5, 5],
   currentEmoji: { emoji: "elf", tone: 3 },
   anchor: [0, 0],
@@ -133,7 +142,7 @@ const getters = {
   // starts at the anchor coordinates
   // width based on columns, height based on rows
   getBoard: s =>
-    s.board.scenes[s.currentScene]
+    s.board.scenes[s.currentScene]["data"]
       .slice(s.anchor[0], s.anchor[0] + s.rows)
       .map(x => x.slice(s.anchor[1], s.anchor[1] + s.cols)),
   getPosition: s => s.position,
@@ -145,7 +154,7 @@ const getters = {
   getSquareConfigPosition: s => s.squareConfigPosition,
   getShowSquareConfig: s => s.showSquareConfig,
   getSquareConfig: s => position => {
-    return s.board["scenes"][s.currentScene][s.squareConfigPosition[0]][
+    return s.board["scenes"][s.currentScene]["data"][s.squareConfigPosition[0]][
       s.squareConfigPosition[1]
     ];
   }
@@ -203,7 +212,7 @@ const mutations = {
     state.showSquareConfig = !state.showSquareConfig;
   },
   setSquare: (state, payload) => {
-    const currentScene = state.board["scenes"][state.currentScene];
+    const currentScene = state.board["scenes"][state.currentScene]["data"];
     const [x, y] = payload["location"];
     if (payload.mode === "both") {
       currentScene[x][y]["emoji"] = payload.emoji;
@@ -255,7 +264,8 @@ const mutations = {
             state.anchor[0],
             Math.min(
               state.anchor[1] + state.cols - 2,
-              state.board["scenes"][state.currentScene][0].length - state.cols
+              state.board["scenes"][state.currentScene]["data"][0].length -
+                state.cols
             )
           ];
           state.position = nextPos;
@@ -282,7 +292,8 @@ const mutations = {
           state.anchor = [
             Math.min(
               state.anchor[0] + state.rows - 2,
-              state.board["scenes"][state.currentScene].length - state.rows
+              state.board["scenes"][state.currentScene]["data"].length -
+                state.rows
             ),
             state.anchor[1]
           ];
