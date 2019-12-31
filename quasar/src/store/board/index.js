@@ -64,17 +64,16 @@ const emojiChoices = [
   null,
   null,
   null,
-  null,
-  null,
-  null,
-  null,
-  null,
   null
 ];
 const colorChoices = [
   "darkgreen",
   // "#4F7942",
   "#228B22"
+  // "#ffc04c",
+  // "#ffc04c",
+  // "#ffc04c",
+  // "#ffc04c",
   // "#ffc04c",
   // "#ffd27f",
   // "#ffc04c",
@@ -138,6 +137,13 @@ const getters = {
   getRows: s => s.rows,
   getCols: s => s.cols,
   getArea: s => s.area,
+  getCurrentSceneDimensions: s => {
+    return [
+      s.board.scenes[s.currentScene]["data"].length,
+      s.board.scenes[s.currentScene]["data"][0].length
+    ];
+  },
+
   // board view takes a slice of the current board
   // starts at the anchor coordinates
   // width based on columns, height based on rows

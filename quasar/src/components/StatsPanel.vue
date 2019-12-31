@@ -7,8 +7,8 @@
       <div>Position: {{ $store.getters.getPosition }}</div>
       <div>Anchor: {{ $store.getters.getAnchor }}</div>
       <div>Square Size: {{ $store.getters.getSquareSize }}px</div>
-      <div>Cur Scene l: {{ $store.getters.getCurrentSceneLength }}</div>
-      <div>Cur Scene w: {{ $store.getters.getCurrentSceneWidth }}</div>
+      <div>Cur Scene l: {{ $store.getters.getCurrentSceneDimensions[0] }}</div>
+      <div>Cur Scene w: {{ $store.getters.getCurrentSceneDimensions[1] }}</div>
       <div>Mouse Down: {{ $store.getters.getMouseDown }}</div>
       <div>Emoji Set: {{ $store.getters.getEmojiSet }}</div>
       <div>Current Scene: {{ $store.getters.getCurrentScene }}</div>
