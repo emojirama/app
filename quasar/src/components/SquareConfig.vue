@@ -1,13 +1,17 @@
 <template>
   <div @touchmove="handleScroll">
-    <div class="trigger" @click="$store.commit('toggleShowSquareConfig')">
+    <div class="trigger" @click="$store.commit('toggleMovementMode')">
       <q-btn push round
         ><div z-index="100000">
           <div class="emoji-btn">
             <emoji
               :native="$store.getters.getUseNativeEmoji"
               :data="emojiIndex"
-              :emoji="`control_knobs`"
+              :emoji="
+                $store.getters.getMovementMode === 'normal'
+                  ? 'footprints'
+                  : 'anchor'
+              "
               :size="32"
               :set="$store.getters.getEmojiSet"
             />

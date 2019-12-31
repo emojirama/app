@@ -129,10 +129,12 @@ const state = {
   set: "apple",
   currentScene: "new",
   showSquareConfig: false,
-  squareConfigPosition: [0, 0]
+  squareConfigPosition: [0, 0],
+  movementMode: "normal"
 };
 
 const getters = {
+  getMovementMode: s => s.movementMode,
   getSquareSize: s => s.squareSize,
   getRows: s => s.rows,
   getCols: s => s.cols,
@@ -193,24 +195,32 @@ const actions = {
     if (rootGetters.getMouseDown) {
       return;
     }
+    const mode = getters.getMovementMode;
     switch (payload) {
       case "left":
-        commit("move", "left");
+        commit("move", { direction: "left", mode });
         break;
       case "right":
-        commit("move", "right");
+        commit("move", { direction: "right", mode });
         break;
       case "up":
-        commit("move", "up");
+        commit("move", { direction: "up", mode });
         break;
       case "down":
-        commit("move", "down");
+        commit("move", { direction: "down", mode });
         break;
     }
   }
 };
 
 const mutations = {
+  toggleMovementMode: state => {
+    if (state.movementMode === "normal") {
+      state.movementMode = "fixed";
+    } else if (state.movementMode === "fixed") {
+      state.movementMode = "normal";
+    }
+  },
   setSquareConfigPosition: (state, payload) => {
     state.squareConfigPosition = payload;
   },
@@ -250,63 +260,109 @@ const mutations = {
   },
   move: (state, payload) => {
     let nextPos;
-    switch (payload) {
+    let nextAnchor;
+    const mode = payload.mode;
+    switch (payload.direction) {
       case "left":
         nextPos = [state.position[0], state.position[1] - 1];
-        if (nextPos[1] < state.anchor[1] + 1) {
-          state.anchor = [
-            state.anchor[0],
-            Math.max(state.anchor[1] - state.cols + 2, 0)
-          ];
+        nextAnchor = [state.anchor[0], state.anchor[1] - 1];
+        if (mode === "normal") {
+          if (nextPos[1] < state.anchor[1] + 1) {
+            state.anchor = [
+              state.anchor[0],
+              Math.max(state.anchor[1] - state.cols + 2, 0)
+            ];
+            state.position = nextPos;
+            break;
+          }
           state.position = nextPos;
-          break;
+        } else if (mode === "fixed") {
+          if (nextAnchor[1] < 0) {
+            return;
+          }
+          state.anchor = nextAnchor;
+          state.position = nextPos;
         }
-        state.position = [state.position[0], state.position[1] - 1];
         break;
       case "right":
         nextPos = [state.position[0], state.position[1] + 1];
-        if (nextPos[1] > state.anchor[1] + state.cols - 2) {
-          state.anchor = [
-            state.anchor[0],
-            Math.min(
-              state.anchor[1] + state.cols - 2,
-              state.board["scenes"][state.currentScene]["data"][0].length -
-                state.cols
-            )
-          ];
+        nextAnchor = [state.anchor[0], state.anchor[1] + 1];
+        if (mode === "normal") {
+          if (nextPos[1] > state.anchor[1] + state.cols - 2) {
+            state.anchor = [
+              state.anchor[0],
+              Math.min(
+                state.anchor[1] + state.cols - 2,
+                state.board["scenes"][state.currentScene]["data"][0].length -
+                  state.cols
+              )
+            ];
+            state.position = nextPos;
+            break;
+          }
+          // state.anchor = [state.anchor[0], state.anchor[1] + 1];
           state.position = nextPos;
-          break;
+        } else if (mode === "fixed") {
+          if (
+            nextAnchor[1] >
+            state.board["scenes"][state.currentScene]["data"][0].length -
+              state.cols
+          ) {
+            return;
+          }
+          state.anchor = nextAnchor;
+          state.position = nextPos;
         }
-        // state.anchor = [state.anchor[0], state.anchor[1] + 1];
-        state.position = nextPos;
         break;
       case "up":
         nextPos = [state.position[0] - 1, state.position[1]];
-        if (nextPos[0] < state.anchor[0] + 1) {
-          state.anchor = [
-            Math.max(state.anchor[0] - state.rows + 2, 0),
-            state.anchor[1]
-          ];
+        nextAnchor = [state.anchor[0] - 1, state.anchor[1]];
+        if (mode === "normal") {
+          if (nextPos[0] < state.anchor[0] + 1) {
+            state.anchor = [
+              Math.max(state.anchor[0] - state.rows + 2, 0),
+              state.anchor[1]
+            ];
+            state.position = nextPos;
+            break;
+          }
           state.position = nextPos;
-          break;
+        } else if (mode === "fixed") {
+          if (nextAnchor[0] < 0) {
+            return;
+          }
+          state.anchor = nextAnchor;
+          state.position = nextPos;
         }
-        state.position = [state.position[0] - 1, state.position[1]];
         break;
       case "down":
         nextPos = [state.position[0] + 1, state.position[1]];
-        if (nextPos[0] > state.anchor[0] + state.rows - 2) {
-          state.anchor = [
-            Math.min(
-              state.anchor[0] + state.rows - 2,
-              state.board["scenes"][state.currentScene]["data"].length -
-                state.rows
-            ),
-            state.anchor[1]
-          ];
+        nextAnchor = [state.anchor[0] + 1, state.anchor[1]];
+        if (mode === "normal") {
+          if (nextPos[0] > state.anchor[0] + state.rows - 2) {
+            state.anchor = [
+              Math.min(
+                state.anchor[0] + state.rows - 2,
+                state.board["scenes"][state.currentScene]["data"].length -
+                  state.rows
+              ),
+              state.anchor[1]
+            ];
+            state.position = nextPos;
+            break;
+          }
           state.position = nextPos;
-          break;
+        } else if (mode === "fixed") {
+          if (
+            nextAnchor[0] >
+            state.board["scenes"][state.currentScene]["data"].length -
+              state.rows
+          ) {
+            return;
+          }
+          state.anchor = nextAnchor;
+          state.position = nextPos;
         }
-        state.position = nextPos;
         break;
     }
   }
