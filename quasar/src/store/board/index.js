@@ -1,105 +1,6 @@
 /* eslint-disable no-unused-vars */
 
-import { Notify } from "quasar";
-import sample from "./demo";
-
-const emojiChoices = [
-  "deciduous_tree",
-  "deciduous_tree",
-  "deciduous_tree",
-  "deciduous_tree",
-  "deciduous_tree",
-  "deciduous_tree",
-  "butterfly",
-  "elf",
-  "female_elf",
-  "owl",
-  "snail",
-  "circus_tent",
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null
-];
-const colorChoices = [
-  "darkgreen",
-  // "#4F7942",
-  "#228B22"
-  // "#ffc04c",
-  // "#ffc04c",
-  // "#ffc04c",
-  // "#ffc04c",
-  // "#ffc04c",
-  // "#ffd27f",
-  // "#ffc04c",
-  // "lightblue"
-];
-
-const randomSquare = () =>
-  emojiChoices[Math.floor(Math.random() * emojiChoices.length)];
-const randomColor = () =>
-  colorChoices[Math.floor(Math.random() * colorChoices.length)];
-
-const b = (h, w) =>
-  Array(h)
-    .fill()
-    .map((_, i) => {
-      return Array(w)
-        .fill()
-        .map((_, j) => {
-          return {
-            emoji: randomSquare(),
-            color: randomColor(),
-            position: [i, j],
-            tone: Math.floor(Math.random() * 6) + 1
-          };
-        });
-    });
+import generateBoard from "./randomBoard";
 
 const state = {
   squareSize: 60,
@@ -109,10 +10,10 @@ const state = {
   board: {
     scenes: {
       default: {
-        data: b(50, 50)
+        data: generateBoard(50, 50)
       },
       new: {
-        data: b(50, 50)
+        data: generateBoard(50, 50)
       }
     }
   },
