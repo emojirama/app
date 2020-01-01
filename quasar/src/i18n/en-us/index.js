@@ -1,7 +1,7 @@
-// This is just an example,
-// so you can safely delete all default props below
+import leftDrawer from "./leftDrawer";
 
 export default {
-  failed: "Action failed",
+  ...leftDrawer,
+  failed: "Hello",
   success: "Action was successful"
 };

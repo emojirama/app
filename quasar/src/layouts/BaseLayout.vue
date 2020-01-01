@@ -4,6 +4,7 @@
     <settings-modal></settings-modal>
     <stats-panel></stats-panel>
     <square-conifg />
+    <home-modal />
     <square-picker></square-picker>
     <div
       @touchmove="handleScroll"
@@ -28,6 +29,7 @@ import SettingsModal from "components/SettingsModal.vue";
 import SquarePicker from "components/SquarePicker/index.vue";
 import StatsPanel from "components/StatsPanel.vue";
 import SquareConifg from "components/SquareConfig.vue";
+import HomeModal from "components/HomeModal.vue";
 
 export default {
   components: {
@@ -36,7 +38,8 @@ export default {
     SettingsModal,
     SquarePicker,
     StatsPanel,
-    SquareConifg
+    SquareConifg,
+    HomeModal
   },
   created() {
     this.handleResize();
@@ -69,7 +72,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 #board {
   top: 50%;
   /* background-color: red; */
@@ -82,5 +85,11 @@ export default {
 
 #debug {
   z-index: 10;
+}
+html,
+body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
 }
 </style>

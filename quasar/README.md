@@ -1,10 +1,10 @@
-# Quasar App (grid)
+# Verbose Equals True (quasarfrontend)
 
-A Quasar Framework app
+Quasar frontend for Verbose Equals True
 
 ## Install the dependencies
 ```bash
-npm install
+yarn
 ```
 
 ### Start the app in development mode (hot-code reloading, error reporting, etc.)
@@ -14,7 +14,7 @@ quasar dev
 
 ### Lint the files
 ```bash
-npm run lint
+yarn run lint
 ```
 
 ### Build the app for production
@@ -24,6 +24,3 @@ quasar build
 
 ### Customize the configuration
 See [Configuring quasar.conf.js](https://quasar.dev/quasar-cli/quasar-conf-js).
-
-### Start the app in PWA mode on port 4000
-quasar dev -m pwa -p 4000
