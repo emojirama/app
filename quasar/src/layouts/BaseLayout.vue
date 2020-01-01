@@ -45,6 +45,7 @@ export default {
     this.handleResize();
     window.addEventListener("scroll", this.handleScroll);
     window.addEventListener("resize", this.handleResize);
+    this.$store.dispatch("loadEmojirama");
   },
   data() {
     return {

@@ -10,10 +10,7 @@ const state = {
   board: {
     scenes: {
       default: {
-        data: generateBoard(50, 50)
-      },
-      new: {
-        data: generateBoard(50, 50)
+        data: []
       }
     }
   },
@@ -28,7 +25,7 @@ const state = {
     emojione: "EmojiOne"
   },
   set: "apple",
-  currentScene: "new",
+  currentScene: "default",
   showSquareConfig: false,
   squareConfigPosition: [0, 0],
   movementMode: "normal"
@@ -70,6 +67,9 @@ const getters = {
 };
 
 const actions = {
+  loadEmojirama: ({ state, commit }, payload) => {
+    commit("loadEmojirama");
+  },
   toggleShowSquareConfig: (
     { state, commit, rootState, rootGetters },
     payload
@@ -115,6 +115,15 @@ const actions = {
 };
 
 const mutations = {
+  loadEmojirama: state => {
+    state.board = {
+      scenes: {
+        default: {
+          data: generateBoard(50, 50)
+        }
+      }
+    };
+  },
   toggleMovementMode: state => {
     if (state.movementMode === "normal") {
       state.movementMode = "fixed";
