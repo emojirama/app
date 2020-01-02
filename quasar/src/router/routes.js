@@ -30,6 +30,13 @@ const routes = [
     component: () => import("layouts/BaseLayout.vue")
   },
   {
+    path: "/emojirama/:id",
+    component: () => import("layouts/BaseLayout.vue"),
+    meta: {
+      db: true
+    }
+  },
+  {
     path: "/",
     component: () => import("layouts/MainLayout.vue"),
     children: [
@@ -80,6 +87,10 @@ const routes = [
             component: () => import("pages/Examples/Redis.vue")
           }
         ]
+      },
+      {
+        path: "/new",
+        component: () => import("pages/NewEmojirama.vue")
       }
     ]
   }

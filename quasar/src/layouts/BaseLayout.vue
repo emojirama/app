@@ -5,6 +5,7 @@
     <stats-panel></stats-panel>
     <square-conifg />
     <home-modal />
+    <save-button />
     <square-picker></square-picker>
     <div
       @touchmove="handleScroll"
@@ -30,6 +31,7 @@ import SquarePicker from "components/SquarePicker/index.vue";
 import StatsPanel from "components/StatsPanel.vue";
 import SquareConifg from "components/SquareConfig.vue";
 import HomeModal from "components/HomeModal.vue";
+import SaveButton from "components/SaveButton.vue";
 
 export default {
   components: {
@@ -39,13 +41,21 @@ export default {
     SquarePicker,
     StatsPanel,
     SquareConifg,
-    HomeModal
+    HomeModal,
+    SaveButton
   },
   created() {
     this.handleResize();
     window.addEventListener("scroll", this.handleScroll);
     window.addEventListener("resize", this.handleResize);
-    this.$store.dispatch("loadEmojirama");
+    if (this.$route.meta.db) {
+      this.$store.dispatch("loadEmojiramaFromServer", {
+        vm: this,
+        id: this.$route.params.id
+      });
+    } else {
+      this.$store.dispatch("loadEmojirama");
+    }
   },
   data() {
     return {

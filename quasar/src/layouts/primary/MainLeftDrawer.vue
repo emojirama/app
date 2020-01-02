@@ -17,13 +17,19 @@
 
       <left-menu-link label="Game" to="/game" caption="Play" icon="info" />
       <left-menu-link
+        label="New Emojirama"
+        to="/new"
+        caption="Create a new emojirama"
+        icon="info"
+      />
+      <left-menu-link
         :label="$t('leftDrawer.about.main')"
         to="/about"
         icon="info"
         :caption="$t('leftDrawer.about.sub')"
       />
 
-      <left-menu-link
+      <!-- <left-menu-link
         :label="$t('leftDrawer.protected.main')"
         to="/protected"
         icon="lock"
@@ -79,7 +85,7 @@
         to="/debug/environment-variables"
         icon="offline_bolt"
         :caption="$t('leftDrawer.environment.main')"
-      />
+      /> -->
     </q-list>
   </q-drawer>
 </template>

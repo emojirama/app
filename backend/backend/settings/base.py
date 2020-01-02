@@ -54,6 +54,7 @@ DJANGO_APPS = [
 PROJECT_APPS = [
     'apps.accounts',
     'apps.core',
+    'apps.emojirama'
 ]
 
 THIRD_PARTY_APPS = [

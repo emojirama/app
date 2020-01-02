@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 
 import generateBoard from "./randomBoard";
+import { Notify } from "quasar";
 
 const state = {
   squareSize: 60,
@@ -10,7 +11,7 @@ const state = {
   board: {
     scenes: {
       default: {
-        data: []
+        data: [[]]
       }
     }
   },
@@ -43,7 +44,7 @@ const getters = {
       s.board.scenes[s.currentScene]["data"][0].length
     ];
   },
-
+  getFullBoard: s => s.board,
   // board view takes a slice of the current board
   // starts at the anchor coordinates
   // width based on columns, height based on rows
@@ -67,8 +68,30 @@ const getters = {
 };
 
 const actions = {
+  createNewEmojirama: ({ state }, payload) => {
+    payload.vm.$axios.post(`/api/emojirama/new/`).then(resp => {
+      payload.vm.$router.push(`/emojirama/${resp.data.id}`);
+    });
+  },
+  saveEmojirama: ({ state }, payload) => {
+    payload.vm.$axios
+      .post(`/api/emojirama/${payload.vm.$route.params.id}/`, state.board)
+      .then(resp => {
+        Notify.create("saved...");
+      })
+      .catch(err => Notify.create("emojirama not saved..."));
+  },
   loadEmojirama: ({ state, commit }, payload) => {
-    commit("loadEmojirama");
+    commit("loadEmojirama", { payload: null });
+  },
+  loadEmojiramaFromServer: ({ state, commit }, payload) => {
+    payload.vm.$axios
+      .get(`/api/emojirama/${payload.vm.$route.params.id}/`)
+      .then(resp => {
+        console.log("data from server is..", resp.data);
+        console.log(resp.data);
+        commit("loadEmojiramaFromServer", resp.data);
+      });
   },
   toggleShowSquareConfig: (
     { state, commit, rootState, rootGetters },
@@ -115,11 +138,14 @@ const actions = {
 };
 
 const mutations = {
-  loadEmojirama: state => {
+  loadEmojiramaFromServer: (state, payload) => {
+    state.board = payload;
+  },
+  loadEmojirama: (state, payload) => {
     state.board = {
       scenes: {
         default: {
-          data: generateBoard(50, 50)
+          data: generateBoard(40, 40)
         }
       }
     };

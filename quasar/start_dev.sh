@@ -2,4 +2,4 @@
 
 npm install
 
-quasar dev
+quasar dev -m pwa

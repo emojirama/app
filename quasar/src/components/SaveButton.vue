@@ -1,13 +1,13 @@
 <template>
   <div @touchmove="handleScroll">
-    <div class="trigger" @click="$store.commit('toggleHomeModal')">
+    <div class="trigger" @click="saveEmojirama">
       <q-btn push round
         ><div z-index="100000">
           <div class="emoji-btn">
             <emoji
               :native="$store.getters.getUseNativeEmoji"
               :data="emojiIndex"
-              :emoji="`house`"
+              :emoji="`floppy_disk`"
               :size="32"
               :set="$store.getters.getEmojiSet"
               :skin="1"
@@ -16,7 +16,7 @@
         </div>
       </q-btn>
     </div>
-    <q-dialog v-model="showHomeModal">
+    <!-- <q-dialog v-model="showHomeModal">
       <q-card class="q-card">
         <div class="square-config">
           <q-card-section>
@@ -27,24 +27,11 @@
         </div>
 
         <q-card-actions align="right">
-          <q-btn
-            push
-            label="Cancel"
-            color="primary"
-            @click="$store.commit('toggleHomeModal')"
-          />
-          <q-btn
-            push
-            label="Exit"
-            color="warning"
-            @click="
-              $store.commit('toggleHomeModal');
-              $router.push('/');
-            "
-          ></q-btn>
+          <q-btn push label="Cancel" color="primary" />
+          <q-btn push label="Exit" color="warning"></q-btn>
         </q-card-actions>
       </q-card>
-    </q-dialog>
+    </q-dialog> -->
   </div>
 </template>
 
@@ -79,42 +66,12 @@ export default {
       set(v) {
         this.$store.commit("setEmojiSet", v);
       }
-    },
-    squareSize: {
-      get() {
-        return this.$store.getters.getSquareSize;
-      },
-      set(size) {
-        this.$store.commit("setSquareSize", size);
-        window.dispatchEvent(new Event("resize"));
-      }
-    },
-    showSquareConfig: {
-      get() {
-        return this.$store.getters.getShowSquareConfig;
-      },
-      set() {}
-    },
-    squareConfigBackgroundColor: {
-      get() {
-        const squareConfig = this.$store.getters.getShowSquareConfig;
-        if (squareConfig !== undefined) {
-          return this.$store.getters.getSquareConfig(
-            this.$store.getters.getSquareConfigPosition
-          )["color"];
-        }
-        return "#000";
-      }
-    },
-    squareConfigEmoji: {
-      get() {
-        return this.$store.getters.getSquareConfig(
-          this.$store.getters.getSquareConfigPosition
-        )["emoji"];
-      }
     }
   },
   methods: {
+    saveEmojirama() {
+      this.$store.dispatch("saveEmojirama", { vm: this });
+    },
     handleScroll(event) {
       event.preventDefault();
       event.stopPropagation();
@@ -131,7 +88,7 @@ export default {
 .trigger {
   position: absolute;
   top: 10px;
-  left: 10px;
+  right: 60px;
   height: 50px;
   width: 50px;
   z-index: 100;

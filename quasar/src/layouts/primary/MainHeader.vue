@@ -28,6 +28,7 @@
           :sheetSize="64"
           :emoji="lang.emoji"
           :size="28"
+          :data="emojiIndex"
         />
       </span>
       <q-select dark dense color="white" v-model="lang" :options="langs" />
@@ -57,13 +58,18 @@
 </template>
 
 <script>
+import "emoji-mart-vue-fast/css/emoji-mart.css";
+import data from "emoji-mart-vue-fast/data/all.json";
+import { EmojiIndex } from "emoji-mart-vue-fast";
 import { Emoji } from "emoji-mart-vue-fast";
+let emojiIndex = new EmojiIndex(data);
 export default {
   components: {
     Emoji
   },
   data() {
     return {
+      emojiIndex,
       showing: false,
       lang: {
         label: "US English",

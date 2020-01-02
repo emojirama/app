@@ -100,9 +100,13 @@ export default {
     },
     squareConfigBackgroundColor: {
       get() {
-        return this.$store.getters.getSquareConfig(
-          this.$store.getters.getSquareConfigPosition
-        )["color"];
+        const squareConfig = this.$store.getters.getSquareConfig;
+        if (squareConfig !== undefined) {
+          return this.$store.getters.getSquareConfig(
+            this.$store.getters.getSquareConfigPosition
+          )["color"];
+        }
+        return "#000";
       }
     },
     squareConfigEmoji: {

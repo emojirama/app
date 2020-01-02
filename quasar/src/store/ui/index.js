@@ -5,7 +5,7 @@ const state = {
   nextLink: null,
   authPanel: "login",
   // game
-  showSettingsModal: true,
+  showSettingsModal: false,
   showDebugModal: false,
   showStatsPanel: false,
   useNativeEmoji: false,

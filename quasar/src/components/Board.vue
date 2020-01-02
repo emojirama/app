@@ -78,10 +78,11 @@ export default {
   },
   computed: {
     style() {
-      const boardRows = this.$store.state.board.board["scenes"][
+      console.log(this.$store.getters.getFullBoard["scenes"]);
+      const boardRows = this.$store.getters.getFullBoard["scenes"][
         this.$store.getters.getCurrentScene
       ]["data"].length;
-      const boardCols = this.$store.state.board.board["scenes"][
+      const boardCols = this.$store.getters.getFullBoard["scenes"][
         this.$store.getters.getCurrentScene
       ]["data"][0].length;
       // const boardCols = this.$store.state.board.board[0].length;
