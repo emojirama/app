@@ -89,6 +89,10 @@ const routes = [
         ]
       },
       {
+        path: "/emojirama",
+        component: () => import("pages/EmojiramaList.vue")
+      },
+      {
         path: "/new",
         component: () => import("pages/NewEmojirama.vue")
       }

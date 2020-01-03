@@ -23,6 +23,12 @@
         icon="info"
       />
       <left-menu-link
+        label="All Emojirama"
+        to="/emojirama"
+        caption="See all emojirama"
+        icon="info"
+      />
+      <left-menu-link
         :label="$t('leftDrawer.about.main')"
         to="/about"
         icon="info"

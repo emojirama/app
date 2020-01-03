@@ -1,3 +1,5 @@
+from .serializers import EmojiramaSerializer
+
 from django.shortcuts import render
 from rest_framework.decorators import (
     api_view,
@@ -63,3 +65,9 @@ def get_emojirama(request, id):
     emojirama = Emojirama.objects.get(id=id)
     print(emojirama.board)
     return Response(emojirama.board)
+
+@api_view(["GET"])
+def list_emojirama(request):
+    emojiramas = Emojirama.objects.all()
+    serializer = EmojiramaSerializer(emojiramas, many=True)
+    return Response(serializer.data)

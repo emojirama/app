@@ -4,6 +4,11 @@ from . import views
 
 urlpatterns = [
     path(
+        'emojirama/',
+        views.list_emojirama,
+        name="list_emojirama"
+    ),
+    path(
         'emojirama/save/',
         views.save_emojirama,
         name="save_emojirama"
