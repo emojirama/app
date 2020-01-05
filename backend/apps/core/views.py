@@ -6,7 +6,6 @@ from django.views.decorators.cache import never_cache
 from django.views.generic import TemplateView
 from rest_framework import viewsets
 
-from apps.core.tasks import debug_task, send_test_email_task
 
 # Serve Vue Application via template for GitLab CI
 index_view = never_cache(TemplateView.as_view(template_name='index.html'))
@@ -57,13 +56,3 @@ def hello_world(request):
 def home(request):
     response = JsonResponse({'message': 'Root'})
     return response
-
-
-def debug_task_view(request):
-    debug_task.delay()
-    return JsonResponse({'message': 'Task sent to queue.'})
-
-
-def send_test_email(request):
-    send_test_email_task.delay()
-    return JsonResponse({"message": "Success"})

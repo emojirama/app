@@ -88,8 +88,6 @@ const actions = {
     payload.vm.$axios
       .get(`/api/emojirama/${payload.vm.$route.params.id}/`)
       .then(resp => {
-        console.log("data from server is..", resp.data);
-        console.log(resp.data);
         commit("loadEmojiramaFromServer", resp.data);
       });
   },

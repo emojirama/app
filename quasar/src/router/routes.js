@@ -90,7 +90,10 @@ const routes = [
       },
       {
         path: "/emojirama",
-        component: () => import("pages/EmojiramaList.vue")
+        component: () => import("pages/EmojiramaList.vue"),
+        meta: {
+          preview: true
+        }
       },
       {
         path: "/new",

@@ -97,7 +97,6 @@ export default {
   },
   methods: {
     hideAuthMenu() {
-      console.log("hiding auth menu method firing..");
       this.$store.commit("toggleLoginMenu");
     },
     login() {

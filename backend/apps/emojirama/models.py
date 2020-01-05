@@ -13,3 +13,6 @@ class Emojirama(models.Model):
         related_name='owner',
         on_delete=models.CASCADE
     )
+
+    class Meta:
+        ordering = ('id',)

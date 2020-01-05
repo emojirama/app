@@ -119,6 +119,7 @@ export default {
       }
     },
     setSquare(e) {
+      if (this.$route.meta.preview) return;
       if (e.isTrusted) {
         this.$store.dispatch("setSquare", this.position);
       }

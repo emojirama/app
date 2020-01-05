@@ -14,16 +14,6 @@ urlpatterns = [
         name="hello-world"
     ),
     path(
-        'debug-task/',
-        views.debug_task_view,
-        name="debug-task"
-    ),
-    path(
-        'debug/send-test-email/',
-        views.send_test_email,
-        name="send-test-email"
-    ),
-    path(
         'debug/redis/',
         views.DebugRedis.as_view({
             "get": "get",

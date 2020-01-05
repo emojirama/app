@@ -1,28 +1,36 @@
 <template>
-  <base-page>
-    <page-header>Emojirama</page-header>
-    <base-btn
-      v-for="e in emojirama"
-      @click.native="$router.push(`/emojirama/${e.id}`)"
-      :key="e.id"
-      >{{ e.id }}</base-btn
-    >
+  <base-page class="base-page-wrapper">
+    <div ref="preview">
+      <page-header>Emojirama</page-header>
+      <div v-for="e in emojirama" :key="e.id">
+        <base-btn @click.native="$router.push(`/emojirama/${e.id}`)">{{
+          e.id
+        }}</base-btn>
+        <emojirama-preview :board="e" />
+      </div>
+    </div>
   </base-page>
 </template>
 
 <script>
+import EmojiramaPreview from "./EmojiramaPreview.vue";
 import { Notify } from "quasar";
 export default {
+  components: {
+    EmojiramaPreview
+  },
   data() {
     return {
       emojirama: []
     };
   },
+  mounted() {
+    this.$store.commit("setPreviewWidth", this.$refs.preview.clientWidth);
+  },
   created() {
     this.$axios
       .get(`/api/emojirama/`)
       .then(resp => {
-        console.log(resp);
         this.emojirama = resp.data;
       })
       .catch(err => {
@@ -32,4 +40,9 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style scoped>
+.base-page-wrapper {
+  overflow-y: scroll;
+  height: 100vh;
+}
+</style>

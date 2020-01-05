@@ -107,7 +107,6 @@ export default {
   },
   watch: {
     lang(lang) {
-      console.log(lang);
       this.$i18n.locale = lang.value;
       // import(`quasar/i18n/${lang}`).then(language => {
       //   this.$q.lang.set(language.default)

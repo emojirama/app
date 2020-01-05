@@ -8,7 +8,6 @@
 export default {
   methods: {
     createNewEmojirama() {
-      console.log("creating new emojirama");
       this.$store.dispatch("createNewEmojirama", { vm: this });
     }
   }

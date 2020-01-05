@@ -9,7 +9,8 @@ const state = {
   showDebugModal: false,
   showStatsPanel: false,
   useNativeEmoji: false,
-  showHomeModal: false
+  showHomeModal: false,
+  previewWidth: null
 };
 
 const getters = {
@@ -23,10 +24,14 @@ const getters = {
   showDebugModal: s => s.showDebugModal,
   showStatsPanel: s => s.showStatsPanel,
   getUseNativeEmoji: s => s.useNativeEmoji,
-  showHomeModal: s => s.showHomeModal
+  showHomeModal: s => s.showHomeModal,
+  getPreviewWidth: s => s.previewWidth
 };
 
 const mutations = {
+  setPreviewWidth: (state, payload) => {
+    state.previewWidth = payload;
+  },
   toggleDarkMode: state => {
     state.isDark = !state.isDark;
   },

@@ -23,7 +23,6 @@ export default async ({ Vue, store, router }) => {
   }
 
   function handleError(error) {
-    console.log(error);
     switch (error.response.status) {
       case 400:
         break;
