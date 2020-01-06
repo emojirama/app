@@ -35,6 +35,14 @@
                 :set="$store.getters.getEmojiSet"
               />
             </div>
+            <q-select
+              label="To Scene"
+              ref="scenes"
+              :options="$store.getters.getSceneOptions"
+              v-model="selectedScene"
+            >
+            </q-select>
+            <q-btn @click="setPortal">Set Portal</q-btn>
           </q-card-section>
         </div>
 
@@ -63,7 +71,8 @@ export default {
   },
   data() {
     return {
-      emojiIndex: emojiIndex
+      emojiIndex: emojiIndex,
+      selectedScene: "default"
     };
   },
   created() {},
@@ -118,6 +127,18 @@ export default {
     }
   },
   methods: {
+    setPortal() {
+      const fromScene = this.$store.getters.getCurrentScene;
+      const toScene = this.$refs.scenes.value;
+      const fromPos = this.$store.getters.getSquareConfigPosition;
+      const toPos = [5, 7];
+      this.$store.dispatch("setPortal", {
+        fromScene,
+        toScene,
+        fromPos,
+        toPos
+      });
+    },
     handleScroll(event) {
       event.preventDefault();
       event.stopPropagation();

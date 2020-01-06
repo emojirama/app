@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 
+import Vue from "vue";
 import generateBoard from "./randomBoard";
 import { Notify } from "quasar";
 
@@ -11,6 +12,7 @@ const state = {
   board: {
     scenes: {
       default: {
+        name: "Home",
         data: [[]]
       }
     }
@@ -29,7 +31,8 @@ const state = {
   currentScene: "default",
   showSquareConfig: false,
   squareConfigPosition: [0, 0],
-  movementMode: "normal"
+  movementMode: "normal",
+  showSceneMenu: false
 };
 
 const getters = {
@@ -59,15 +62,50 @@ const getters = {
   getEmojiSet: s => s.set,
   getCurrentScene: s => s.currentScene,
   getSquareConfigPosition: s => s.squareConfigPosition,
+  getShowSceneMenu: s => s.showSceneMenu,
   getShowSquareConfig: s => s.showSquareConfig,
   getSquareConfig: s => position => {
     return s.board["scenes"][s.currentScene]["data"][s.squareConfigPosition[0]][
       s.squareConfigPosition[1]
     ];
+  },
+  getScenes: s => s.board["scenes"],
+  getNextSquare: s => direction => {
+    let nextSquarePos;
+    switch (direction) {
+      case "left":
+        nextSquarePos = [s.position[0], s.position[1] - 1];
+        break;
+      case "right":
+        nextSquarePos = [s.position[0], s.position[1] + 1];
+        break;
+      case "up":
+        nextSquarePos = [s.position[0] - 1, s.position[1]];
+        break;
+      case "down":
+        nextSquarePos = [s.position[0] + 1, s.position[1]];
+        break;
+    }
+    const nextSquare =
+      s.board["scenes"][s.currentScene]["data"][nextSquarePos[0]][
+        nextSquarePos[1]
+      ];
+    // console.log(JSON.stringify(nextSquare));
+    return nextSquare;
+    // return s.board
+  },
+  getSceneOptions: s => {
+    const scenes = Object.keys(s.board.scenes);
+    console.log(scenes);
+    return scenes;
   }
 };
 
 const actions = {
+  setPortal: ({ state, commit }, payload) => {
+    console.log(payload.toScene);
+    commit("setPortal", payload);
+  },
   createNewEmojirama: ({ state }, payload) => {
     payload.vm.$axios.post(`/api/emojirama/new/`).then(resp => {
       payload.vm.$router.push(`/emojirama/${resp.data.id}`);
@@ -95,9 +133,9 @@ const actions = {
     { state, commit, rootState, rootGetters },
     payload
   ) => {
-    commit("toggleShowSquareConfig");
     commit("setSquareConfigPosition", payload);
-    //         vm.$store.commit("setSquareConfigPosition", position);
+    commit("toggleShowSquareConfig");
+    // vm.$store.commit("setSquareConfigPosition", position);
   },
   setSquare: ({ state, commit, rootState, getters }, payload) => {
     const currentEmoji = getters.getSquarePickerEmoji;
@@ -113,8 +151,16 @@ const actions = {
     };
     commit("setSquare", data);
   },
-  move: ({ state, commit, rootState, getters, rootGetters }, payload) => {
+  move: (
+    { state, commit, dispatch, rootState, getters, rootGetters },
+    payload
+  ) => {
     if (rootGetters.getMouseDown) {
+      return;
+    }
+    const nextSquare = getters.getNextSquare(payload);
+    if (nextSquare.portal) {
+      commit("travelPortal", nextSquare.portal);
       return;
     }
     const mode = getters.getMovementMode;
@@ -136,6 +182,31 @@ const actions = {
 };
 
 const mutations = {
+  setPortal: (state, payload) => {
+    Vue.set(
+      state.board["scenes"][payload.fromScene]["data"][payload.fromPos[0]][
+        payload.fromPos[1]
+      ],
+      "portal",
+      { toScene: payload.toScene, toPos: payload.toPos }
+    );
+  },
+  travelPortal: (state, payload) => {
+    state.currentScene = payload.toScene;
+    state.position = payload.toPos;
+    state.anchor = [payload.toPos[0] - 2, payload.toPos[1] - 2];
+  },
+  createNewScene: state => {
+    const newScene = {
+      data: generateBoard(20, 20),
+      name: "newscene1"
+    };
+    const newSceneName = `Scene ${Math.floor(Math.random() * 10)}`;
+    Vue.set(state.board["scenes"], newSceneName, newScene);
+  },
+  switchScene: (state, payload) => {
+    state.currentScene = payload.nextScene;
+  },
   loadEmojiramaFromServer: (state, payload) => {
     state.board = payload;
   },
@@ -154,6 +225,9 @@ const mutations = {
     } else if (state.movementMode === "fixed") {
       state.movementMode = "normal";
     }
+  },
+  toggleShowSceneMenu: state => {
+    state.showSceneMenu = !state.showSceneMenu;
   },
   setSquareConfigPosition: (state, payload) => {
     state.squareConfigPosition = payload;
@@ -212,6 +286,7 @@ const mutations = {
           state.position = nextPos;
         } else if (mode === "fixed") {
           if (nextAnchor[1] < 0) {
+            state.position = nextPos;
             return;
           }
           state.anchor = nextAnchor;
@@ -242,6 +317,7 @@ const mutations = {
             state.board["scenes"][state.currentScene]["data"][0].length -
               state.cols
           ) {
+            state.position = nextPos;
             return;
           }
           state.anchor = nextAnchor;
@@ -263,6 +339,7 @@ const mutations = {
           state.position = nextPos;
         } else if (mode === "fixed") {
           if (nextAnchor[0] < 0) {
+            state.position = nextPos;
             return;
           }
           state.anchor = nextAnchor;
@@ -292,6 +369,7 @@ const mutations = {
             state.board["scenes"][state.currentScene]["data"].length -
               state.rows
           ) {
+            state.position = nextPos;
             return;
           }
           state.anchor = nextAnchor;

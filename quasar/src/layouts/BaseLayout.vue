@@ -6,6 +6,7 @@
     <square-conifg />
     <home-modal />
     <save-button />
+    <scene-menu />
     <square-picker></square-picker>
     <div
       @touchmove="handleScroll"
@@ -32,6 +33,7 @@ import StatsPanel from "components/StatsPanel.vue";
 import SquareConifg from "components/SquareConfig.vue";
 import HomeModal from "components/HomeModal.vue";
 import SaveButton from "components/SaveButton.vue";
+import SceneMenu from "components/SceneMenu/index.vue";
 
 export default {
   components: {
@@ -42,7 +44,8 @@ export default {
     StatsPanel,
     SquareConifg,
     HomeModal,
-    SaveButton
+    SaveButton,
+    SceneMenu
   },
   created() {
     this.handleResize();
@@ -102,5 +105,6 @@ body {
   margin: 0;
   height: 100%;
   overflow: hidden;
+  background-color: black;
 }
 </style>
