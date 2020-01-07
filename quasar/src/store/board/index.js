@@ -102,6 +102,9 @@ const getters = {
 };
 
 const actions = {
+  deleteScene: ({ state, commit }, payload) => {
+    commit("deleteScene", payload);
+  },
   setPortal: ({ state, commit }, payload) => {
     console.log(payload.toScene);
     commit("setPortal", payload);
@@ -182,6 +185,9 @@ const actions = {
 };
 
 const mutations = {
+  deleteScene: (state, payload) => {
+    Vue.delete(state.board["scenes"], payload);
+  },
   setPortal: (state, payload) => {
     Vue.set(
       state.board["scenes"][payload.fromScene]["data"][payload.fromPos[0]][

@@ -24,6 +24,15 @@
             <q-btn @click="$store.commit('switchScene', { nextScene: i })">
               {{ i }}
             </q-btn>
+            <q-btn @click="$store.dispatch('deleteScene', i)">
+              <emoji
+                :native="$store.getters.getUseNativeEmoji"
+                :data="emojiIndex"
+                :emoji="`wastebasket`"
+                :size="16"
+                :set="$store.getters.getEmojiSet"
+                :skin="1"
+            /></q-btn>
           </div>
         </q-card-section>
         <q-card-actions align="right">
@@ -81,6 +90,10 @@ export default {
 </script>
 
 <style scoped>
+span.emoji-mart-emoji {
+  padding: 0px;
+  height: 10px;
+}
 .q-card {
   background: white;
 }
