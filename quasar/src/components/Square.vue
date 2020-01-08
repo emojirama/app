@@ -1,14 +1,16 @@
 <template>
-  <div class="square" :style="style">
+  <div
+    :data-index="`square_${position[0]}_${position[1]}`"
+    class="square"
+    :style="style"
+  >
     <div
       @mouseenter="handleMouseEnter"
       class="square-wrapper"
       @click="setSquare"
       v-touch-hold.mouse="handleHold(position)"
       :style="squareMaskStyle"
-    >
-      &nbsp;
-    </div>
+    ></div>
     <template v-if="emoji && !isCurrentSquare">
       <emoji
         :data="emojiIndex"
@@ -91,7 +93,11 @@ export default {
     squareMaskStyle() {
       return {
         height: `${this.$store.getters.getSquareSize}px`,
-        width: `${this.$store.getters.getSquareSize}px`
+        width: `${this.$store.getters.getSquareSize}px`,
+        fontSize: `${(this.$store.getters.getSquareSize * 4) / 5}px`
+        // position: "absolute"
+        // filter: "contrast(1%)"
+        // backgroundColor: "rgba(0, 0, 0, .5)"
         // backgroundColor: this.color
       };
     },
@@ -99,7 +105,9 @@ export default {
       return {
         height: `${this.$store.getters.getSquareSize}px`,
         width: `${this.$store.getters.getSquareSize}px`,
-        backgroundColor: this.color
+        backgroundColor: this.color,
+        filter: `contrast(130%)`
+        // filter: `contrast(${Math.random() * 100 + 100}%)`
       };
     }
   },
