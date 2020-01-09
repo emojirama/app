@@ -21,9 +21,14 @@
         <q-card-section>
           Scenes
           <div v-for="(scene, i) in $store.getters.getScenes" :key="i">
-            <q-btn @click="$store.commit('switchScene', { nextScene: i })">
+            <base-btn
+              :color="
+                $store.getters.getCurrentScene === i ? 'primary' : 'white'
+              "
+              @click.native="$store.commit('switchScene', { nextScene: i })"
+            >
               {{ i }}
-            </q-btn>
+            </base-btn>
             <div class="delete-button">
               <q-btn @click="$store.dispatch('deleteScene', i)">
                 <emoji

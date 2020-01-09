@@ -220,7 +220,7 @@ const mutations = {
     state.board = {
       scenes: {
         default: {
-          data: generateBoard(40, 40)
+          data: generateBoard(100, 100)
         }
       }
     };

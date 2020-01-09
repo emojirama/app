@@ -10,22 +10,22 @@ describe("Test game", function() {
       force: true,
       isTrusted: true
     });
-    // cy.get('[data-index="square_5_8"] > .square-wrapper').click();
-    // cy.get("body").trigger("keydown", { key: "s" });
-    // cy.wait(100);
-    // cy.get("body").trigger("keydown", { key: "s" });
-    // cy.wait(100);
-    // cy.get("body").trigger("keydown", { key: "s" });
-    // cy.wait(100);
-    // cy.get("body").trigger("keydown", { key: "s" });
-    // cy.wait(100);
-    // cy.get("body").trigger("keydown", { key: "s" });
-    // cy.wait(100);
-    // cy.get("body").trigger("keydown", { key: "s" });
-    // cy.wait(100);
-    // cy.get("body").trigger("keydown", { key: "s" });
-    // cy.wait(100);
-    // cy.get("body").trigger("keydown", { key: "s" });
+    cy.get('[data-index="square_5_8"] > .square-wrapper').click();
+    cy.get("body").trigger("keydown", { key: "s" });
+    cy.wait(100);
+    cy.get("body").trigger("keydown", { key: "s" });
+    cy.wait(100);
+    cy.get("body").trigger("keydown", { key: "s" });
+    cy.wait(100);
+    cy.get("body").trigger("keydown", { key: "s" });
+    cy.wait(100);
+    cy.get("body").trigger("keydown", { key: "s" });
+    cy.wait(100);
+    cy.get("body").trigger("keydown", { key: "s" });
+    cy.wait(100);
+    cy.get("body").trigger("keydown", { key: "s" });
+    cy.wait(100);
+    cy.get("body").trigger("keydown", { key: "s" });
     cy.wait(400);
   });
 });

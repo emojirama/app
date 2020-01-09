@@ -7,6 +7,8 @@ function noise(nx, ny) {
   return gen.noise2D(nx, ny) / 2 + 0.5;
 }
 
+const DEEP_WATER = "darkblue";
+const NAVY = "navy";
 const WATER = "blue";
 const FOREST = "#004e00"; // "darkgreen";
 const BEACH = "#006200"; // "yellow";
@@ -17,9 +19,10 @@ const SNOW = "#009d00"; //"white";
 // "#004e00", "#006200", "#007600", "#008900", "#009d00";
 
 function biome(e) {
-  if (e < 0.1) return "darkblue";
-  else if (e < 0.2) return "navy";
+  if (e < 0.1) return DEEP_WATER;
+  else if (e < 0.2) return NAVY;
   else if (e < 0.5) return WATER;
+  else if (e < 0.55) return "yellow";
   else if (e < 0.6) return BEACH;
   else if (e < 0.7) return FOREST;
   else if (e < 0.8) return JUNGLE;
