@@ -137,6 +137,7 @@ module.exports = function(ctx) {
       scopeHoisting: true,
       useNotifier: false,
       vueRouterMode: "history",
+      publicPath: "game",
       // comments
       // vueCompiler: true,
       // gzip: true,
