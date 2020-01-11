@@ -20,25 +20,34 @@
       <q-card class="q-card">
         <q-card-section>
           Scenes
-          <div v-for="(scene, i) in $store.getters.getScenes" :key="i">
-            <base-btn
-              :color="
-                $store.getters.getCurrentScene === i ? 'primary' : 'white'
-              "
-              @click.native="$store.commit('switchScene', { nextScene: i })"
+          <div class="scene-list-wrapper">
+            <div
+              class="scene-row"
+              v-for="(scene, i) in $store.getters.getScenes"
+              :key="i"
             >
-              {{ i }}
-            </base-btn>
-            <div class="delete-button">
-              <q-btn @click="$store.dispatch('deleteScene', i)">
-                <emoji
-                  :native="$store.getters.getUseNativeEmoji"
-                  :data="emojiIndex"
-                  :emoji="`wastebasket`"
-                  :size="16"
-                  :set="$store.getters.getEmojiSet"
-                  :skin="1"
-              /></q-btn>
+              <base-btn
+                :color="
+                  $store.getters.getCurrentScene === i ? 'primary' : 'white'
+                "
+                @click.native="$store.commit('switchScene', { nextScene: i })"
+              >
+                {{ i }}
+              </base-btn>
+              <div class="delete-button">
+                <q-btn
+                  :disabled="$store.getters.getCurrentScene === i"
+                  @click="$store.dispatch('deleteScene', i)"
+                >
+                  <emoji
+                    :native="$store.getters.getUseNativeEmoji"
+                    :data="emojiIndex"
+                    :emoji="`wastebasket`"
+                    :size="16"
+                    :set="$store.getters.getEmojiSet"
+                    :skin="1"
+                /></q-btn>
+              </div>
             </div>
           </div>
         </q-card-section>
@@ -98,7 +107,8 @@ export default {
 
 <style scoped>
 .delete-button {
-  display: inline;
+  display: grid;
+  align-items: right;
 }
 .delete-button span.emoji-mart-emoji {
   padding: 0px;
@@ -126,5 +136,17 @@ export default {
 
 .square-preview {
   border-radius: 5px;
+}
+
+.scene-list-wrapper {
+  display: grid;
+  gap: 3px;
+  grid-template-rows: repeat(1fr);
+}
+
+.scene-row {
+  display: grid;
+  gap: 3px;
+  grid-template-columns: 1fr 1fr;
 }
 </style>

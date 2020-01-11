@@ -33,6 +33,7 @@ module.exports = function(ctx) {
         "QPage",
         "QToolbar",
         "QToolbarTitle",
+        "QTooltip",
         "QBtn",
         "QIcon",
         "QList",
@@ -110,12 +111,11 @@ module.exports = function(ctx) {
       env: ctx.dev
         ? {
             API_URL: JSON.stringify(
-              `${process.env.HTTP_PROTOCOL}://${process.env.DOMAIN_NAME}`
+              `${process.env.HTTP_PROTOCOL}://${`192.168.1.4` ||
+                process.env.DOMAIN_NAME}`
             ),
             WS_PING_PONG: JSON.stringify(
-              `${process.env.WS_PROTOCOL}://${
-                process.env.DOMAIN_NAME
-              }/ws/ping-pong/`
+              `${process.env.WS_PROTOCOL}://${process.env.DOMAIN_NAME}/ws/ping-pong/`
             ),
             GITHUB_KEY: JSON.stringify(process.env.GITHUB_KEY),
             GOOGLE_OAUTH2_KEY: JSON.stringify(process.env.GOOGLE_OAUTH2_KEY),
@@ -126,9 +126,7 @@ module.exports = function(ctx) {
               `${process.env.HTTP_PROTOCOL}://${process.env.DOMAIN_NAME}`
             ),
             WS_PING_PONG: JSON.stringify(
-              `${process.env.WS_PROTOCOL}://${
-                process.env.DOMAIN_NAME
-              }/ws/ping-pong/`
+              `${process.env.WS_PROTOCOL}://${process.env.DOMAIN_NAME}/ws/ping-pong/`
             ),
             GITHUB_KEY: JSON.stringify(process.env.GITHUB_KEY),
             GOOGLE_OAUTH2_KEY: JSON.stringify(process.env.GOOGLE_OAUTH2_KEY),
