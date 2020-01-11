@@ -26,6 +26,7 @@
             <div
               :style="`backgroundColor: ${squareConfigBackgroundColor}`"
               class="square-preview"
+              v-if="squareConfigEmoji"
             >
               <emoji
                 :native="$store.getters.getUseNativeEmoji"
@@ -33,8 +34,10 @@
                 :emoji="squareConfigEmoji"
                 :size="64"
                 :set="$store.getters.getEmojiSet"
+                :skin="1"
               />
             </div>
+            <div v-else></div>
             <q-select
               label="To Scene"
               ref="scenes"
