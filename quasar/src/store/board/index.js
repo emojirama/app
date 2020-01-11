@@ -201,6 +201,7 @@ const mutations = {
     state.currentScene = payload.toScene;
     state.position = payload.toPos;
     state.anchor = [payload.toPos[0] - 2, payload.toPos[1] - 2];
+    Notify.create(`${payload.toScene}`);
   },
   createNewScene: state => {
     const newScene = {
