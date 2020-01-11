@@ -1,6 +1,6 @@
-# Verbose Equals True (quasarfrontend)
+# emojirama (quasarfrontend)
 
-Quasar frontend for Verbose Equals True
+Quasar frontend for emojirama
 
 ## Install the dependencies
 ```bash

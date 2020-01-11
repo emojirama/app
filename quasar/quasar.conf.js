@@ -178,9 +178,9 @@ module.exports = function(ctx) {
       // workboxPluginMode: "InjectManifest",
       // workboxOptions: {}, // only for NON InjectManifest
       manifest: {
-        // name: "Verbose Equals True",
-        // short_name: "Verbose Equals True",
-        // description: "Quasar frontend for Verbose Equals True",
+        name: "emojirama",
+        short_name: "emojirama",
+        description: "emojirama",
         display: "standalone",
         orientation: "portrait",
         background_color: "#ffffff",

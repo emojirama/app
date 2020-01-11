@@ -205,7 +205,7 @@ const mutations = {
   },
   createNewScene: state => {
     const newScene = {
-      data: generateBoard(50, 50),
+      data: generateBoard("biome"),
       name: "newscene1"
     };
     const newSceneName = `Scene ${Math.floor(Math.random() * 10)}`;
@@ -221,7 +221,7 @@ const mutations = {
     state.board = {
       scenes: {
         default: {
-          data: generateBoard(100, 100)
+          data: generateBoard("biome")
         }
       }
     };

@@ -1,8 +1,8 @@
 {
   "name": "quasarfrontend",
   "version": "0.0.1",
-  "description": "Quasar frontend for Verbose Equals True",
-  "productName": "Verbose Equals True",
+  "description": "emojirama",
+  "productName": "emojirama",
   "cordovaId": "org.cordova.quasar.app",
   "author": "Brian Caffey",
   "private": true,
@@ -13,6 +13,7 @@
   "dependencies": {
     "@quasar/extras": "1.0.0",
     "axios": "^0.18.1",
+    "dungeon-generator": "0.0.1",
     "emoji-mart-vue": "^2.6.6",
     "emoji-mart-vue-fast": "^6.1.2",
     "js-cookie": "^2.2.0",
