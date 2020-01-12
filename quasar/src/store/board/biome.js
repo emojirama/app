@@ -1,13 +1,6 @@
 import SimplexNoise from "simplex-noise";
 import tinycolor from "tinycolor2";
 
-let gen = new SimplexNoise();
-
-function noise(nx, ny) {
-  // Rescale from -1.0:+1.0 to 0.0:1.0
-  return gen.noise2D(nx, ny) / 2 + 0.5;
-}
-
 const DEEP_WATER = "#00439e";
 const NAVY = "#0077ea";
 const WATER = "#0063ea";
@@ -32,8 +25,14 @@ function biome(e) {
   else return SNOW;
 }
 
-const generateBiome = (h, w) =>
-  Array(h)
+const generateBiome = (h, w) => {
+  let gen = new SimplexNoise();
+
+  function noise(nx, ny) {
+    // Rescale from -1.0:+1.0 to 0.0:1.0
+    return gen.noise2D(nx, ny) / 2 + 0.5;
+  }
+  const board = Array(h)
     .fill()
     .map((_, i) => {
       return Array(w)
@@ -49,5 +48,8 @@ const generateBiome = (h, w) =>
           };
         });
     });
+
+  return board;
+};
 
 export default generateBiome;

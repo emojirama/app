@@ -71,13 +71,13 @@ export default {
       emojiIndex,
       showing: false,
       lang: {
-        label: "US English",
+        label: "EN",
         value: "en-us",
         emoji: ":flag-us:"
       },
       langs: [
         {
-          label: "US English",
+          label: "EN",
           value: "en-us",
           emoji: ":flag-us:"
         },
