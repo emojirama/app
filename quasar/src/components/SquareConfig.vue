@@ -82,7 +82,7 @@ export default {
   data() {
     return {
       emojiIndex: emojiIndex,
-      selectedScene: "default"
+      selectedScene: null
     };
   },
   created() {},

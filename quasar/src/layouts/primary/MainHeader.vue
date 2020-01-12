@@ -21,16 +21,15 @@
       <q-toolbar-title>emojirama</q-toolbar-title>
 
       <dark-mode></dark-mode>
-      <span class="lang">
+      <div class="lang">
         <emoji
           :native="false"
-          height="100%"
           :sheetSize="64"
           :emoji="lang.emoji"
           :size="28"
           :data="emojiIndex"
         />
-      </span>
+      </div>
       <q-select dark dense color="white" v-model="lang" :options="langs" />
 
       <q-btn
@@ -120,7 +119,7 @@ export default {
 .lang {
   margin-right: 15px;
   cursor: pointer;
-  height: 28px;
+  height: 100%;
 }
 .q-select {
   margin-right: 20px;
