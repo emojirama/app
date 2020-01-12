@@ -38,14 +38,21 @@
               />
             </div>
             <div v-else></div>
-            <q-select
-              label="To Scene"
-              ref="scenes"
-              :options="$store.getters.getSceneOptions"
-              v-model="selectedScene"
-            >
-            </q-select>
-            <q-btn @click="setPortal">Set Portal</q-btn>
+            <div v-if="!portalExists">
+              <q-select
+                label="To Scene"
+                ref="scenes"
+                :options="$store.getters.getSceneOptions"
+                v-model="selectedScene"
+              >
+              </q-select>
+              <q-btn @click="setPortal">Set Portal</q-btn>
+            </div>
+            <div v-else>
+              <base-btn @click.native="$store.dispatch('removePortal')"
+                >Remove Portal</base-btn
+              >
+            </div>
           </q-card-section>
         </div>
 
@@ -81,6 +88,14 @@ export default {
   created() {},
   destroyed() {},
   computed: {
+    portalExists: {
+      get() {
+        const portal = !!this.$store.getters.getSquareConfig(
+          this.$store.getters.getSquareConfigPosition
+        )["portal"];
+        return portal;
+      }
+    },
     showDebugModal: {
       get() {
         return this.$store.getters.showDebugModal;
@@ -168,7 +183,7 @@ export default {
   justify-content: center;
   width: 250px;
   display: grid;
-  grid-template-rows: 1fr 1fr;
+  grid-template-rows: 1fr;
 }
 
 .square-preview {

@@ -20,6 +20,8 @@
     "lodash": "^4.17.15",
     "quasar": "1.0.0",
     "simplex-noise": "^2.4.0",
+    "tinycolor": "0.0.1",
+    "tinycolor2": "^1.4.1",
     "vue-i18n": "^8.0.0",
     "vue-native-websocket": "^2.0.13"
   },

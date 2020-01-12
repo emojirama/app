@@ -3,6 +3,7 @@
 import Vue from "vue";
 import generateBoard from "./randomBoard";
 import { Notify } from "quasar";
+import uuidv1 from "uuid/v1";
 
 const state = {
   squareSize: 60,
@@ -102,6 +103,16 @@ const getters = {
 };
 
 const actions = {
+  removePortal: ({ state, commit, rootGetters, getters }) => {
+    const currentScene = getters.getCurrentScene;
+    const currentPosition = getters.getSquareConfigPosition;
+    const payload = { currentScene, currentPosition };
+    console.log(payload);
+    commit("removePortal", payload);
+  },
+  createNewScene: ({ state, commit }, payload) => {
+    commit("createNewScene", payload);
+  },
   deleteScene: ({ state, commit }, payload) => {
     commit("deleteScene", payload);
   },
@@ -122,7 +133,7 @@ const actions = {
       })
       .catch(err => Notify.create("emojirama not saved..."));
   },
-  loadEmojirama: ({ state, commit }, payload) => {
+  loadEmojirama: ({ state, commit, dispatch }, payload) => {
     commit("loadEmojirama", { payload: null });
   },
   loadEmojiramaFromServer: ({ state, commit }, payload) => {
@@ -185,6 +196,14 @@ const actions = {
 };
 
 const mutations = {
+  removePortal: (state, payload) => {
+    Vue.delete(
+      state.board["scenes"][payload.currentScene]["data"][
+        payload.currentPosition[0]
+      ][payload.currentPosition[1]],
+      "portal"
+    );
+  },
   deleteScene: (state, payload) => {
     Vue.delete(state.board["scenes"], payload);
   },
@@ -203,13 +222,13 @@ const mutations = {
     state.anchor = [payload.toPos[0] - 2, payload.toPos[1] - 2];
     Notify.create(`${payload.toScene}`);
   },
-  createNewScene: state => {
+  createNewScene: (state, payload) => {
     const newScene = {
-      data: generateBoard("biome"),
+      data: generateBoard(payload),
       name: "newscene1"
     };
-    const newSceneName = `Scene ${Math.floor(Math.random() * 10)}`;
-    Vue.set(state.board["scenes"], newSceneName, newScene);
+    const newSceneId = uuidv1();
+    Vue.set(state.board["scenes"], newSceneId.slice(0, 8), newScene);
   },
   switchScene: (state, payload) => {
     state.currentScene = payload.nextScene;

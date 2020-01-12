@@ -54,9 +54,15 @@
         <q-card-actions align="right">
           <q-btn
             push
-            label="New Scene"
+            label="New Biome"
             color="primary"
-            @click="$store.commit('createNewScene')"
+            @click="$store.dispatch('createNewScene', 'biome')"
+          />
+          <q-btn
+            push
+            label="New Dungeon"
+            color="info"
+            @click="$store.dispatch('createNewScene', 'dungeon')"
           />
           <q-btn
             push
