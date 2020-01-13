@@ -9,7 +9,11 @@ class EmojiramaSerializer(serializers.ModelSerializer):
     board = serializers.SerializerMethodField()
 
     def get_board(self, obj):
-        return obj.board["scenes"]["default"]["data"]
+        try:
+            return obj.board["scenes"]["default"]["data"]
+        except KeyError:
+            first_scene = [*obj.board["scenes"].keys()][0]
+            return obj.board["scenes"][first_scene]["data"]
 
     class Meta:
         model = Emojirama

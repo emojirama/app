@@ -42,7 +42,7 @@ const generateDungeonBoard = () => {
                 ? (i + j) % 2 === 0
                   ? "white_square_button"
                   : "black_square_button"
-                : null,
+                : "",
             color:
               room === true
                 ? (i + j) % 2 === 0

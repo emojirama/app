@@ -39,7 +39,7 @@ const generateBiome = (h, w) => {
         .fill()
         .map((_, j) => {
           return {
-            emoji: null, //randomSquare(),
+            emoji: "", //randomSquare(),
             color: tinycolor(biome(noise(i / 35, j / 30)))
               .darken(Math.random() * 4)
               .toString(),

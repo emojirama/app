@@ -33,7 +33,7 @@ def new_emojirama(request):
     blank_grid = [
         [
             {
-                "emoji": None,
+                "emoji": "",
                 "tone": 1,
                 "color": "#ffffff", # "#222222" if (i + j) % 2 == 0 else "#666666",
                 "position": [j,i]
@@ -63,7 +63,6 @@ def get_emojirama(request, id):
         emojirama.save()
         return Response("OK..")
     emojirama = Emojirama.objects.get(id=id)
-    print(emojirama.board)
     return Response(emojirama.board)
 
 @api_view(["GET"])
