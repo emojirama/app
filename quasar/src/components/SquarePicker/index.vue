@@ -11,10 +11,7 @@
         :style="`background: ${$store.getters.getSquarePickerColor}`"
         ><div z-index="100000">
           <div class="emoji-btn">
-            <emoji
-              :native="$store.getters.getUseNativeEmoji"
-              :set="$store.getters.getEmojiSet"
-              :data="emojiIndex"
+            <base-emoji
               :skin="$store.getters.getSquarePickerToneNumber"
               :emoji="$store.getters.getSquarePickerEmoji"
               :size="32"
@@ -51,7 +48,7 @@
           />
 
           <div v-else-if="$store.getters.getSquarePickerTab === 'emoji'">
-            <emoji-picker />
+            <base-emoji-picker @selectEmoji="selectEmoji" />
           </div>
           <div v-else>
             Mode:
@@ -72,13 +69,7 @@
             :style="`background: white`"
             ><div z-index="100000">
               <div class="emoji-btn">
-                <emoji
-                  :native="$store.getters.getUseNativeEmoji"
-                  :data="emojiIndex"
-                  emoji="gear"
-                  :size="32"
-                  :set="$store.getters.getEmojiSet"
-                />
+                <base-emoji :emoji="`gear`" />
               </div>
             </div>
           </q-btn>
@@ -89,13 +80,9 @@
             :style="`background: ${$store.getters.getSquarePickerColor}`"
             ><div z-index="100000">
               <div class="emoji-btn">
-                <emoji
-                  :native="$store.getters.getUseNativeEmoji"
-                  :set="$store.getters.getEmojiSet"
-                  :data="emojiIndex"
+                <base-emoji
                   :skin="$store.getters.getSquarePickerToneNumber"
                   :emoji="$store.getters.getSquarePickerEmoji"
-                  :size="32"
                 />
               </div>
             </div>
@@ -116,13 +103,7 @@
             :style="`background: ${$store.getters.getSquarePickerColor}`"
             ><div z-index="100000">
               <div class="emoji-btn">
-                <emoji
-                  :native="$store.getters.getUseNativeEmoji"
-                  :data="emojiIndex"
-                  emoji="art"
-                  :size="32"
-                  :set="$store.getters.getEmojiSet"
-                />
+                <base-emoji :emoji="`art`" />
               </div>
             </div>
           </q-btn>
@@ -139,12 +120,7 @@
 </template>
 
 <script>
-import "emoji-mart-vue-fast/css/emoji-mart.css";
-import data from "emoji-mart-vue-fast/data/all.json";
-import { EmojiIndex } from "emoji-mart-vue-fast";
-import { Emoji } from "emoji-mart-vue-fast";
-import EmojiPicker from "./EmojiPicker.vue";
-let emojiIndex = new EmojiIndex(data);
+// import EmojiPicker from "./EmojiPicker.vue";
 export default {
   data() {
     return {
@@ -153,17 +129,15 @@ export default {
         { label: "Only Emoji", value: "only_emoji" },
         { label: "Only Color", value: "only_color" },
         { label: "Clear Emoji", value: "delete_emoji" }
-      ],
-      emojiIndex: emojiIndex
+      ]
     };
-  },
-  components: {
-    EmojiPicker,
-    Emoji
   },
   created() {},
   destroyed() {},
   methods: {
+    selectEmoji(emoji) {
+      this.$store.dispatch("setSquarePickerEmoji", emoji.id);
+    },
     handleScroll(event) {
       event.preventDefault();
       event.stopPropagation();
@@ -219,30 +193,8 @@ export default {
   left: 10px;
   z-index: 100;
 }
-/* .q-color-picker__spectrum-tab div .q-color-picker__spectrum-white {
-  height: 40px !important;
-} */
-
-/* .picker-wrapper {
-  display: grid;
-  justify-items: center;
-} */
-.welcome {
-  /* height: fit-content; */
-}
-/* span.emoji-mart-emoji {
-  height: 32px;
-} */
 .emoji-btn {
   display: grid;
   justify-items: center;
-}
-
-.emoji-mart-emoji {
-  /* height: 44px !important; */
-  bottom: 1px;
-}
-
-.trigger {
 }
 </style>

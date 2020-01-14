@@ -10,10 +10,10 @@ import BaseCard from "components/ui/BaseCard.vue";
 import MainLeftDrawer from "layouts/primary/MainLeftDrawer.vue";
 import MainCarousel from "components/MainCarousel.vue";
 import BaseEmoji from "components/BaseEmoji.vue";
-// import { Emoji } from "emoji-mart-vue";
+import BaseEmojiPicker from "components/BaseEmojiPicker.vue";
 
-// leave the export, even if you don't use it
 export default async ({ Vue }) => {
+  Vue.component("BaseEmojiPicker", BaseEmojiPicker);
   Vue.component("BaseEmoji", BaseEmoji);
   Vue.component("BasePage", BasePage);
   Vue.component("DarkMode", DarkMode);
