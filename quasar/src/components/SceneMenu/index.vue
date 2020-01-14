@@ -1,7 +1,7 @@
 <template>
   <div @touchmove="handleScroll">
     <div class="trigger" @click="$store.commit('toggleShowSceneMenu')">
-      <q-btn push round
+      <q-btn id="scene_menu" push round
         ><div z-index="100000">
           <div class="emoji-btn">
             <base-emoji :emoji="`world_map`" />
@@ -46,12 +46,14 @@
             @click="$store.dispatch('createNewScene', 'biome')"
           />
           <q-btn
+            id="new_dungeon"
             push
             label="New Dungeon"
             color="info"
             @click="$store.dispatch('createNewScene', 'dungeon')"
           />
           <q-btn
+            id="exit_scene_menu"
             push
             label="Exit"
             color="warning"

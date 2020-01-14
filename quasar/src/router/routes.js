@@ -1,29 +1,3 @@
-// import store from "../store";
-// import router from "../router";
-
-// for pages that should not be available to logged in users,
-// such as "Recover password" or a dedicated "Login" page
-
-// const ifNotAuthenticated = (to, from, next) => {
-//   if (!store.getters.isAuthenticated) {
-//     next();
-//     return;
-//   }
-//   next("/");
-// };
-
-// const ifAuthenticated = (to, from, next) => {
-//   if (store.getters.isAuthenticated) {
-//     next();
-//     return;
-//   }
-
-//   store.commit("setNextLink", { nextLink: to.fullPath });
-//   store.commit("toggleLoginMenu");
-//   router.push("/");
-//   return;
-// };
-
 const routes = [
   {
     path: "/game",
@@ -34,6 +8,13 @@ const routes = [
     component: () => import("layouts/BaseLayout.vue"),
     meta: {
       db: true
+    }
+  },
+  {
+    path: "/emojirama/live/:id",
+    component: () => import("layouts/BaseLayout.vue"),
+    meta: {
+      live: true
     }
   },
   {

@@ -2,7 +2,7 @@ import VueNativeSock from "vue-native-websocket";
 
 export default ({ store, Vue }) => {
   // something to do
-  Vue.use(VueNativeSock, process.env.WS_PING_PONG, {
+  Vue.use(VueNativeSock, process.env.WS_BASE_URL, {
     store,
     format: "json",
     connectManually: true,

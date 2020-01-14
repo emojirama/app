@@ -13,12 +13,7 @@ from .models import Emojirama
 
 
 @api_view(http_method_names=["POST"])
-# @authentication_classes([])
-# @permission_classes([])
 def save_emojirama(request):
-    print(request.data)
-    print(request.user.id)
-    print(request.user)
     emojirama = Emojirama(
         board=request.data,
         owner=request.user
@@ -27,8 +22,6 @@ def save_emojirama(request):
     return Response("saved!!")
 
 @api_view(http_method_names=["POST"])
-# @authentication_classes([])
-# @permission_classes([])
 def new_emojirama(request):
     blank_grid = [
         [

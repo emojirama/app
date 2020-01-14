@@ -114,10 +114,9 @@ module.exports = function(ctx) {
               `${process.env.HTTP_PROTOCOL}://${`192.168.1.4` ||
                 process.env.DOMAIN_NAME}`
             ),
-            WS_PING_PONG: JSON.stringify(
-              `${process.env.WS_PROTOCOL}://${
-                process.env.DOMAIN_NAME
-              }/ws/ping-pong/`
+            WS_BASE_URL: JSON.stringify(
+              `${process.env.WS_PROTOCOL}://${`192.168.1.4` ||
+                process.env.DOMAIN_NAME}/ws/`
             ),
             GITHUB_KEY: JSON.stringify(process.env.GITHUB_KEY),
             GOOGLE_OAUTH2_KEY: JSON.stringify(process.env.GOOGLE_OAUTH2_KEY),
@@ -127,10 +126,8 @@ module.exports = function(ctx) {
             API_URL: JSON.stringify(
               `${process.env.HTTP_PROTOCOL}://${process.env.DOMAIN_NAME}`
             ),
-            WS_PING_PONG: JSON.stringify(
-              `${process.env.WS_PROTOCOL}://${
-                process.env.DOMAIN_NAME
-              }/ws/ping-pong/`
+            WS_BASE_URL: JSON.stringify(
+              `${process.env.WS_PROTOCOL}://${process.env.DOMAIN_NAME}/ws/`
             ),
             GITHUB_KEY: JSON.stringify(process.env.GITHUB_KEY),
             GOOGLE_OAUTH2_KEY: JSON.stringify(process.env.GOOGLE_OAUTH2_KEY),

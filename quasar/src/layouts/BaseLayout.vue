@@ -56,6 +56,14 @@ export default {
         vm: this,
         id: this.$route.params.id
       });
+    } else if (this.$route.meta.live) {
+      this.$connect(
+        `${process.env.WS_BASE_URL}emojirama/${this.$route.params.id}/`,
+        { format: "json" }
+      );
+      this.$socket.onmessage = i => {
+        this.$store.commit("loadEmojiramaFromServer", JSON.parse(i["data"]));
+      };
     } else {
       this.$store.dispatch("loadEmojirama");
     }

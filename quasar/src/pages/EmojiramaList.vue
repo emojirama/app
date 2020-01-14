@@ -6,6 +6,10 @@
         <base-btn @click.native="$router.push(`/emojirama/${e.id}`)">{{
           e.id
         }}</base-btn>
+
+        <base-btn @click.native="$router.push(`/emojirama/live/${e.id}`)"
+          >Live {{ e.id }}</base-btn
+        >
         <emojirama-preview :board="e" />
       </div>
     </div>

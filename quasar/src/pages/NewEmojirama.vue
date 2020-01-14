@@ -1,6 +1,8 @@
 <template>
   <base-page>
-    <base-btn @click.native="createNewEmojirama">New Emojirama</base-btn>
+    <base-btn id="new_emojirama" @click.native="createNewEmojirama"
+      >New Emojirama</base-btn
+    >
   </base-page>
 </template>
 
