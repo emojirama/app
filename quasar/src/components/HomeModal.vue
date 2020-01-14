@@ -4,14 +4,7 @@
       <q-btn push round
         ><div z-index="100000">
           <div class="emoji-btn">
-            <emoji
-              :native="$store.getters.getUseNativeEmoji"
-              :data="emojiIndex"
-              :emoji="`house`"
-              :size="32"
-              :set="$store.getters.getEmojiSet"
-              :skin="1"
-            />
+            <base-emoji :emoji="`house`" />
           </div>
         </div>
       </q-btn>
@@ -49,69 +42,13 @@
 </template>
 
 <script>
-import "emoji-mart-vue-fast/css/emoji-mart.css";
-import data from "emoji-mart-vue-fast/data/all.json";
-import { EmojiIndex } from "emoji-mart-vue-fast";
-import { Emoji } from "emoji-mart-vue-fast";
-let emojiIndex = new EmojiIndex(data);
 export default {
-  components: {
-    Emoji
-  },
-  data() {
-    return {
-      emojiIndex: emojiIndex
-    };
-  },
-  created() {},
-  destroyed() {},
   computed: {
     showHomeModal: {
       get() {
         return this.$store.getters.showHomeModal;
       },
       set() {}
-    },
-    emojiSet: {
-      get() {
-        return this.$store.getters.getEmojiSet;
-      },
-      set(v) {
-        this.$store.commit("setEmojiSet", v);
-      }
-    },
-    squareSize: {
-      get() {
-        return this.$store.getters.getSquareSize;
-      },
-      set(size) {
-        this.$store.commit("setSquareSize", size);
-        window.dispatchEvent(new Event("resize"));
-      }
-    },
-    showSquareConfig: {
-      get() {
-        return this.$store.getters.getShowSquareConfig;
-      },
-      set() {}
-    },
-    squareConfigBackgroundColor: {
-      get() {
-        const squareConfig = this.$store.getters.getShowSquareConfig;
-        if (squareConfig !== undefined) {
-          return this.$store.getters.getSquareConfig(
-            this.$store.getters.getSquareConfigPosition
-          )["color"];
-        }
-        return "#000";
-      }
-    },
-    squareConfigEmoji: {
-      get() {
-        return this.$store.getters.getSquareConfig(
-          this.$store.getters.getSquareConfigPosition
-        )["emoji"];
-      }
     }
   },
   methods: {

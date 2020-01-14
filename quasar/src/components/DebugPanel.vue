@@ -4,13 +4,7 @@
       <q-btn push round
         ><div z-index="100000">
           <div class="emoji-btn">
-            <emoji
-              :native="$store.getters.getUseNativeEmoji"
-              :data="emojiIndex"
-              :emoji="`gear`"
-              :size="32"
-              :set="$store.getters.getEmojiSet"
-            />
+            <base-emoji :emoji="`gear`" />
           </div>
         </div>
       </q-btn>
@@ -59,21 +53,8 @@
 </template>
 
 <script>
-import "emoji-mart-vue-fast/css/emoji-mart.css";
-import data from "emoji-mart-vue-fast/data/all.json";
-import { EmojiIndex } from "emoji-mart-vue-fast";
-import { Emoji } from "emoji-mart-vue-fast";
-let emojiIndex = new EmojiIndex(data);
 import { mapGetters } from "vuex";
 export default {
-  components: {
-    Emoji
-  },
-  data() {
-    return {
-      emojiIndex: emojiIndex
-    };
-  },
   computed: {
     ...mapGetters(["getArea", "getRows", "getCols"]),
     showDebugModal: {

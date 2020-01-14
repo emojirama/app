@@ -4,14 +4,7 @@
       <q-btn push round
         ><div z-index="100000">
           <div class="emoji-btn">
-            <emoji
-              :native="$store.getters.getUseNativeEmoji"
-              :data="emojiIndex"
-              :emoji="`world_map`"
-              :size="32"
-              :set="$store.getters.getEmojiSet"
-              :skin="1"
-            />
+            <base-emoji :emoji="`world_map`" />
           </div>
         </div>
       </q-btn>
@@ -39,13 +32,7 @@
                   :disabled="$store.getters.getCurrentScene === i"
                   @click="$store.dispatch('deleteScene', i)"
                 >
-                  <emoji
-                    :native="$store.getters.getUseNativeEmoji"
-                    :data="emojiIndex"
-                    :emoji="`wastebasket`"
-                    :size="16"
-                    :set="$store.getters.getEmojiSet"
-                    :skin="1"
+                  <base-emoji :emoji="`wastebasket`" :size="16"
                 /></q-btn>
               </div>
             </div>
@@ -77,22 +64,7 @@
 </template>
 
 <script>
-import "emoji-mart-vue-fast/css/emoji-mart.css";
-import data from "emoji-mart-vue-fast/data/all.json";
-import { EmojiIndex } from "emoji-mart-vue-fast";
-import { Emoji } from "emoji-mart-vue-fast";
-let emojiIndex = new EmojiIndex(data);
 export default {
-  components: {
-    Emoji
-  },
-  data() {
-    return {
-      emojiIndex: emojiIndex
-    };
-  },
-  created() {},
-  destroyed() {},
   computed: {
     showSceneMenu: {
       get() {

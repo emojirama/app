@@ -4,17 +4,13 @@
       <q-btn push round
         ><div z-index="100000">
           <div class="emoji-btn">
-            <emoji
-              :native="$store.getters.getUseNativeEmoji"
-              :data="emojiIndex"
+            <base-emoji
               :emoji="
                 $store.getters.getMovementMode === 'normal'
                   ? 'footprints'
                   : 'anchor'
               "
-              :size="32"
-              :set="$store.getters.getEmojiSet"
-            />
+            ></base-emoji>
           </div>
         </div>
       </q-btn>
@@ -28,14 +24,7 @@
               class="square-preview"
               v-if="squareConfigEmoji"
             >
-              <emoji
-                :native="$store.getters.getUseNativeEmoji"
-                :data="emojiIndex"
-                :emoji="squareConfigEmoji"
-                :size="64"
-                :set="$store.getters.getEmojiSet"
-                :skin="1"
-              />
+              <base-emoji :emoji="squareConfigEmoji" :size="64" />
             </div>
             <div v-else></div>
             <div v-if="!portalExists">
@@ -70,18 +59,9 @@
 </template>
 
 <script>
-import "emoji-mart-vue-fast/css/emoji-mart.css";
-import data from "emoji-mart-vue-fast/data/all.json";
-import { EmojiIndex } from "emoji-mart-vue-fast";
-import { Emoji } from "emoji-mart-vue-fast";
-let emojiIndex = new EmojiIndex(data);
 export default {
-  components: {
-    Emoji
-  },
   data() {
     return {
-      emojiIndex: emojiIndex,
       selectedScene: null
     };
   },
@@ -94,29 +74,6 @@ export default {
           this.$store.getters.getSquareConfigPosition
         )["portal"];
         return portal;
-      }
-    },
-    showDebugModal: {
-      get() {
-        return this.$store.getters.showDebugModal;
-      },
-      set() {}
-    },
-    emojiSet: {
-      get() {
-        return this.$store.getters.getEmojiSet;
-      },
-      set(v) {
-        this.$store.commit("setEmojiSet", v);
-      }
-    },
-    squareSize: {
-      get() {
-        return this.$store.getters.getSquareSize;
-      },
-      set(size) {
-        this.$store.commit("setSquareSize", size);
-        window.dispatchEvent(new Event("resize"));
       }
     },
     showSquareConfig: {

@@ -12,24 +12,18 @@
       :style="squareMaskStyle"
     ></div>
     <template v-if="emoji && !isCurrentSquare">
-      <emoji
-        :data="emojiIndex"
-        :native="$store.getters.getUseNativeEmoji"
+      <base-emoji
         :skin="tone"
-        :set="$store.getters.getEmojiSet"
         :emoji="getSquareEmoji"
         :size="($store.getters.getSquareSize * 4) / 5"
       />
     </template>
     <template v-else>
-      <emoji
-        :data="emojiIndex"
+      <base-emoji
         v-if="isCurrentSquare"
-        :native="$store.getters.getUseNativeEmoji"
         :emoji="$store.getters.getCurrentEmoji['emoji']"
         :skin="$store.getters.getCurrentEmoji['tone']"
         :size="($store.getters.getSquareSize * 4) / 5"
-        :set="$store.getters.getEmojiSet"
       />
     </template>
   </div>
@@ -37,20 +31,8 @@
 
 <script>
 /* eslint-disable no-constant-condition */
-import "emoji-mart-vue-fast/css/emoji-mart.css";
-import data from "emoji-mart-vue-fast/data/all.json";
-import { EmojiIndex } from "emoji-mart-vue-fast";
-import { Emoji } from "emoji-mart-vue-fast";
-let emojiIndex = new EmojiIndex(data);
+
 export default {
-  data() {
-    return {
-      emojiIndex: emojiIndex
-    };
-  },
-  components: {
-    Emoji
-  },
   props: {
     emoji: {
       type: String,
@@ -110,9 +92,6 @@ export default {
         // filter: `contrast(${Math.random() * 100 + 100}%)`
       };
     }
-  },
-  created() {
-    // this.emoji = this.getEmoji;
   },
   methods: {
     handleHold(position) {

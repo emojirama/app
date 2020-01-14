@@ -16,7 +16,6 @@ import Square from "./Square.vue";
 export default {
   data() {
     return {
-      panning: false,
       lastMove: new Date().getTime()
     };
   },
@@ -84,7 +83,6 @@ export default {
       const boardCols = this.$store.getters.getFullBoard["scenes"][
         this.$store.getters.getCurrentScene
       ]["data"][0].length;
-      // const boardCols = this.$store.state.board.board[0].length;
       return {
         display: "grid",
         gridTemplateColumns: `repeat(${Math.min(
