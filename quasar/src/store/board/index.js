@@ -274,8 +274,7 @@ const mutations = {
     } else if (payload.mode === "only_color") {
       currentScene[x][y]["color"] = payload.color;
     } else if (payload.mode === "delete_emoji") {
-      currentScene[x][y]["emoji"] = null;
-      currentScene[x][y]["tone"] = null;
+      currentScene[x][y]["emoji"] = "";
     }
   },
   setEmojiSet: (state, payload) => {
