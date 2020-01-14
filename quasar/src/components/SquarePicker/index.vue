@@ -120,7 +120,6 @@
 </template>
 
 <script>
-// import EmojiPicker from "./EmojiPicker.vue";
 export default {
   data() {
     return {
