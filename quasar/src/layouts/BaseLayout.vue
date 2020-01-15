@@ -61,8 +61,14 @@ export default {
         `${process.env.WS_BASE_URL}emojirama/${this.$route.params.id}/`,
         { format: "json" }
       );
+      // TODO: move this code outside of the base component?
       this.$socket.onmessage = i => {
-        this.$store.commit("loadEmojiramaFromServer", JSON.parse(i["data"]));
+        const message = JSON.parse(i["data"]);
+        if (message["type"] === "updated") {
+          this.$store.commit("setSquareFromWebsocket", message);
+        } else {
+          this.$store.commit("loadEmojiramaFromServer", message);
+        }
       };
     } else {
       this.$store.dispatch("loadEmojirama");

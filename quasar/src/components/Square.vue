@@ -106,9 +106,24 @@ export default {
       }
     },
     setSquare(e) {
-      if (this.$route.meta.preview) return;
-      if (e.isTrusted) {
-        this.$store.dispatch("setSquare", this.position);
+      if (this.$route.meta.live) {
+        this.$socket.send(
+          JSON.stringify({
+            message: {
+              square_info: {
+                position: this.position,
+                scene: this.$store.getters.getCurrentScene,
+                emoji: this.$store.getters.getSquarePickerEmoji
+              }
+            },
+            type: "update_square"
+          })
+        );
+      } else {
+        if (this.$route.meta.preview) return;
+        if (e.isTrusted) {
+          this.$store.dispatch("setSquare", this.position);
+        }
       }
     }
   }

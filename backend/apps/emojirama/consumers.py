@@ -8,7 +8,8 @@ from django.conf import settings
 
 from .utils.redis import (
     write_emojirama_to_redis,
-    get_emojirama_from_redis
+    get_emojirama_from_redis,
+    update_square_in_redis
 )
 
 r = settings.REDIS
@@ -29,7 +30,7 @@ class CoreConsumer(AsyncWebsocketConsumer):
         )
         # if there are no keys for emojirama we want
         # load data from Postgres into redis
-        if not r.keys(f"{self.emojirama_id}___*"):
+        if not r.keys(f"emojirama___{self.emojirama_id}___*"):
             await self.load_data_to_redis()
 
         await self.accept()
@@ -40,6 +41,33 @@ class CoreConsumer(AsyncWebsocketConsumer):
                 get_emojirama_from_redis(emojirama)
             )
         )
+
+    # Receive message from WebSocket
+    async def receive(self, text_data):
+        text_data_json = json.loads(text_data)
+        message_type = text_data_json["type"]
+        message = text_data_json["message"]
+
+        if message_type == "update_square":
+            await self.update_square(message)
+
+
+    async def update_square(self, message):
+        _ = update_square_in_redis(self.emojirama_id, message)
+        await self.channel_layer.group_send(
+            self.emojirama,
+            {
+                'type': "updated",
+                'message': message
+            }
+        )
+
+    async def updated(self, event):
+        message = event["message"]
+        await self.send(text_data=json.dumps({
+            'message': message,
+            'type': "updated"
+        }))
 
     async def disconnect(self, close_code):
         # Leave room group
@@ -52,7 +80,6 @@ class CoreConsumer(AsyncWebsocketConsumer):
 
     @database_sync_to_async
     def load_data_to_redis(self):
-        print("accessing the database")
         emojirama = Emojirama.objects.get(id=self.emojirama_id)
         write_emojirama_to_redis(emojirama)
         return emojirama

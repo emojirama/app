@@ -23,12 +23,14 @@ def save_emojirama(request):
 
 @api_view(http_method_names=["POST"])
 def new_emojirama(request):
+    # TODO: remove this and generate initial scene
+    # from frontend with options
     blank_grid = [
         [
             {
                 "emoji": "",
                 "tone": 1,
-                "color": "#ffffff", # "#222222" if (i + j) % 2 == 0 else "#666666",
+                "color": "#ffffff",
                 "position": [j,i]
             } for i in range(40)
         ] for j in range(40)

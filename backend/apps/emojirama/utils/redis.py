@@ -60,3 +60,15 @@ def get_emojirama_from_redis(emojirama):
         json_data["scenes"][scene]["data"] = rows
 
     return json_data
+
+
+def update_square_in_redis(emojirama_id, message):
+    """Attempt to update the square"""
+    square_info = message["square_info"]
+    # get the position to update
+    position = square_info["position"]
+    scene = square_info["scene"]
+    x, y = position[0], position[1]
+    emoji = square_info['emoji']
+    key_name = f"emojirama___{emojirama_id}___{scene}___{x}___{y}___square"
+    return r.hset(key_name, "emoji", emoji)
