@@ -44,7 +44,7 @@ class CoreConsumer(AsyncWebsocketConsumer):
     async def disconnect(self, close_code):
         # Leave room group
         await self.channel_layer.group_discard(
-            self.ping_pong_group,
+            self.emojirama,
             self.channel_name
         )
 
