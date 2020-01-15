@@ -17,12 +17,12 @@ class CoreConsumer(AsyncWebsocketConsumer):
     async def connect(self):
         self.emojirama_id = \
             self.scope['url_route']['kwargs']['emojirama_id']
-        # self.room_group_name = f'chat_{self.room_name}'
+
         self.emojirama = f"emojirama_{self.emojirama_id}"
         self.user = self.scope['user']
         print("connecting")
+
         # Join emojirama
-        # print(self.channel_name) # noqa
         await self.channel_layer.group_add(
             self.emojirama,
             self.channel_name
