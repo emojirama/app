@@ -198,9 +198,9 @@ const actions = {
 const mutations = {
   setSquareFromWebsocket: (state, payload) => {
     console.log(payload);
-    const { scene, pos, emoji } = payload["message"]["square_info"]; //["scene"];
-    // const pos = payload["message"]["square_info"]["position"];
-    // const emoji = payload["message"]["square_info"]["emoji"];
+    const scene = payload["message"]["square_info"]["scene"];
+    const pos = payload["message"]["square_info"]["position"];
+    const emoji = payload["message"]["square_info"]["emoji"];
     state.board["scenes"][scene]["data"][pos[0]][pos[1]]["emoji"] = emoji;
   },
   removePortal: (state, payload) => {
