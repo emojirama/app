@@ -98,6 +98,9 @@
 
 <script>
 export default {
+  created() {
+    this.$store.commit("toggleLeftDrawer", { leftDrawerOpen: false });
+  },
   computed: {
     leftDrawerOpen: {
       get() {

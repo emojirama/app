@@ -12,7 +12,7 @@
         :skin="1"
       />
     </div>
-    <q-dialog v-model="showLanguageMenu">
+    <q-dialog persistent v-model="showLanguageMenu">
       <q-card>
         <div class="language-options">
           <div

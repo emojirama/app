@@ -15,7 +15,7 @@
         </div>
       </q-btn>
     </div>
-    <q-dialog v-model="showSquareConfig">
+    <q-dialog v-model="showSquareConfig" @touchmove="handleScroll">
       <q-card class="q-card">
         <div class="square-config">
           <q-card-section>

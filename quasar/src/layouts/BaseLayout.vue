@@ -48,6 +48,7 @@ export default {
     SceneMenu
   },
   created() {
+    document.body.style.backgroundColor = "black";
     this.handleResize();
     window.addEventListener("scroll", this.handleScroll);
     window.addEventListener("resize", this.handleResize);
@@ -83,6 +84,7 @@ export default {
   },
   destroyed() {
     window.removeEventListener("resize", this.handleResize);
+    document.body.style.backgroundColor = "white";
   },
   methods: {
     handleScroll(event) {
