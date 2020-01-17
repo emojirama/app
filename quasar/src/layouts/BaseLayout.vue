@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="base-layout">
     <debug-panel id="debug"></debug-panel>
     <settings-modal></settings-modal>
     <stats-panel></stats-panel>
@@ -119,6 +119,5 @@ body {
   margin: 0;
   height: 100%;
   overflow: hidden;
-  background-color: black;
 }
 </style>

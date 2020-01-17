@@ -11,8 +11,10 @@ import MainLeftDrawer from "layouts/primary/MainLeftDrawer.vue";
 import MainCarousel from "components/MainCarousel.vue";
 import BaseEmoji from "components/BaseEmoji.vue";
 import BaseEmojiPicker from "components/BaseEmojiPicker.vue";
+import LanguageSelect from "components/LanguageSelect.vue";
 
 export default async ({ Vue }) => {
+  Vue.component("LanguageSelect", LanguageSelect);
   Vue.component("BaseEmojiPicker", BaseEmojiPicker);
   Vue.component("BaseEmoji", BaseEmoji);
   Vue.component("BasePage", BasePage);

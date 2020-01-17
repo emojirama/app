@@ -13,7 +13,7 @@
       <q-card class="q-card">
         <q-card-section class="welcome">
           <div class="text-h6">
-            Settings
+            Settings <language-select />
             <q-slider v-model="squareSize" :min="5" :max="200"></q-slider>
           </div>
         </q-card-section>

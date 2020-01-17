@@ -14,7 +14,7 @@
         <div class="square-config">
           <q-card-section>
             <h6>
-              Exit to Home Menu?
+              {{ $t("menu.exitToHome") }}
             </h6>
           </q-card-section>
         </div>
@@ -22,13 +22,13 @@
         <q-card-actions align="right">
           <q-btn
             push
-            label="Cancel"
+            :label="$t('cancel')"
             color="primary"
             @click="$store.commit('toggleHomeModal')"
           />
           <q-btn
             push
-            label="Exit"
+            :label="$t('exit')"
             color="warning"
             @click="
               $store.commit('toggleHomeModal');

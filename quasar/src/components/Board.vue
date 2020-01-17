@@ -100,4 +100,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.grid {
+  background-color: black;
+}
+</style>

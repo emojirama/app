@@ -10,7 +10,19 @@ const state = {
   showStatsPanel: false,
   useNativeEmoji: false,
   showHomeModal: false,
-  previewWidth: null
+  previewWidth: null,
+  showLanguageMenu: false,
+  currentLanguage: "en-us",
+  languages: {
+    "en-us": {
+      emoji: "flag-us",
+      language: "en-us"
+    },
+    "cn-cn": {
+      emoji: "flag-cn",
+      language: "cn-cn"
+    }
+  }
 };
 
 const getters = {
@@ -19,16 +31,35 @@ const getters = {
   getNextLink: s => s.nextLink,
   getAuthPanel: s => s.authPanel,
   isDark: s => s.isDark,
+  getShowLanguageMenu: s => s.showLanguageMenu,
   // game
   showSettingsModal: s => s.showSettingsModal,
   showDebugModal: s => s.showDebugModal,
   showStatsPanel: s => s.showStatsPanel,
   getUseNativeEmoji: s => s.useNativeEmoji,
   showHomeModal: s => s.showHomeModal,
-  getPreviewWidth: s => s.previewWidth
+  getPreviewWidth: s => s.previewWidth,
+  getDarkModeEmoji: s => {
+    return s.isDark ? "new_moon_with_face" : "sun_with_face";
+  },
+  getLanguages: s => s.languages,
+  getCurrentLanguageEmoji: s => {
+    return s.languages[s.currentLanguage].emoji;
+  }
 };
 
 const mutations = {
+  setLanguage: (state, payload) => {
+    state.currentLanguage = payload.lang.language;
+    state.showLanguageMenu = false;
+    payload.vm.$i18n.locale = payload.lang.language;
+  },
+  toggleLanguageMenu: (state, payload) => {
+    if (payload.close) {
+      state.showLanguageMenu = false;
+    }
+    state.showLanguageMenu = !state.showLanguageMenu;
+  },
   setPreviewWidth: (state, payload) => {
     state.previewWidth = payload;
   },

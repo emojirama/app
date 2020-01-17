@@ -20,24 +20,23 @@
 
       <q-toolbar-title>emojirama</q-toolbar-title>
 
-      <dark-mode></dark-mode>
-      <div class="lang">
-        <emoji
+      <div @click="$store.commit('toggleDarkMode')" class="dark-toggle">
+        <base-emoji
           :native="false"
           :sheetSize="64"
-          :emoji="lang.emoji"
+          :emoji="$store.getters.getDarkModeEmoji"
           :size="28"
-          :data="emojiIndex"
+          :skin="1"
         />
       </div>
-      <q-select dark dense color="white" v-model="lang" :options="langs" />
+      <language-select class="language-select" />
 
       <q-btn
         id="login"
         :ripple="false"
         color="white"
         text-color="primary"
-        label="Login"
+        :label="$t('login')"
         v-if="!$store.getters.isAuthenticated"
         no-caps
         @click="$router.push('/login')"
@@ -47,7 +46,7 @@
         :ripple="false"
         color="white"
         text-color="primary"
-        label="Logout"
+        :label="$t('exit')"
         v-if="$store.getters.isAuthenticated"
         no-caps
         @click="logout"
@@ -57,36 +56,15 @@
 </template>
 
 <script>
-import "emoji-mart-vue-fast/css/emoji-mart.css";
-import data from "emoji-mart-vue-fast/data/all.json";
-import { EmojiIndex } from "emoji-mart-vue-fast";
-import { Emoji } from "emoji-mart-vue-fast";
-let emojiIndex = new EmojiIndex(data);
 export default {
-  components: {
-    Emoji
-  },
   data() {
     return {
-      emojiIndex,
       showing: false,
       lang: {
         label: "EN",
         value: "en-us",
         emoji: ":flag-us:"
-      },
-      langs: [
-        {
-          label: "EN",
-          value: "en-us",
-          emoji: ":flag-us:"
-        },
-        {
-          label: "Chinese",
-          value: "cn-cn",
-          emoji: ":flag-cn:"
-        }
-      ]
+      }
     };
   },
   methods: {
@@ -102,15 +80,7 @@ export default {
     }
   },
   created() {
-    this.$i18n.locale = "en-us";
-  },
-  watch: {
-    lang(lang) {
-      this.$i18n.locale = lang.value;
-      // import(`quasar/i18n/${lang}`).then(language => {
-      //   this.$q.lang.set(language.default)
-      // })
-    }
+    // this.$i18n.locale = "en-us";
   }
 };
 </script>
@@ -123,5 +93,16 @@ export default {
 }
 .q-select {
   margin-right: 20px;
+}
+.dark-toggle {
+  cursor: pointer;
+  height: 100%;
+}
+.base-emoji {
+  cursor: pointer;
+}
+
+.language-select {
+  margin-right: 10px;
 }
 </style>
