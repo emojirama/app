@@ -117,22 +117,19 @@ export default {
     },
     setSquare(e) {
       if (this.$route.meta.live) {
-        this.$socket.send(
-          JSON.stringify({
-            message: {
-              square_info: {
-                position: this.position,
-                scene: this.$store.getters.getCurrentScene,
-                emoji: this.$store.getters.getSquarePickerEmoji
-              }
-            },
-            type: "update_square"
-          })
-        );
+        this.$store.dispatch("setSquare", {
+          live: this.$route.meta.live,
+          vm: this,
+          position: this.position
+        });
       } else {
         if (this.$route.meta.preview) return;
         if (e.isTrusted) {
-          this.$store.dispatch("setSquare", this.position);
+          this.$store.dispatch("setSquare", {
+            live: false,
+            vm: this,
+            position: this.position
+          });
         }
       }
     }

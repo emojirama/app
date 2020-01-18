@@ -158,14 +158,24 @@ const actions = {
       .toString();
     const currentTone = getters.getSquarePickerToneNumber;
     const mode = getters.getMode;
-    const data = {
+    const square_info = {
       mode,
-      location: payload,
+      position: payload.position,
       color: currentColor,
       emoji: currentEmoji,
-      tone: currentTone
+      tone: currentTone,
+      scene: getters.getCurrentScene
     };
-    commit("setSquare", data);
+    if (payload.live) {
+      payload.vm.$socket.send(
+        JSON.stringify({
+          message: { square_info },
+          type: "update_square"
+        })
+      );
+    } else {
+      commit("setSquare", square_info);
+    }
   },
   move: (
     { state, commit, dispatch, rootState, getters, rootGetters },
@@ -204,7 +214,18 @@ const mutations = {
     const scene = payload["message"]["square_info"]["scene"];
     const pos = payload["message"]["square_info"]["position"];
     const emoji = payload["message"]["square_info"]["emoji"];
-    state.board["scenes"][scene]["data"][pos[0]][pos[1]]["emoji"] = emoji;
+    const color = payload["message"]["square_info"]["color"];
+    const mode = payload["message"]["square_info"]["mode"];
+    if (mode === "only_emoji") {
+      state.board["scenes"][scene]["data"][pos[0]][pos[1]]["emoji"] = emoji;
+    } else if (mode === "only_color") {
+      state.board["scenes"][scene]["data"][pos[0]][pos[1]]["color"] = color;
+    } else if (mode === "both") {
+      state.board["scenes"][scene]["data"][pos[0]][pos[1]]["emoji"] = emoji;
+      state.board["scenes"][scene]["data"][pos[0]][pos[1]]["color"] = color;
+    } else if (mode === "delete_emoji") {
+      state.board["scenes"][scene]["data"][pos[0]][pos[1]]["emoji"] = "";
+    }
   },
   removePortal: (state, payload) => {
     Vue.delete(
@@ -273,7 +294,7 @@ const mutations = {
   },
   setSquare: (state, payload) => {
     const currentScene = state.board["scenes"][state.currentScene]["data"];
-    const [x, y] = payload["location"];
+    const [x, y] = payload["position"];
     if (payload.mode === "both") {
       currentScene[x][y]["emoji"] = payload.emoji;
       currentScene[x][y]["color"] = payload.color;

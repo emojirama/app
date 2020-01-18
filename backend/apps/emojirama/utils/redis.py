@@ -65,10 +65,24 @@ def get_emojirama_from_redis(emojirama):
 def update_square_in_redis(emojirama_id, message):
     """Attempt to update the square"""
     square_info = message["square_info"]
+    mode = square_info["mode"]
+    color = square_info["color"]
     # get the position to update
     position = square_info["position"]
     scene = square_info["scene"]
     x, y = position[0], position[1]
     emoji = square_info['emoji']
+
     key_name = f"emojirama___{emojirama_id}___{scene}___{x}___{y}___square"
-    return r.hset(key_name, "emoji", emoji)
+    p = r.pipeline()
+    if mode == "only_emoji":
+        p.hset(key_name, "emoji", emoji)
+    elif mode == "only_color":
+        p.hset(key_name, "color", color)
+    elif mode == "both":
+        p.hset(key_name, "emoji", emoji)
+        p.hset(key_name, "color", color)
+    elif mode == "delete_emoji":
+        p.hset(key_name, "emoji", "")
+
+    return p.execute()
