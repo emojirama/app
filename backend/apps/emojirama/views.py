@@ -1,16 +1,9 @@
-from .serializers import EmojiramaSerializer
-
-from django.shortcuts import render
-from rest_framework.decorators import (
-    api_view,
-    authentication_classes,
-    permission_classes
-)
+from rest_framework.decorators import api_view
 from rest_framework.pagination import LimitOffsetPagination
 from rest_framework.response import Response
 
 from .models import Emojirama
-# Create your views here.
+from .serializers import EmojiramaSerializer
 
 
 @api_view(http_method_names=["POST"])
@@ -22,6 +15,7 @@ def save_emojirama(request):
     emojirama.save()
     return Response("saved!!")
 
+
 @api_view(http_method_names=["POST"])
 def new_emojirama(request):
     # TODO: remove this and generate initial scene
@@ -32,16 +26,16 @@ def new_emojirama(request):
                 "emoji": "",
                 "tone": 1,
                 "color": "#ffffff",
-                "position": [j,i]
+                "position": [j, i]
             } for i in range(40)
         ] for j in range(40)
     ]
 
     emojirama = Emojirama(
         board={
-            "scenes":
-                {"default":
-                    { "data": blank_grid
+            "scenes": {
+                "default": {
+                    "data": blank_grid
                 }
             }
         },
@@ -50,6 +44,7 @@ def new_emojirama(request):
     emojirama.save()
     print(emojirama.id)
     return Response({"id": emojirama.id})
+
 
 @api_view(http_method_names=["GET", "POST"])
 def get_emojirama(request, id):
@@ -60,6 +55,7 @@ def get_emojirama(request, id):
         return Response("OK..")
     emojirama = Emojirama.objects.get(id=id)
     return Response(emojirama.board)
+
 
 @api_view(["GET"])
 def list_emojirama(request):

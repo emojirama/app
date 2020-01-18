@@ -2,7 +2,6 @@ from channels.routing import ProtocolTypeRouter, URLRouter
 
 import apps.core.routing
 import apps.emojirama.routing
-
 from apps.core.asgi_middleware import TokenAuthMiddlewareStack
 
 application = ProtocolTypeRouter({

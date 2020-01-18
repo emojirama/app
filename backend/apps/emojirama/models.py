@@ -1,8 +1,7 @@
-from django.db import models
-from django.contrib.postgres.fields import JSONField
 from django.conf import settings
+from django.contrib.postgres.fields import JSONField
+from django.db import models
 
-# Create your models here.
 
 class Emojirama(models.Model):
     board = JSONField()

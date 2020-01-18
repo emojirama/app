@@ -1,18 +1,19 @@
 import json
-import time
 
-from apps.emojirama.models import Emojirama
 from channels.db import database_sync_to_async
 from channels.generic.websocket import AsyncWebsocketConsumer
 from django.conf import settings
 
+from apps.emojirama.models import Emojirama
+
 from .utils.redis import (
-    write_emojirama_to_redis,
     get_emojirama_from_redis,
-    update_square_in_redis
+    update_square_in_redis,
+    write_emojirama_to_redis
 )
 
 r = settings.REDIS
+
 
 class CoreConsumer(AsyncWebsocketConsumer):
     async def connect(self):
@@ -51,7 +52,6 @@ class CoreConsumer(AsyncWebsocketConsumer):
         if message_type == "update_square":
             await self.update_square(message)
 
-
     async def update_square(self, message):
         _ = update_square_in_redis(self.emojirama_id, message)
         await self.channel_layer.group_send(
@@ -75,7 +75,6 @@ class CoreConsumer(AsyncWebsocketConsumer):
             self.emojirama,
             self.channel_name
         )
-
         # additional logic for redis cleanup
 
     @database_sync_to_async
@@ -83,7 +82,6 @@ class CoreConsumer(AsyncWebsocketConsumer):
         emojirama = Emojirama.objects.get(id=self.emojirama_id)
         write_emojirama_to_redis(emojirama)
         return emojirama
-
 
     @database_sync_to_async
     def get_emojirama(self):
