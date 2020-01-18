@@ -6,6 +6,7 @@ from .models import Emojirama
 class EmojiramaSerializer(serializers.ModelSerializer):
 
     board = serializers.SerializerMethodField()
+    id = serializers.IntegerField(required=False)
 
     def get_board(self, obj):
         try:
@@ -16,4 +17,7 @@ class EmojiramaSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Emojirama
-        fields = ["id", "board"]
+        fields = [
+            "id",
+            "board"
+        ]

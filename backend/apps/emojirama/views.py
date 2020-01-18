@@ -17,7 +17,6 @@ class EmojiramaViewSet(viewsets.ViewSet):
         return Response("emojirama deleted")
 
     def post(self, request):
-        print("using viewset")
         emojirama = Emojirama(
             board=request.data,
             owner=request.user
@@ -32,7 +31,6 @@ class EmojiramaViewSet(viewsets.ViewSet):
         return Response(emojirama.board)
 
     def save(self, request, pk):
-        print("using viewset")
         emojirama = Emojirama.objects.get(pk=pk)
         emojirama.board = request.data
         emojirama.save()
@@ -49,7 +47,6 @@ class EmojiramaViewSet(viewsets.ViewSet):
         return paginator.get_paginated_response(serializer.data)
 
     def new_emojirama(self, request):
-        print("using viewset")
         # TODO: remove this and generate initial scene
         # from frontend with options
         blank_grid = [
