@@ -6,6 +6,7 @@ from rest_framework.decorators import (
     authentication_classes,
     permission_classes
 )
+from rest_framework.pagination import LimitOffsetPagination
 from rest_framework.response import Response
 
 from .models import Emojirama
@@ -62,6 +63,11 @@ def get_emojirama(request, id):
 
 @api_view(["GET"])
 def list_emojirama(request):
+    paginator = LimitOffsetPagination()
     emojiramas = Emojirama.objects.all()
-    serializer = EmojiramaSerializer(emojiramas, many=True)
-    return Response(serializer.data)
+    result_page = paginator.paginate_queryset(
+        emojiramas, request
+    )
+    serializer = EmojiramaSerializer(result_page, many=True)
+
+    return paginator.get_paginated_response(serializer.data)

@@ -53,6 +53,7 @@ module.exports = function(ctx) {
         "QToggle",
         "QRange",
         "QRadio",
+        "QPagination",
 
         "QLayout",
         "QHeader",

@@ -13,6 +13,19 @@
         <emojirama-preview :board="e" />
       </div>
     </div>
+    <q-card color="white">
+      <q-pagination
+        v-model="currentPage"
+        :color="$store.getters.isDark ? `black` : `grey`"
+        :dark="$store.getters.isDark"
+        :text-color="$store.getters.isDark ? `white` : `black`"
+        :max="getMax"
+        :max-pages="6"
+        :boundary-numbers="false"
+        @input="fetchData"
+      >
+      </q-pagination>
+    </q-card>
   </base-page>
 </template>
 
@@ -25,21 +38,44 @@ export default {
   },
   data() {
     return {
-      emojirama: []
+      emojirama: [],
+      paginationLimit: 5,
+      currentPage: 1,
+      count: null
     };
   },
   mounted() {
     this.$store.commit("setPreviewWidth", this.$refs.preview.clientWidth);
   },
+  computed: {
+    params() {
+      return {
+        // ordering: this.ordering.join(','),
+        limit: this.paginationLimit,
+        offset: (this.currentPage - 1) * this.paginationLimit
+      };
+    },
+    getMax() {
+      return Math.ceil(this.count / this.paginationLimit);
+    }
+  },
   created() {
-    this.$axios
-      .get(`/api/emojirama/`)
-      .then(resp => {
-        this.emojirama = resp.data;
-      })
-      .catch(err => {
-        Notify.create(`${err}`);
-      });
+    this.fetchData();
+  },
+  methods: {
+    fetchData() {
+      this.$axios
+        .get(`/api/emojirama/`, {
+          params: this.params
+        })
+        .then(resp => {
+          this.emojirama = resp.data.results;
+          this.count = resp.data.count;
+        })
+        .catch(err => {
+          Notify.create(`${err}`);
+        });
+    }
   }
 };
 </script>
