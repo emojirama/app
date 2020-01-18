@@ -64,6 +64,7 @@ export default {
         { format: "json" }
       );
       // TODO: move this code outside of the base component?
+      // dispatch action, commit from store
       this.$socket.onmessage = i => {
         const message = JSON.parse(i["data"]);
         if (message["type"] === "updated") {
