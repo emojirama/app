@@ -15,7 +15,11 @@
       <base-emoji
         :skin="tone"
         :emoji="getSquareEmoji"
-        :size="($store.getters.getSquareSize * 4) / 5"
+        :size="
+          ($store.getters.getSquareSize *
+            ($store.getters.getUseNativeEmoji ? 5 : 4)) /
+            5
+        "
       />
     </template>
     <template v-else>
@@ -23,7 +27,11 @@
         v-if="isCurrentSquare"
         :emoji="$store.getters.getCurrentEmoji['emoji']"
         :skin="$store.getters.getCurrentEmoji['tone']"
-        :size="($store.getters.getSquareSize * 4) / 5"
+        :size="
+          ($store.getters.getSquareSize *
+            ($store.getters.getUseNativeEmoji ? 5 : 4)) /
+            5
+        "
       />
     </template>
   </div>

@@ -53,58 +53,51 @@
           </div>
         </q-card-section>
 
-        <q-card-actions class="buttons" align="right">
-          <q-btn
-            @click="$store.commit('setSquarePickerTab', 'mode')"
-            push
-            round
-            :style="`background: white`"
-            ><div z-index="100000">
-              <div class="emoji-btn">
-                <base-emoji :emoji="`gear`" />
-              </div>
+        <q-card-actions align="right">
+          <div class="buttons">
+            <div
+              class="button"
+              @click="$store.commit('setSquarePickerTab', 'mode')"
+            >
+              <emoji-button emoji="gear"></emoji-button>
             </div>
-          </q-btn>
-          <q-btn
-            @click="$store.commit('setSquarePickerTab', 'emoji')"
-            push
-            round
-            :style="`background: ${$store.getters.getSquarePickerColor}`"
-            ><div z-index="100000">
-              <div class="emoji-btn">
-                <base-emoji
-                  :skin="$store.getters.getSquarePickerToneNumber"
-                  :emoji="$store.getters.getSquarePickerEmoji"
-                />
-              </div>
+            <div
+              class="button"
+              @click="$store.commit('setSquarePickerTab', 'emoji')"
+            >
+              <emoji-button
+                :skin="$store.getters.getSquarePickerToneNumber"
+                :emoji="$store.getters.getSquarePickerEmoji"
+                :backgroundColor="$store.getters.getSquarePickerColor"
+              ></emoji-button>
             </div>
-          </q-btn>
-          <q-btn
-            @click="$store.commit('setSquarePickerTab', 'tone')"
-            push
-            round
-            :style="`background: ${$store.getters.getSquarePickerTone}`"
-            ><div z-index="100000">
-              <div class="emoji-btn"></div>
+            <div
+              class="button"
+              @click="$store.commit('setSquarePickerTab', 'tone')"
+            >
+              <emoji-button
+                :backgroundColor="$store.getters.getSquarePickerTone"
+                :emoji="null"
+              ></emoji-button>
             </div>
-          </q-btn>
-          <q-btn
-            @click="$store.commit('setSquarePickerTab', 'color')"
-            push
-            round
-            :style="`background: ${$store.getters.getSquarePickerColor}`"
-            ><div z-index="100000">
-              <div class="emoji-btn">
-                <base-emoji :emoji="`art`" />
-              </div>
+            <div
+              class="button"
+              @click="$store.commit('setSquarePickerTab', 'color')"
+            >
+              <emoji-button
+                :backgroundColor="$store.getters.getSquarePickerColor"
+                emoji="art"
+              ></emoji-button>
             </div>
-          </q-btn>
-          <q-btn
-            push
-            label="OK"
-            color="primary"
-            @click="$store.commit('toggleSquarePicker')"
-          />
+            <q-btn
+              class="ok"
+              push
+              round
+              label="OK"
+              color="primary"
+              @click="$store.commit('toggleSquarePicker')"
+            />
+          </div>
         </q-card-actions>
       </q-card>
     </q-dialog>
@@ -181,9 +174,19 @@ export default {
 </script>
 
 <style scoped>
+.q-btn {
+  width: 50px;
+  height: 50px;
+}
+.buttons {
+  margin: auto;
+  display: grid;
+  gap: 5px;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+}
 .q-card {
   background: white;
-  height: 500px !important;
+  height: 650px !important;
 }
 
 .trigger {
