@@ -13,8 +13,12 @@ import BaseEmoji from "components/BaseEmoji.vue";
 import BaseEmojiPicker from "components/BaseEmojiPicker.vue";
 import LanguageSelect from "components/LanguageSelect.vue";
 import ToggleDark from "components/ToggleDark.vue";
+import EmojiButton from "components/EmojiButton.vue";
+import MovementControl from "components/MovementControl.vue";
 
 export default async ({ Vue }) => {
+  Vue.component("MovementControl", MovementControl);
+  Vue.component("EmojiButton", EmojiButton);
   Vue.component("ToggleDark", ToggleDark);
   Vue.component("LanguageSelect", LanguageSelect);
   Vue.component("BaseEmojiPicker", BaseEmojiPicker);

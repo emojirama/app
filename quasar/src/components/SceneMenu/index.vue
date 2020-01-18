@@ -1,13 +1,11 @@
 <template>
   <div @touchmove="handleScroll">
-    <div class="trigger" @click="$store.commit('toggleShowSceneMenu')">
-      <q-btn id="scene_menu" push round
-        ><div z-index="100000">
-          <div class="emoji-btn">
-            <base-emoji :emoji="`world_map`" />
-          </div>
-        </div>
-      </q-btn>
+    <div
+      id="scene_menu"
+      class="trigger"
+      @click="$store.commit('toggleShowSceneMenu')"
+    >
+      <emoji-button emoji="world_map"></emoji-button>
     </div>
     <q-dialog v-model="showSceneMenu">
       <q-card class="q-card">

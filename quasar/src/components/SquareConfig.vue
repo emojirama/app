@@ -1,20 +1,5 @@
 <template>
   <div @touchmove="handleScroll">
-    <div class="trigger" @click="$store.commit('toggleMovementMode')">
-      <q-btn push round
-        ><div z-index="100000">
-          <div class="emoji-btn">
-            <base-emoji
-              :emoji="
-                $store.getters.getMovementMode === 'normal'
-                  ? 'footprints'
-                  : 'anchor'
-              "
-            ></base-emoji>
-          </div>
-        </div>
-      </q-btn>
-    </div>
     <q-dialog v-model="showSquareConfig" @touchmove="handleScroll">
       <q-card class="q-card">
         <div class="square-config">

@@ -1,13 +1,7 @@
 <template>
   <div @touchmove="handleScroll">
     <div class="trigger" @click="saveEmojirama">
-      <q-btn push round
-        ><div z-index="100000">
-          <div class="emoji-btn">
-            <base-emoji :emoji="`floppy_disk`" :skin="1" />
-          </div>
-        </div>
-      </q-btn>
+      <emoji-button emoji="floppy_disk"></emoji-button>
     </div>
   </div>
 </template>

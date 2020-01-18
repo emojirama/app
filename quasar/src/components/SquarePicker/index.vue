@@ -5,20 +5,10 @@
       class="trigger"
       @click="$store.commit('toggleSquarePicker')"
     >
-      <q-btn
-        push
-        round
-        :style="`background: ${$store.getters.getSquarePickerColor}`"
-        ><div z-index="100000">
-          <div class="emoji-btn">
-            <base-emoji
-              :skin="$store.getters.getSquarePickerToneNumber"
-              :emoji="$store.getters.getSquarePickerEmoji"
-              :size="32"
-            />
-          </div>
-        </div>
-      </q-btn>
+      <emoji-button
+        :backgroundColor="$store.getters.getSquarePickerColor"
+        :emoji="$store.getters.getSquarePickerEmoji"
+      ></emoji-button>
     </div>
     <q-dialog transition-show="fade" v-model="showSquarePicker">
       <q-card>

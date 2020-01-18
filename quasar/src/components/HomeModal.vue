@@ -1,13 +1,7 @@
 <template>
   <div @touchmove="handleScroll">
     <div class="trigger" @click="$store.commit('toggleHomeModal')">
-      <q-btn push round
-        ><div z-index="100000">
-          <div class="emoji-btn">
-            <base-emoji :emoji="`house`" />
-          </div>
-        </div>
-      </q-btn>
+      <emoji-button emoji="house"></emoji-button>
     </div>
     <q-dialog v-model="showHomeModal">
       <q-card class="q-card">

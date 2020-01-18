@@ -7,6 +7,7 @@
     <home-modal />
     <save-button />
     <scene-menu />
+    <movement-control />
     <square-picker></square-picker>
     <div
       @touchmove="handleScroll"

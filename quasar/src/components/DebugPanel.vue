@@ -1,13 +1,7 @@
 <template>
   <div @touchmove="handleScroll">
     <div class="trigger" @click="$store.commit('toggleDebugModal')">
-      <q-btn push round
-        ><div z-index="100000">
-          <div class="emoji-btn">
-            <base-emoji :emoji="`gear`" />
-          </div>
-        </div>
-      </q-btn>
+      <emoji-button emoji="gear"></emoji-button>
     </div>
     <q-dialog v-model="showDebugModal">
       <q-card class="q-card">
