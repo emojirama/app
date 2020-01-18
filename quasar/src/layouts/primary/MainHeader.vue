@@ -19,16 +19,8 @@
       </q-btn>
 
       <q-toolbar-title>emojirama</q-toolbar-title>
+      <toggle-dark />
 
-      <div @click="$store.commit('toggleDarkMode')" class="dark-toggle">
-        <base-emoji
-          :native="false"
-          :sheetSize="64"
-          :emoji="$store.getters.getDarkModeEmoji"
-          :size="28"
-          :skin="1"
-        />
-      </div>
       <language-select class="language-select" />
 
       <q-btn
@@ -93,10 +85,6 @@ export default {
 }
 .q-select {
   margin-right: 20px;
-}
-.dark-toggle {
-  cursor: pointer;
-  height: 100%;
 }
 .base-emoji {
   cursor: pointer;

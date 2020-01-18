@@ -50,6 +50,7 @@ module.exports = function(ctx) {
         "QSlider",
         "QSelect",
         "QToggle",
+        "QRange",
 
         "QLayout",
         "QHeader",

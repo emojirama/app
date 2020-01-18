@@ -4,6 +4,7 @@ import Vue from "vue";
 import generateBoard from "./randomBoard";
 import { Notify } from "quasar";
 import uuidv1 from "uuid/v1";
+import tinycolor from "tinycolor2";
 
 const state = {
   squareSize: 60,
@@ -151,9 +152,13 @@ const actions = {
     commit("toggleShowSquareConfig");
     // vm.$store.commit("setSquareConfigPosition", position);
   },
-  setSquare: ({ state, commit, rootState, getters }, payload) => {
+  setSquare: ({ state, commit, rootState, getters, rootGetters }, payload) => {
+    const min = rootGetters.getColorNoiseRange["min"];
+    const max = rootGetters.getColorNoiseRange["max"];
     const currentEmoji = getters.getSquarePickerEmoji;
-    const currentColor = getters.getSquarePickerColor;
+    const currentColor = tinycolor(getters.getSquarePickerColor)
+      .darken(Math.random() * (max - min) + min)
+      .toString();
     const currentTone = getters.getSquarePickerToneNumber;
     const mode = getters.getMode;
     const data = {

@@ -5,10 +5,15 @@ const state = {
   tab: "emoji",
   mode: "only_emoji",
   mouseDown: false,
-  tone: "#ffc93a"
+  tone: "#ffc93a",
+  colorNoiseRange: {
+    min: 0,
+    max: 0
+  }
 };
 
 const getters = {
+  getColorNoiseRange: s => s.colorNoiseRange,
   getMouseDown: s => s.mouseDown,
   showSquarePicker: s => s.showSquarePicker,
   getSquarePickerColor: s => s.color,
@@ -38,6 +43,9 @@ const actions = {
 };
 
 const mutations = {
+  setColorNoiseRange: (state, payload) => {
+    state.colorNoiseRange = payload;
+  },
   setMouseDown: (state, payload) => {
     state.mouseDown = payload;
   },

@@ -23,13 +23,15 @@
     <q-dialog transition-show="fade" v-model="showSquarePicker">
       <q-card>
         <q-card-section class="welcome">
-          <q-color
-            v-if="$store.getters.getSquarePickerTab === 'color'"
-            v-model="hex"
-            no-header
-            class="my-picker"
-            @change="$store.commit('setMode', 'only_color')"
-          />
+          <div v-if="$store.getters.getSquarePickerTab === 'color'">
+            <q-color
+              v-model="hex"
+              no-header
+              class="my-picker"
+              @change="$store.commit('setMode', 'only_color')"
+            />
+            <q-range v-model="range" :min="-50" :max="50" label drag-range />
+          </div>
           <q-color
             v-else-if="$store.getters.getSquarePickerTab === 'tone'"
             v-model="tone"
@@ -146,6 +148,14 @@ export default {
     }
   },
   computed: {
+    range: {
+      get() {
+        return this.$store.getters.getColorNoiseRange;
+      },
+      set(v) {
+        this.$store.commit("setColorNoiseRange", v);
+      }
+    },
     showSquarePicker: {
       get() {
         return this.$store.getters.showSquarePicker;

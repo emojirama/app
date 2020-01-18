@@ -13,7 +13,11 @@
       <q-card class="q-card">
         <q-card-section class="welcome">
           <div class="text-h6">
-            Settings <language-select />
+            Settings
+            <div class="settings-icons">
+              <language-select />
+              <toggle-dark />
+            </div>
             <q-slider v-model="squareSize" :min="5" :max="200"></q-slider>
           </div>
         </q-card-section>
@@ -127,5 +131,11 @@ export default {
 
 .q-card {
   width: 300px;
+}
+.settings-icons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-content: center;
+  margin: 0 auto;
 }
 </style>
