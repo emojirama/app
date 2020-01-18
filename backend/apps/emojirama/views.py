@@ -1,7 +1,6 @@
-from rest_framework.decorators import api_view
+from rest_framework import viewsets
 from rest_framework.pagination import LimitOffsetPagination
 from rest_framework.response import Response
-from rest_framework import viewsets
 
 from .models import Emojirama
 from .serializers import EmojiramaSerializer
