@@ -5,6 +5,15 @@ const state = {
   nextLink: null,
   authPanel: "login",
   // game
+  sets: {
+    apple: "Apple",
+    google: "Google",
+    twitter: "Twitter",
+    facebook: "Facebook",
+    emojione: "EmojiOne"
+  },
+  set: "apple",
+  emojiSets: ["apple", "facebook", "google", "twitter", "emojione"],
   showSettingsModal: false,
   showDebugModal: false,
   showStatsPanel: false,
@@ -26,6 +35,8 @@ const state = {
 };
 
 const getters = {
+  getEmojiSetOptions: s => Object.keys(s.sets),
+  getEmojiSet: s => s.set,
   leftDrawerOpen: s => s.leftDrawerOpen,
   authModalVisible: s => s.visible,
   getNextLink: s => s.nextLink,
@@ -33,6 +44,7 @@ const getters = {
   isDark: s => s.isDark,
   getShowLanguageMenu: s => s.showLanguageMenu,
   // game
+  getEmojiSets: s => s.emojiSets,
   showSettingsModal: s => s.showSettingsModal,
   showDebugModal: s => s.showDebugModal,
   showStatsPanel: s => s.showStatsPanel,
@@ -49,6 +61,10 @@ const getters = {
 };
 
 const mutations = {
+  setEmojiSet: (state, payload) => {
+    state.set = payload;
+    state.useNativeEmoji = false;
+  },
   setLanguage: (state, payload) => {
     state.currentLanguage = payload.lang.language;
     state.showLanguageMenu = false;
@@ -95,6 +111,9 @@ const mutations = {
   },
   toggleHomeModal: state => {
     state.showHomeModal = !state.showHomeModal;
+  },
+  setUseNativeEmoji: (state, payload) => {
+    state.useNativeEmoji = payload;
   }
 };
 

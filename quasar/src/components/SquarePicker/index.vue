@@ -59,7 +59,7 @@
               class="button"
               @click="$store.commit('setSquarePickerTab', 'mode')"
             >
-              <emoji-button emoji="gear"></emoji-button>
+              <emoji-button :skin="1" emoji="gear"></emoji-button>
             </div>
             <div
               class="button"
@@ -76,6 +76,7 @@
               @click="$store.commit('setSquarePickerTab', 'tone')"
             >
               <emoji-button
+                :skin="1"
                 :backgroundColor="$store.getters.getSquarePickerTone"
                 :emoji="null"
               ></emoji-button>

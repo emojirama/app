@@ -21,7 +21,12 @@
             @click="setLanguage(language)"
             :key="i"
           >
-            <base-emoji :emoji="language.emoji" :skin="1" :size="50" />
+            <base-emoji
+              :native="false"
+              :emoji="language.emoji"
+              :skin="1"
+              :size="50"
+            />
           </div>
         </div>
       </q-card>

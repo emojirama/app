@@ -11,31 +11,54 @@
             <div class="settings-icons">
               <language-select />
               <toggle-dark />
+              <zoom-control emoji="microscope" :zoomAmount="5" />
+              <zoom-control emoji="telescope" :zoomAmount="-5" />
+              <toggle-stats emoji="bar_chart" />
             </div>
             <q-slider v-model="squareSize" :min="5" :max="200"></q-slider>
           </div>
         </q-card-section>
-
         <q-card-section>
+          <div class="options">
+            <div
+              @click="$store.commit('setEmojiSet', set)"
+              v-for="(set, i) in $store.getters.getEmojiSets"
+              :key="i"
+            >
+              <base-emoji
+                :skin="3"
+                :native="false"
+                :alwaysNotNative="true"
+                :emoji="`boy`"
+                :set="set"
+              ></base-emoji>
+            </div>
+            <div @click="$store.commit('setUseNativeEmoji', true)">
+              <base-emoji :emoji="`boy`" :native="true"></base-emoji>
+            </div>
+          </div>
+        </q-card-section>
+
+        <!-- <q-card-section>
           <q-toggle
             v-model="useNativeEmoji"
             label="Use native emoji"
           ></q-toggle>
-        </q-card-section>
+        </q-card-section> -->
 
-        <q-card-section v-if="!$store.getters.getUseNativeEmoji">
+        <!-- <q-card-section v-if="!$store.getters.getUseNativeEmoji">
           <q-select
             v-model="emojiSet"
             :options="$store.getters.getEmojiSetOptions"
           ></q-select>
-        </q-card-section>
+        </q-card-section> -->
 
-        <q-card-section>
+        <!-- <q-card-section>
           <q-toggle
             v-model="showStatsPanel"
             label="Show Debug Panel"
           ></q-toggle>
-        </q-card-section>
+        </q-card-section> -->
 
         <q-card-actions align="right">
           <q-btn
@@ -106,6 +129,12 @@ export default {
 </script>
 
 <style scoped>
+.options {
+  display: grid;
+  cursor: pointer;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+
 .meta {
   position: absolute;
   background-color: beige;
@@ -128,7 +157,7 @@ export default {
 }
 .settings-icons {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   align-content: center;
   margin: 0 auto;
 }

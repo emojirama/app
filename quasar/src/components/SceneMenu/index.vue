@@ -30,7 +30,7 @@
                   :disabled="$store.getters.getCurrentScene === i"
                   @click="$store.dispatch('deleteScene', i)"
                 >
-                  <base-emoji :emoji="`wastebasket`" :size="16"
+                  <base-emoji :native="false" :emoji="`wastebasket`" :size="16"
                 /></q-btn>
               </div>
             </div>

@@ -22,14 +22,7 @@ const state = {
   position: [5, 5],
   currentEmoji: { emoji: "elf", tone: 3 },
   anchor: [0, 0],
-  sets: {
-    apple: "Apple",
-    google: "Google",
-    twitter: "Twitter",
-    facebook: "Facebook",
-    emojione: "EmojiOne"
-  },
-  set: "apple",
+
   currentScene: "default",
   showSquareConfig: false,
   squareConfigPosition: [0, 0],
@@ -60,8 +53,6 @@ const getters = {
   getPosition: s => s.position,
   getCurrentEmoji: s => s.currentEmoji,
   getAnchor: s => s.anchor,
-  getEmojiSetOptions: s => Object.keys(s.sets),
-  getEmojiSet: s => s.set,
   getCurrentScene: s => s.currentScene,
   getSquareConfigPosition: s => s.squareConfigPosition,
   getShowSceneMenu: s => s.showSceneMenu,
@@ -104,6 +95,12 @@ const getters = {
 };
 
 const actions = {
+  /* eslint-disable no-unused-vars */
+  setZoom: ({ rootState, commit, state, getters, rootGetters }, payload) => {
+    commit("setZoom", payload);
+    // rootState.board.squareSize = rootState.squareSize + payload;
+  },
+
   removePortal: ({ state, commit, rootGetters, getters }) => {
     const currentScene = getters.getCurrentScene;
     const currentPosition = getters.getSquareConfigPosition;
@@ -174,9 +171,6 @@ const actions = {
     { state, commit, dispatch, rootState, getters, rootGetters },
     payload
   ) => {
-    if (rootGetters.getMouseDown) {
-      return;
-    }
     const nextSquare = getters.getNextSquare(payload);
     if (nextSquare.portal) {
       commit("travelPortal", nextSquare.portal);
@@ -201,6 +195,10 @@ const actions = {
 };
 
 const mutations = {
+  setZoom: (state, payload) => {
+    state.squareSize = state.squareSize + payload;
+    window.dispatchEvent(new Event("resize"));
+  },
   setSquareFromWebsocket: (state, payload) => {
     console.log(payload);
     const scene = payload["message"]["square_info"]["scene"];

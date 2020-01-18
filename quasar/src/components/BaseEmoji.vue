@@ -1,10 +1,10 @@
 <template>
   <emoji
-    :native="$store.getters.getUseNativeEmoji"
+    :native="useNative"
     :data="emojiIndex"
     :emoji="emoji"
     :size="size"
-    :set="$store.getters.getEmojiSet"
+    :set="set || $store.getters.getEmojiSet"
     :skin="skin"
   />
 </template>
@@ -24,7 +24,34 @@ export default {
       emojiIndex: emojiIndex
     };
   },
+  computed: {
+    useNative() {
+      if (this.alwaysNotNative) {
+        return false;
+      }
+      if (this.native === true) {
+        return true;
+      } else if (this.native === false) {
+        return this.$store.getters.getUseNativeEmoji;
+      } else if (this.native === null) {
+        return false;
+      } else {
+        return false;
+      }
+    }
+  },
   props: {
+    alwaysNotNative: {
+      type: Boolean
+    },
+    native: {
+      type: Boolean,
+      default: true
+    },
+    set: {
+      type: String,
+      default: null
+    },
     size: {
       type: Number,
       default: 32

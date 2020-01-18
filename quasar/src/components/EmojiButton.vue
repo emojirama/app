@@ -2,7 +2,11 @@
   <q-btn :style="`background: ${backgroundColor}`" push round
     ><div z-index="100000">
       <div class="emoji-btn">
-        <base-emoji :emoji="emoji" :skin="tone" />
+        <base-emoji
+          :native="$store.getters.getUseNativeEmoji"
+          :emoji="emoji"
+          :skin="tone"
+        />
       </div>
     </div>
   </q-btn>

@@ -4,7 +4,6 @@ const state = {
   emoji: "deciduous_tree",
   tab: "emoji",
   mode: "only_emoji",
-  mouseDown: false,
   tone: "#ffc93a",
   colorNoiseRange: {
     min: 0,
@@ -14,7 +13,6 @@ const state = {
 
 const getters = {
   getColorNoiseRange: s => s.colorNoiseRange,
-  getMouseDown: s => s.mouseDown,
   showSquarePicker: s => s.showSquarePicker,
   getSquarePickerColor: s => s.color,
   getSquarePickerTone: s => s.tone,

@@ -15,6 +15,7 @@
       <base-emoji
         :skin="tone"
         :emoji="getSquareEmoji"
+        :native="$store.getters.getUseNativeEmoji"
         :size="
           ($store.getters.getSquareSize *
             ($store.getters.getUseNativeEmoji ? 5 : 4)) /
@@ -27,6 +28,7 @@
         v-if="isCurrentSquare"
         :emoji="$store.getters.getCurrentEmoji['emoji']"
         :skin="$store.getters.getCurrentEmoji['tone']"
+        :native="$store.getters.getUseNativeEmoji"
         :size="
           ($store.getters.getSquareSize *
             ($store.getters.getUseNativeEmoji ? 5 : 4)) /

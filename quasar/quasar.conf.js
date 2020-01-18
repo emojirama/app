@@ -35,6 +35,7 @@ module.exports = function(ctx) {
         "QToolbarTitle",
         "QTooltip",
         "QBtn",
+        "QBtnGroup",
         "QIcon",
         "QList",
         "QItem",
@@ -51,6 +52,7 @@ module.exports = function(ctx) {
         "QSelect",
         "QToggle",
         "QRange",
+        "QRadio",
 
         "QLayout",
         "QHeader",

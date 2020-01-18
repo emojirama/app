@@ -15,8 +15,12 @@ import LanguageSelect from "components/LanguageSelect.vue";
 import ToggleDark from "components/ToggleDark.vue";
 import EmojiButton from "components/EmojiButton.vue";
 import MovementControl from "components/MovementControl.vue";
+import ZoomControl from "components/ZoomControl.vue";
+import ToggleStats from "components/ToggleStats.vue";
 
 export default async ({ Vue }) => {
+  Vue.component("ToggleStats", ToggleStats);
+  Vue.component("ZoomControl", ZoomControl);
   Vue.component("MovementControl", MovementControl);
   Vue.component("EmojiButton", EmojiButton);
   Vue.component("ToggleDark", ToggleDark);
