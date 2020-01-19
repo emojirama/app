@@ -70,6 +70,7 @@ export default {
         if (message["type"] === "updated") {
           this.$store.commit("setSquareFromWebsocket", message);
         } else {
+          console.log(message);
           this.$store.commit("loadEmojiramaFromServer", message);
         }
       };

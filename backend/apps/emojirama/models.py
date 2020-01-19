@@ -2,8 +2,10 @@ from django.conf import settings
 from django.contrib.postgres.fields import JSONField
 from django.db import models
 
+from apps.core.models import BaseModel
 
-class Emojirama(models.Model):
+
+class Emojirama(BaseModel):
     board = JSONField()
     owner = models.ForeignKey(
         settings.AUTH_USER_MODEL,
@@ -14,4 +16,4 @@ class Emojirama(models.Model):
     )
 
     class Meta:
-        ordering = ('id',)
+        ordering = ('-created_on',)

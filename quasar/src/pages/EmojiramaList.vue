@@ -10,7 +10,9 @@
         <base-btn @click.native="$router.push(`/emojirama/live/${e.id}`)"
           >Live {{ e.id }}</base-btn
         >
-        <emojirama-preview :board="e" />
+        <!-- v-if="e.owner.id === $store.getters.getCurrentUserId" -->
+        <emoji-button :native="false" :emoji="`wastebasket`"></emoji-button>
+        <emojirama-preview :board="e.board" />
       </div>
     </div>
     <q-card color="white">

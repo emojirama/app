@@ -1,7 +1,7 @@
 <template>
   <div :style="style">
     <square
-      v-for="(e, i) in board.board
+      v-for="(e, i) in board.scenes.default.data
         .slice(3, 7)
         .map(x => x.slice(0, cols))
         .flat()"
@@ -21,6 +21,7 @@ export default {
     Square
   },
   created() {
+    console.log(this.board);
     this.cols = Math.floor(
       this.$store.getters.getPreviewWidth / this.$store.getters.getSquareSize
     );

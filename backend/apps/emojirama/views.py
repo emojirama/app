@@ -2,6 +2,7 @@ from rest_framework import viewsets
 from rest_framework.pagination import LimitOffsetPagination
 from rest_framework.response import Response
 
+from .utils.generation import generate_grid_data
 from .models import Emojirama
 from .serializers import EmojiramaSerializer
 
@@ -26,9 +27,8 @@ class EmojiramaViewSet(viewsets.ViewSet):
 
     def get(self, request, pk):
         emojirama = Emojirama.objects.get(pk=pk)
-        # TODO: return entire instance, not just board
-        # use serializer
-        return Response(emojirama.board)
+        serializer = EmojiramaSerializer(emojirama)
+        return Response(serializer.data)
 
     def save(self, request, pk):
         emojirama = Emojirama.objects.get(pk=pk)
@@ -49,27 +49,18 @@ class EmojiramaViewSet(viewsets.ViewSet):
     def new_emojirama(self, request):
         # TODO: remove this and generate initial scene
         # from frontend with options
-        blank_grid = [
-            [
-                {
-                    "emoji": "",
-                    "tone": 1,
-                    "color": "#ffffff",
-                    "position": [j, i]
-                } for i in range(40)
-            ] for j in range(40)
-        ]
 
-        emojirama = Emojirama(
-            board={
-                "scenes": {
-                    "default": {
-                        "data": blank_grid
-                    }
+        board = {
+            "scenes": {
+                "default": {
+                    "data": generate_grid_data()
                 }
-            },
-            owner=request.user
-        )
-        emojirama.save()
-        print(emojirama.id)
-        return Response({"id": emojirama.id})
+            }
+        }
+        owner=request.user
+
+        serializer = EmojiramaSerializer(data={ "board": board,"owner": owner })
+        if serializer.is_valid():
+            serializer.save()
+            return Response({"id": serializer.data["id"]})
+        return Response("not saved...")

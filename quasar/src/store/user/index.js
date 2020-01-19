@@ -14,7 +14,8 @@ const state = {
 
 const getters = {
   getProfile: s => s.profile,
-  isProfileLoaded: s => !!s.profile.name
+  isProfileLoaded: s => !!s.profile.name,
+  getCurrentUserId: s => s.profile.id
 };
 
 const actions = {
@@ -24,7 +25,8 @@ const actions = {
       .then(resp => {
         const profile = resp.data;
         commit(USER_SUCCESS, {
-          email: profile.email
+          email: profile.email,
+          id: profile.id
         });
       })
       .catch(err => {
