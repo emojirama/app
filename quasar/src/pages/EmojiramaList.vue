@@ -2,12 +2,16 @@
   <base-page class="base-page-wrapper">
     <div ref="preview">
       <page-header>Emojirama</page-header>
-      <div v-for="e in emojirama" :key="e.id">
-        <base-btn @click.native="$router.push(`/emojirama/${e.id}`)">{{
-          e.id
-        }}</base-btn>
+      <div v-for="(e, i) in emojirama" :key="e.id">
+        <base-btn
+          :id="`emojirama_${i}`"
+          @click.native="$router.push(`/emojirama/${e.id}`)"
+          >{{ e.id }}</base-btn
+        >
 
-        <base-btn @click.native="$router.push(`/emojirama/live/${e.id}`)"
+        <base-btn
+          :id="`emojirama_live_${i}`"
+          @click.native="$router.push(`/emojirama/live/${e.id}`)"
           >Live {{ e.id }}</base-btn
         >
         <!-- v-if="e.owner.id === $store.getters.getCurrentUserId" -->

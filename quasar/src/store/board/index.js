@@ -265,7 +265,7 @@ const mutations = {
     state.currentScene = payload.nextScene;
   },
   loadEmojiramaFromServer: (state, payload) => {
-    state.board = payload;
+    state.board = payload.board;
   },
   loadEmojirama: (state, payload) => {
     state.board = {

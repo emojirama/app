@@ -1,5 +1,5 @@
 <template>
-  <q-btn :style="`background: ${backgroundColor}`" push round
+  <q-btn :id="id" :style="`background: ${backgroundColor}`" push round
     ><div z-index="100000">
       <div class="emoji-btn">
         <base-emoji
@@ -15,6 +15,10 @@
 <script>
 export default {
   props: {
+    props: {
+      type: String,
+      default: "element_id"
+    },
     emoji: {
       type: String,
       default: "boy"

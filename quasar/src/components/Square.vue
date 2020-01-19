@@ -124,7 +124,7 @@ export default {
         });
       } else {
         if (this.$route.meta.preview) return;
-        if (e.isTrusted) {
+        if (e.isTrusted || this.$route.query.cy) {
           this.$store.dispatch("setSquare", {
             live: false,
             vm: this,

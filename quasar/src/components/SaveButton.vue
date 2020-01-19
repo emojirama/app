@@ -1,7 +1,7 @@
 <template>
   <div @touchmove="handleScroll">
     <div class="trigger" @click="saveEmojirama">
-      <emoji-button emoji="floppy_disk"></emoji-button>
+      <emoji-button id="save_button" emoji="floppy_disk"></emoji-button>
     </div>
   </div>
 </template>

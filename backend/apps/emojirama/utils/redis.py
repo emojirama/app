@@ -59,7 +59,7 @@ def get_emojirama_from_redis(emojirama):
 
         json_data["scenes"][scene]["data"] = rows
 
-    return json_data
+    return { "board": json_data }
 
 
 def update_square_in_redis(emojirama_id, message):
