@@ -1,32 +1,33 @@
 <template>
   <base-page>
     <div class="login">
-      <page-header>Login</page-header>
+      <div class="lock">
+        <base-emoji
+          :native="false"
+          :sheetSize="64"
+          :emoji="`lock_with_ink_pen`"
+          :size="64"
+          :skin="1"
+        />
+      </div>
       <base-card class="card">
-        <q-btn
-          type="a"
-          class="full-width q-mt-md"
-          :href="$store.getters.oauthUrl('google-oauth2')"
-          >Google</q-btn
-        >
-        <q-btn
-          type="a"
-          class="full-width q-mt-md"
-          :href="$store.getters.oauthUrl('github')"
-          >GitHub</q-btn
-        >
-        <q-btn
-          type="a"
-          class="full-width q-mt-md"
-          :href="$store.getters.oauthUrl('facebook')"
-          >Facebook</q-btn
-        >
-
-        <login-form></login-form>
+        <div class="social-button-grid">
+          <social-auth-button
+            v-for="(provider, i) in [
+              { image: 'google', name: 'google-oauth2' },
+              { image: 'facebook', name: 'facebook' },
+              { image: 'github', name: 'github' }
+            ]"
+            :key="i"
+            :imagePrefix="provider.image"
+            :provider="provider.name"
+          ></social-auth-button>
+        </div>
+        <login-form v-if="true"></login-form>
       </base-card>
-      <span class="signup">
+      <!-- <span class="signup">
         <router-link to="/signup"><page-text>Sign Up</page-text></router-link>
-      </span>
+      </span> -->
     </div>
   </base-page>
 </template>
@@ -56,5 +57,15 @@ export default {
 .signup {
   text-align: right;
   margin-top: 10px;
+}
+
+.lock {
+  margin-bottom: 10px;
+}
+
+.social-button-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  margin-bottom: 10px;
 }
 </style>

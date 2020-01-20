@@ -21,28 +21,9 @@
       <q-toolbar-title>emojirama</q-toolbar-title>
       <toggle-dark />
 
-      <language-select class="language-select" />
+      <language-select />
 
-      <q-btn
-        id="login"
-        :ripple="false"
-        color="white"
-        text-color="primary"
-        :label="$t('login')"
-        v-if="!$store.getters.isAuthenticated"
-        no-caps
-        @click="$router.push('/login')"
-      />
-      <q-btn
-        id="logout"
-        :ripple="false"
-        color="white"
-        text-color="primary"
-        :label="$t('exit')"
-        v-if="$store.getters.isAuthenticated"
-        no-caps
-        @click="logout"
-      />
+      <auth-widget />
     </q-toolbar>
   </q-header>
 </template>
@@ -88,9 +69,5 @@ export default {
 }
 .base-emoji {
   cursor: pointer;
-}
-
-.language-select {
-  margin-right: 10px;
 }
 </style>

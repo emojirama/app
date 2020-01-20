@@ -45,7 +45,7 @@ export default {
   data() {
     return {
       emojirama: [],
-      paginationLimit: 5,
+      paginationLimit: this.$q.platform.is.mobile ? 1 : 5,
       currentPage: 1,
       count: null
     };

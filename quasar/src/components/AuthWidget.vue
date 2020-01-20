@@ -1,0 +1,33 @@
+<template>
+  <div>
+    <div v-if="$store.getters.isAuthenticated" @click="$router.push('/login')">
+      <base-emoji
+        :native="false"
+        :sheetSize="64"
+        :emoji="
+          $store.getters.isAuthenticated
+            ? $store.getters.getProfileEmoji
+            : `lock_with_ink_pen`
+        "
+        :size="28"
+        :skin="1"
+      />
+    </div>
+    <div v-else @click="$router.push('/login')">
+      <base-emoji
+        v-if="!$store.getters.isAuthenticated"
+        :native="false"
+        :sheetSize="64"
+        :emoji="`lock_with_ink_pen`"
+        :size="28"
+        :skin="1"
+      />
+    </div>
+  </div>
+</template>
+
+<script>
+export default {};
+</script>
+
+<style lang="scss" scoped></style>

@@ -15,7 +15,15 @@ const state = {
 const getters = {
   getProfile: s => s.profile,
   isProfileLoaded: s => !!s.profile.name,
-  getCurrentUserId: s => s.profile.id
+  getCurrentUserId: s => s.profile.id,
+  getProfileEmoji: s => {
+    if (s.profile.emoji === "") {
+      return "bust_in_silhouette";
+    } else {
+      // TODO
+      return "elf"; // get the user's profile emoji
+    }
+  }
 };
 
 const actions = {
@@ -26,7 +34,8 @@ const actions = {
         const profile = resp.data;
         commit(USER_SUCCESS, {
           email: profile.email,
-          id: profile.id
+          id: profile.id,
+          emoji: ""
         });
       })
       .catch(err => {

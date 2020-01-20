@@ -6,6 +6,7 @@
           :native="$store.getters.getUseNativeEmoji"
           :emoji="emoji"
           :skin="tone"
+          :size="size"
         />
       </div>
     </div>
@@ -30,6 +31,10 @@ export default {
     backgroundColor: {
       type: String,
       default: ""
+    },
+    size: {
+      type: Number,
+      default: 32
     }
   }
 };
