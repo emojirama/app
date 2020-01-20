@@ -89,7 +89,7 @@ const getters = {
   },
   getSceneOptions: s => {
     const scenes = Object.keys(s.board.scenes);
-    console.log(scenes);
+    // console.log(scenes);
     return scenes;
   }
 };
@@ -105,7 +105,7 @@ const actions = {
     const currentScene = getters.getCurrentScene;
     const currentPosition = getters.getSquareConfigPosition;
     const payload = { currentScene, currentPosition };
-    console.log(payload);
+    // console.log(payload);
     commit("removePortal", payload);
   },
   createNewScene: ({ state, commit }, payload) => {
@@ -115,7 +115,7 @@ const actions = {
     commit("deleteScene", payload);
   },
   setPortal: ({ state, commit }, payload) => {
-    console.log(payload.toScene);
+    // console.log(payload.toScene);
     commit("setPortal", payload);
   },
   createNewEmojirama: ({ state }, payload) => {
@@ -210,7 +210,7 @@ const mutations = {
     window.dispatchEvent(new Event("resize"));
   },
   setSquareFromWebsocket: (state, payload) => {
-    console.log(payload);
+    // console.log(payload);
     const scene = payload["message"]["square_info"]["scene"];
     const pos = payload["message"]["square_info"]["position"];
     const emoji = payload["message"]["square_info"]["emoji"];

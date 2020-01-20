@@ -8,9 +8,12 @@ class EmojiramaSerializer(serializers.ModelSerializer):
 
     board = serializers.JSONField()
     id = serializers.IntegerField(required=False)
-    owner = serializers.SerializerMethodField()
+    owner = serializers.HiddenField(
+        default=serializers.CurrentUserDefault()
+    )
+    owner_profile = serializers.SerializerMethodField()
 
-    def get_owner(self, obj):
+    def get_owner_profile(self, obj):
         if obj.owner:
             serializer = UserSerializer(obj.owner)
             return serializer.data
@@ -28,5 +31,6 @@ class EmojiramaSerializer(serializers.ModelSerializer):
         fields = [
             "id",
             "board",
-            "owner"
+            "owner",
+            "owner_profile"
         ]

@@ -35,6 +35,10 @@ export default {
     size: {
       type: Number,
       default: 32
+    },
+    id: {
+      type: String,
+      default: null
     }
   }
 };

@@ -14,8 +14,17 @@
           @click.native="$router.push(`/emojirama/live/${e.id}`)"
           >Live {{ e.id }}</base-btn
         >
-        <!-- v-if="e.owner.id === $store.getters.getCurrentUserId" -->
-        <emoji-button :native="false" :emoji="`wastebasket`"></emoji-button>
+        <delete-emojirama-widget
+          @reload="fetchData"
+          v-if="
+            e.owner_profile &&
+              e.owner_profile.id === $store.getters.getCurrentUserId
+          "
+          :id="e.id"
+        />
+        <!-- <div v-if="e.owner && e.owner.id === $store.getters.getCurrentUserId">
+          <emoji-button :native="false" :emoji="`wastebasket`"></emoji-button>
+        </div> -->
         <emojirama-preview :board="e.board" />
       </div>
     </div>
@@ -70,6 +79,7 @@ export default {
   },
   methods: {
     fetchData() {
+      this.emojirama = [];
       this.$axios
         .get(`/api/emojirama/`, {
           params: this.params

@@ -6,6 +6,7 @@ import user from "./user";
 import social from "./social";
 import board from "./board";
 import squarePicker from "./squarePicker";
+import core from "./core";
 
 // import example from './module-example'
 
@@ -23,7 +24,8 @@ export default function(/* { ssrContext } */) {
       user,
       social,
       board,
-      squarePicker
+      squarePicker,
+      core
     },
 
     // enable strict mode (adds overhead!)

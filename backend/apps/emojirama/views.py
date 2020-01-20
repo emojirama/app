@@ -59,7 +59,9 @@ class EmojiramaViewSet(viewsets.ViewSet):
         }
         owner=request.user
 
-        serializer = EmojiramaSerializer(data={ "board": board,"owner": owner })
+        serializer = EmojiramaSerializer(
+            context={ "request": request },
+            data={ "board": board,"owner": owner })
         if serializer.is_valid():
             serializer.save()
             return Response({"id": serializer.data["id"]})
