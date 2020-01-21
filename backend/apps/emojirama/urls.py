@@ -16,7 +16,8 @@ urlpatterns = [
             "get": "get",
             "delete": "delete",
             "post": "save"
-        })
+        }),
+        name="emojirama-record"
     ),
     path(
         'emojirama/new/',
