@@ -200,6 +200,12 @@ REST_FRAMEWORK = {
     ),
 }
 
+# use settings secret key for JWT secret
+JWT_SECRET = SECRET_KEY
+JWT_ALGORITHM = 'HS256'
+# token expiring time in seconds let's assign one day
+JWT_EXP_DELTA_SECONDS = 300
+
 # Celery Configuration
 
 CELERY_ACCEPT_CONTENT = ['application/json']

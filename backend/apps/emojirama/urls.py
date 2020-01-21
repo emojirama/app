@@ -22,6 +22,7 @@ urlpatterns = [
         'emojirama/new/',
         views.EmojiramaViewSet.as_view({
             "post": "new_emojirama"
-        })
+        }),
+        name="new-emojirama"
     )
 ]
