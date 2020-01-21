@@ -10,7 +10,7 @@ describe("Test Delete Emojirama", function() {
       cy.visit("/emojirama");
       cy.get(`#delete_emojirama_${id}`).click();
       cy.get(`#confirm_delete_emojirama_${id}`).click();
-      // cy.get
+      cy.get(`[data-index="emojirama_id_${id}"]`).should("not.exist");
     });
 
     cy.wait(1000);

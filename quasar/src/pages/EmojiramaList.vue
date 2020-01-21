@@ -2,7 +2,11 @@
   <base-page class="base-page-wrapper">
     <div ref="preview">
       <page-header>Emojirama</page-header>
-      <div v-for="(e, i) in emojirama" :key="e.id">
+      <div
+        :data-index="`emojirama_id_${e.id}`"
+        v-for="(e, i) in emojirama"
+        :key="e.id"
+      >
         <base-btn
           :id="`emojirama_${i}`"
           @click.native="$router.push(`/emojirama/${e.id}`)"
