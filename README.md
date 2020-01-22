@@ -18,4 +18,4 @@ Deployment to AWS using CloudFormation and GitLab
 - [x] Create S3 bucket for emojirama CloudFormation templates
 - [x] Create stack with only ACM resources and verify
 - [x] Setup S3 bucket and CloudFront CDN in CloudFormation
-- []
+- [ ] Build ECR resources in CloudFormation
