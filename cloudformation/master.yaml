@@ -76,6 +76,7 @@ Parameters:
 
 Conditions:
   UseACM: !Equals [ 1, 1 ]
+  FrontendResources: !Equals [ 1, 1 ]
   UseVPC: !Equals [ 1, 0 ]
   UseDjangoStorage: !Equals [ 1, 0 ]
   UseServiceRole: !Equals [ 1, 0 ]
@@ -86,7 +87,6 @@ Conditions:
   UseALB: !Equals [ 1, 0 ]
   UseECS: !Equals [ 1, 0 ]
   UseElastiCache: !Equals [ 1, 0 ]
-  FrontendResources: !Equals [ 1, 0 ]
 
 Resources:
 
