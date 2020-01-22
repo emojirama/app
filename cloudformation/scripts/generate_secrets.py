@@ -12,10 +12,10 @@ variables = [
     'EnvironmentName',
     'AppUrl',
     'HostedZoneId',
-    'SSLCertificateArn',
+    # 'SSLCertificateArn',
     'GitSHA',
     'ECRBackendRepositoryName',
-    'WildcardSSLCertificateArn',
+    # 'WildcardSSLCertificateArn',
     'FlowerUsername',
     'FlowerPassword',
     'DjangoSecretKey'

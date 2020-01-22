@@ -9,7 +9,7 @@ stages:
 
 # gitlab ci deployment options
 include:
-  #- local: /gitlab-ci/aws.yml
+  - local: /gitlab-ci/aws.yml
   #- local: /gitlab-ci/gcp.yml
 
 variables:
@@ -17,7 +17,7 @@ variables:
   ECRBackendRepositoryName: ${AppUrl}/backend
   GitSHA: $CI_COMMIT_SHORT_SHA
 
-pwa:
+.pwa:
   image: node:8
   stage: build
   only:
@@ -32,7 +32,7 @@ pwa:
   script:
     - quasar build -m pwa
 
-pages:
+.pages:
   only:
     - master
   image: node:latest
