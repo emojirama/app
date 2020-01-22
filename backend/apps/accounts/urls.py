@@ -2,42 +2,36 @@ from django.urls import include, path, re_path
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
-    TokenVerifyView
+    TokenVerifyView,
 )
 
 from . import views
 
 urlpatterns = [
     re_path(
-        r'^auth/obtain_token/',
+        r"^auth/obtain_token/",
         TokenObtainPairView.as_view(),
-        name='api-jwt-auth'
+        name="api-jwt-auth",
     ),
     re_path(
-        r'^auth/refresh_token/',
+        r"^auth/refresh_token/",
         TokenRefreshView.as_view(),
-        name='api-jwt-refresh'
+        name="api-jwt-refresh",
     ),
     re_path(
-        r'^auth/verify_token/',
+        r"^auth/verify_token/",
         TokenVerifyView.as_view(),
-        name='api-jwt-verify'
+        name="api-jwt-verify",
     ),
     path(
-        'users/profile/',
-        views.Profile.as_view(),
-        name='user-profile'
+        "users/profile/", views.Profile.as_view(), name="user-profile"
     ),
-
     # Social Auth Callbacks
-
     path(
-        'social/<backend>/',
-        views.exchange_token,
-        name="social-auth"
-    )
+        "social/<backend>/", views.exchange_token, name="social-auth"
+    ),
 ]
 
 urlpatterns += [
-    path('api-auth/', include('rest_framework.urls')),
+    path("api-auth/", include("rest_framework.urls")),
 ]

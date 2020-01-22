@@ -7,13 +7,14 @@ from django.views.generic import TemplateView
 from rest_framework import viewsets
 
 # Serve Vue Application via template for GitLab CI
-index_view = never_cache(TemplateView.as_view(template_name='index.html'))
+index_view = never_cache(
+    TemplateView.as_view(template_name="index.html")
+)
 
 r = settings.REDIS
 
 
 class DebugRedis(viewsets.ViewSet):
-
     def get(self, request):
         count = None
 
@@ -42,16 +43,16 @@ class DebugRedis(viewsets.ViewSet):
 def hello_world(request):
     response = JsonResponse(
         {
-            'message': 'Hello, World!',
-            'git_sha': os.environ.get('GIT_SHA', '<git SHA>'),
-            'debug': settings.DEBUG,
-            'format': 'JSON',
-            'ssm_param': os.environ.get('MY_PARAM', 'param_value')
+            "message": "Hello, World!",
+            "git_sha": os.environ.get("GIT_SHA", "<git SHA>"),
+            "debug": settings.DEBUG,
+            "format": "JSON",
+            "ssm_param": os.environ.get("MY_PARAM", "param_value"),
         }
     )
     return response
 
 
 def home(request):
-    response = JsonResponse({'message': 'Root'})
+    response = JsonResponse({"message": "Root"})
     return response

@@ -19,8 +19,8 @@ def get_tokens_for_user(user):
     refresh = RefreshToken.for_user(user)
 
     return {
-        'refresh': str(refresh),
-        'access': str(refresh.access_token),
+        "refresh": str(refresh),
+        "access": str(refresh.access_token),
     }
 
 
@@ -28,13 +28,13 @@ class SocialSerializer(serializers.Serializer):
     """
     Serializer which accepts an OAuth2 code.
     """
+
     code = serializers.CharField(
-        allow_blank=False,
-        trim_whitespace=True,
+        allow_blank=False, trim_whitespace=True,
     )
 
 
-@api_view(http_method_names=['POST'])
+@api_view(http_method_names=["POST"])
 @permission_classes([AllowAny])
 @psa()
 def exchange_token(request, backend):
@@ -62,7 +62,7 @@ def exchange_token(request, backend):
 
     if serializer.is_valid(raise_exception=True):
 
-        code = serializer.validated_data['code']
+        code = serializer.validated_data["code"]
         access_token = get_access_token_from_code(backend, code)
         # set up non-field errors key
         # http://www.django-rest-framework.org/api-guide/exceptions/
@@ -70,7 +70,7 @@ def exchange_token(request, backend):
         try:
             nfe = settings.NON_FIELD_ERRORS_KEY
         except AttributeError:
-            nfe = 'non_field_errors'
+            nfe = "non_field_errors"
 
         try:
             # this line, plus the psa decorator above, are all that's
@@ -86,10 +86,12 @@ def exchange_token(request, backend):
             # send a malformed
             # or incorrect access key.
             return Response(
-                {'errors': {
-                    'token': 'Invalid token',
-                    'detail': str(e),
-                }},
+                {
+                    "errors": {
+                        "token": "Invalid token",
+                        "detail": str(e),
+                    }
+                },
                 status=status.HTTP_400_BAD_REQUEST,
             )
 
@@ -105,7 +107,11 @@ def exchange_token(request, backend):
                 # normal credentials anymore, so they can't log in with social
                 # credentials either.
                 return Response(
-                    {'errors': {nfe: 'This user account is inactive'}},
+                    {
+                        "errors": {
+                            nfe: "This user account is inactive"
+                        }
+                    },
                     status=status.HTTP_400_BAD_REQUEST,
                 )
         else:
@@ -113,7 +119,7 @@ def exchange_token(request, backend):
             # generated as to why specifically the authentication failed;
             # this makes it tough to debug except by examining the server logs.
             return Response(
-                {'errors': {nfe: "Authentication Failed"}},
+                {"errors": {nfe: "Authentication Failed"}},
                 status=status.HTTP_400_BAD_REQUEST,
             )
 

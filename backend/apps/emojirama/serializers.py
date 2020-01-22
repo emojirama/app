@@ -28,9 +28,4 @@ class EmojiramaSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Emojirama
-        fields = [
-            "id",
-            "board",
-            "owner",
-            "owner_profile"
-        ]
+        fields = ["id", "board", "owner", "owner_profile"]

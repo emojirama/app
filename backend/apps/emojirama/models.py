@@ -11,9 +11,9 @@ class Emojirama(BaseModel):
         settings.AUTH_USER_MODEL,
         null=True,
         blank=True,
-        related_name='owner',
-        on_delete=models.CASCADE
+        related_name="owner",
+        on_delete=models.CASCADE,
     )
 
     class Meta:
-        ordering = ('-created_on',)
+        ordering = ("-created_on",)
