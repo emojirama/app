@@ -219,6 +219,7 @@ Resources:
         DesiredCount: 1
         Listener: !GetAtt ALB.Outputs.Listener
         ServiceRole: !GetAtt ServiceRole.Outputs.ServiceRole
+        TaskRole: !GetAtt TaskRole.Outputs.TaskRole
 
   CeleryService4:
     Type: AWS::CloudFormation::Stack
