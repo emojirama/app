@@ -81,14 +81,14 @@ Resources:
               ValueFrom: !Sub "arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/emojirama/staging/env/GITHUB_SECRET"
             - Name: POSTGRES_PASSWORD
               ValueFrom: !Sub "arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/emojirama/staging/env/GITHUB_SECRET"
-            # - Name: FACEBOOK_KEY
-            #   ValueFrom: !Sub "arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/emojirama/staging/env/FACEBOOK_KEY"
-            # - Name: FACEBOOK_SECRET
-            #   ValueFrom: !Sub "arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/emojirama/staging/env/FACEBOOK_SECRET"
-            # - Name: GOOGLE_OAUTH2_KEY
-            #   ValueFrom: !Sub "arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/emojirama/staging/env/GOOGLE_OAUTH2_KEY"
-            # - Name: GOOGLE_OAUTH2_SECRET
-            #   ValueFrom: !Sub "arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/emojirama/staging/env/GOOGLE_OAUTH2_SECRET"
+            - Name: FACEBOOK_KEY
+              ValueFrom: !Sub "arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/emojirama/staging/env/FACEBOOK_KEY"
+            - Name: FACEBOOK_SECRET
+              ValueFrom: !Sub "arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/emojirama/staging/env/FACEBOOK_SECRET"
+            - Name: GOOGLE_OAUTH2_KEY
+              ValueFrom: !Sub "arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/emojirama/staging/env/GOOGLE_OAUTH2_KEY"
+            - Name: GOOGLE_OAUTH2_SECRET
+              ValueFrom: !Sub "arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/emojirama/staging/env/GOOGLE_OAUTH2_SECRET"
           Environment:
             - Name: GIT_SHA
               Value: !Ref GitSHA

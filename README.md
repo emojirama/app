@@ -19,7 +19,6 @@ Deployment to AWS using CloudFormation and GitLab
 - [x] Create stack with only ACM resources and verify
 - [x] Setup S3 bucket and CloudFront CDN in CloudFormation
 - [x] Build ECR resources in CloudFormation
-- [ ] Bring up VPC and other stateless services
-- [ ] Create OAuth2 apps for Facebook, Google and GitHub
-- [ ] Add OAuth2 app secrets to `backend.yaml` secrets and to AWS parameter store
-- [ ]
+- [x] Bring up VPC and other stateless services
+- [x] Create OAuth2 apps for Facebook, Google and GitHub
+- [x] Add OAuth2 app secrets to `backend.yaml` secrets and to AWS parameter store
