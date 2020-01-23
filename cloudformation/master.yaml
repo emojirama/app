@@ -281,6 +281,7 @@ Resources:
         StackName: !Ref StackName
         DjangoSecretKey: !Ref DjangoSecretKey
         AppUrl: !Ref AppUrl
+        TaskRole: !GetAtt TaskRole.Outputs.TaskRole
 
   FrontendResources:
     Type: AWS::CloudFormation::Stack

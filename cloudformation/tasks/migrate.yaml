@@ -21,11 +21,16 @@ Parameters:
     Type: String
     NoEcho: true
 
+  TaskRole:
+    Description: An IAM Role that allows tasks to access SSM parameter store
+    Type: String
+
 Resources:
   MigrateTaskDefinition:
     Type: AWS::ECS::TaskDefinition
     Properties:
       Family: migrate
+      ExecutionRoleArn: !Ref TaskRole
       ContainerDefinitions:
         - Name: migrate
           Essential: true
