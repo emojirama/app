@@ -1,11 +1,8 @@
 <template>
   <q-page-container>
     <q-page padding>
-      <page-header>About this site...</page-header>
-      <page-text>
-        This site is built with Django, Vue, Postgres, nginx, docker, and other
-        technologies...
-      </page-text>
+      <page-header>About emojirama...</page-header>
+      <page-text> </page-text>
     </q-page>
   </q-page-container>
 </template>
