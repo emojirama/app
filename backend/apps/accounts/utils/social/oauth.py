@@ -1,5 +1,6 @@
 import os
 from urllib import parse
+from django.conf import settings
 
 import requests
 
@@ -28,7 +29,7 @@ def get_payload(backend, code):
             "code": code,
             "client_id": client_id,
             "client_secret": client_secret,
-            "redirect_uri": "http://localhost/auth/google-oauth2/callback",
+            "redirect_uri": f"{settings.CLIENT_URL}/auth/google-oauth2/callback",
             "grant_type": "authorization_code",
         }
     elif backend == "facebook":
@@ -36,7 +37,7 @@ def get_payload(backend, code):
             "code": code,
             "client_id": client_id,
             "client_secret": client_secret,
-            "redirect_uri": "http://localhost/auth/facebook/callback",
+            "redirect_uri": f"{settings.CLIENT_URL}/auth/facebook/callback",
         }
 
     return payload

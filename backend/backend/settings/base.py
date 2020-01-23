@@ -263,3 +263,10 @@ PRIVATE_FILE_STORAGE = "backend.storage_backends.PrivateMediaStorage"
 
 EMAIL_HOST = os.environ.get("DJANGO_EMAIL_HOST", "mailhog")
 EMAIL_PORT = os.environ.get("DJANGO_EMAIL_PORT", "1025")
+
+# Frontend client
+
+CLIENT_DOMAIN = os.environ.get("APP_URL", "localhost")
+CLIENT_PROTOCOL = os.environ.get("CLIENT_PROTOCOL", "https")
+
+CLIENT_URL = f"{CLIENT_DOMAIN}://{CLIENT_PROTOCOL}"
