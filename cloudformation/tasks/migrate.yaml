@@ -36,6 +36,9 @@ Resources:
             - manage.py
             - migrate
             - --no-input
+          Secrets:
+            - Name: POSTGRES_PASSWORD
+              ValueFrom: !Sub "arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/emojirama/staging/env/POSTGRES_PASSWORD"
           Environment:
             - Name: SECRET_KEY
               Value: !Ref DjangoSecretKey
@@ -46,8 +49,6 @@ Resources:
             - Name: POSTGRES_NAME
               Value: postgres
             - Name: POSTGRES_USERNAME
-              Value: postgres
-            - Name: POSTGRES_PASSWORD
               Value: postgres
             - Name: POSTGRES_SERVICE_HOST
               Value:

@@ -80,7 +80,7 @@ Resources:
             - Name: GITHUB_SECRET
               ValueFrom: !Sub "arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/emojirama/staging/env/GITHUB_SECRET"
             - Name: POSTGRES_PASSWORD
-              ValueFrom: !Sub "arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/emojirama/staging/env/GITHUB_SECRET"
+              ValueFrom: !Sub "arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/emojirama/staging/env/POSTGRES_PASSWORD"
             - Name: FACEBOOK_KEY
               ValueFrom: !Sub "arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/emojirama/staging/env/FACEBOOK_KEY"
             - Name: FACEBOOK_SECRET
