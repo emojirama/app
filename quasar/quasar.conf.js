@@ -113,6 +113,9 @@ module.exports = function(ctx) {
     build: {
       env: ctx.dev
         ? {
+            FRONTEND_URL: JSON.stringify(
+              `${process.env.HTTP_PROTOCOL}://${process.env.BASE_URL}`
+            ),
             API_URL: JSON.stringify(
               `${process.env.HTTP_PROTOCOL}://${`192.168.1.4` ||
                 process.env.DOMAIN_NAME}`
@@ -126,6 +129,9 @@ module.exports = function(ctx) {
             FACEBOOK_KEY: JSON.stringify(process.env.FACEBOOK_KEY)
           }
         : {
+            FRONTEND_URL: JSON.stringify(
+              `${process.env.HTTP_PROTOCOL}://${process.env.BASE_URL}`
+            ),
             API_URL: JSON.stringify(
               `${process.env.HTTP_PROTOCOL}://${process.env.DOMAIN_NAME}`
             ),

@@ -57,7 +57,7 @@ Resources:
       Engine: "postgres"
       EngineVersion: "10.6"
       MasterUsername: "postgres"
-      MasterUserPassword: "postgres"
+      MasterUserPassword: "{{resolve:ssm:/emojirama/staging/env/POSTGRES_PASSWORD:1}}"
       DBSnapshotIdentifier: !FindInMap [SnapshotMappings, !Ref EnvironmentName, SnapshotArn]
       Port: "5432"
       PubliclyAccessible: true

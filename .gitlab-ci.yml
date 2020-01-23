@@ -175,9 +175,11 @@ variables:
   # only:
   #   - master
   variables:
+    BASE_URL: "${AppUrl}"
     DOMAIN_NAME: "api.${AppUrl}"
-    GOOGLE_OAUTH2_KEY: google123
-    GITHUB_KEY: github123
+    GOOGLE_OAUTH2_KEY: "${GOOGLE_OAUTH2_KEY}"
+    GITHUB_KEY: "${GITHUB_KEY}"
+    FACEBOOK_KEY: "${FACEBOOK_KEY}"
     WS_PROTOCOL: wss
     HTTP_PROTOCOL: https
   artifacts:

@@ -82,11 +82,11 @@ Conditions:
   UseDjangoStorage: !Equals [ 1, 1 ]
   UseServiceRole: !Equals [ 1, 1 ]
   UseTaskRole: !Equals [ 1, 1 ]
-  RunServices: !Equals [ 1, 0 ]
-  UseRDS: !Equals [ 1, 0 ]
+  UseRDS: !Equals [ 1, 1 ]
+  UseElastiCache: !Equals [ 1, 1 ]
   UseALB: !Equals [ 1, 1 ]
   UseECS: !Equals [ 1, 1 ]
-  UseElastiCache: !Equals [ 1, 0 ]
+  RunServices: !Equals [ 1, 0 ]
 
 Resources:
 

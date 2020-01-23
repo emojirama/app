@@ -1,4 +1,4 @@
-const url = process.env.API_URL;
+const url = process.env.FRONTEND_URL;
 
 const oauth = {
   github: {
