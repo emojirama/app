@@ -1,6 +1,8 @@
 from django.contrib.auth.models import AbstractUser
+from django.contrib.postgres.fields import JSONField
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
+
 
 from .managers import CustomUserManager
 
@@ -12,7 +14,7 @@ class CustomUser(AbstractUser):
 
     username = None
     email = models.EmailField(_("email address"), unique=True)
-
+    profile = JSONField(default=dict)
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
 

@@ -1,8 +1,12 @@
+import pytest
+
 from django.contrib.auth import get_user_model
 from django.test import TestCase  # noqa
 from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase
+
+from apps.core.tests.utils import login
 
 User = get_user_model()
 
@@ -80,3 +84,17 @@ class AccountsTests(APITestCase):
         )
         self.assertEqual(resp.status_code, status.HTTP_200_OK)
         self.assertTrue("access" in resp.data)
+
+
+@pytest.mark.django_db(transaction=True)
+def test_user_profile():
+    client = login()
+    profile = {"emoji": {"code": "boy", "skin": 3}}
+    client.post(
+        reverse("user-profile"),
+        data={"profile": profile},
+        format='json'
+    )
+
+    assert User.objects.all().first().profile["emoji"]["code"] == \
+        "boy"

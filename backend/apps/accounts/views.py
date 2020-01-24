@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from requests.exceptions import HTTPError
-from rest_framework import permissions, serializers, status
+from rest_framework import permissions, serializers, status, viewsets
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
@@ -124,10 +124,18 @@ def exchange_token(request, backend):
             )
 
 
-class Profile(APIView):
+class Profile(viewsets.ViewSet):
     permission_classes = (permissions.IsAuthenticated,)
 
     def get(self, request, format=None):
         user = request.user
-        serialized_user = UserSerializer(user)
-        return Response(serialized_user.data)
+        serializer = UserSerializer(user)
+        return Response(serializer.data)
+
+    def post(self, request):
+        user = request.user
+        serializer = UserSerializer(user, data=request.data)
+        if serializer.is_valid():
+            serializer.save(partial=True)
+            return Response(serializer.data)
+        return Response(serializer.errors)

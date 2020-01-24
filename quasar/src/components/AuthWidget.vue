@@ -1,6 +1,10 @@
 <template>
   <div>
-    <div v-if="$store.getters.isAuthenticated" @click="$router.push('/login')">
+    <auth-menu></auth-menu>
+    <div
+      v-if="$store.getters.isAuthenticated"
+      @click="$store.commit('toggleAuthMenu')"
+    >
       <base-emoji
         :native="false"
         :sheetSize="64"

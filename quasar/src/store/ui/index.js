@@ -1,9 +1,8 @@
 const state = {
-  visible: false,
   isDark: true,
   leftDrawerOpen: false,
-  nextLink: null,
-  authPanel: "login",
+  showAuthMenu: false,
+
   // game
   sets: {
     apple: "Apple",
@@ -35,12 +34,10 @@ const state = {
 };
 
 const getters = {
+  getShowAuthMenu: s => s.showAuthMenu,
   getEmojiSetOptions: s => Object.keys(s.sets),
   getEmojiSet: s => s.set,
   leftDrawerOpen: s => s.leftDrawerOpen,
-  authModalVisible: s => s.visible,
-  getNextLink: s => s.nextLink,
-  getAuthPanel: s => s.authPanel,
   isDark: s => s.isDark,
   getShowLanguageMenu: s => s.showLanguageMenu,
   // game
@@ -61,6 +58,9 @@ const getters = {
 };
 
 const mutations = {
+  toggleAuthMenu: state => {
+    state.showAuthMenu = !state.showAuthMenu;
+  },
   setEmojiSet: (state, payload) => {
     state.set = payload;
     state.useNativeEmoji = false;
@@ -81,12 +81,6 @@ const mutations = {
   },
   toggleDarkMode: state => {
     state.isDark = !state.isDark;
-  },
-  setAuthPanel: (state, payload) => {
-    state.authPanel = payload;
-  },
-  toggleLoginMenu: state => {
-    state.visible = !state.visible;
   },
   toggleLeftDrawer: (state, payload) => {
     if (payload) {

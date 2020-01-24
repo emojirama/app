@@ -1,5 +1,7 @@
 <template>
-  <q-btn :id="id" :color="color" text-color="black"><slot></slot></q-btn>
+  <q-btn :id="id" :color="color" :text-color="textColor" :class="buttonClass"
+    ><slot></slot
+  ></q-btn>
 </template>
 
 <script>
@@ -12,11 +14,15 @@ export default {
     color: {
       type: String,
       default: "white"
+    },
+    textColor: {
+      type: String,
+      default: "black"
+    },
+    buttonClass: {
+      type: String,
+      default: null
     }
-  },
-  textColor: {
-    type: String,
-    default: "black"
   }
 };
 </script>
