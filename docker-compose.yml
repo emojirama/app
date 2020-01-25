@@ -68,6 +68,7 @@ services:
       - backend
       - postgres
     environment:
+      - BASE_URL=localhost
       - CHOKIDAR_USEPOLLING=true
       - GITHUB_KEY=${GITHUB_KEY}
       - GOOGLE_OAUTH2_KEY=${GOOGLE_OAUTH2_KEY}

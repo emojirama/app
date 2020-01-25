@@ -114,14 +114,17 @@ module.exports = function(ctx) {
       env: ctx.dev
         ? {
             FRONTEND_URL: JSON.stringify(
-              `${process.env.HTTP_PROTOCOL}://${process.env.BASE_URL}`
+              `${process.env.HTTP_PROTOCOL}://${`localhost` ||
+                process.env.BASE_URL}`
             ),
             API_URL: JSON.stringify(
-              `${process.env.HTTP_PROTOCOL}://${`192.168.1.4` ||
+              `${process.env.HTTP_PROTOCOL}://${`localhost` ||
+                `192.168.1.4` ||
                 process.env.DOMAIN_NAME}`
             ),
             WS_BASE_URL: JSON.stringify(
-              `${process.env.WS_PROTOCOL}://${`192.168.1.4` ||
+              `${process.env.WS_PROTOCOL}://${`localhost` ||
+                `192.168.1.4` ||
                 process.env.DOMAIN_NAME}/ws/`
             ),
             GITHUB_KEY: JSON.stringify(process.env.GITHUB_KEY),

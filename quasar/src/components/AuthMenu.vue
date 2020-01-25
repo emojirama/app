@@ -23,9 +23,13 @@
             color="primary"
             >{{ $t("Edit Profile") }}</base-btn
           >
-          <base-btn buttonClass="full-width" textColor="white" color="red">{{
-            $t("Logout")
-          }}</base-btn>
+          <base-btn
+            @click.native="$store.dispatch('AUTH_LOGOUT')"
+            buttonClass="full-width"
+            textColor="white"
+            color="red"
+            >{{ $t("Logout") }}</base-btn
+          >
         </div>
       </q-card-section>
     </base-card>

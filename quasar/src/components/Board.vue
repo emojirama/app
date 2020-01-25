@@ -69,7 +69,7 @@ export default {
       this.$store.dispatch("move", e.direction);
     },
     pan(e) {
-      if (new Date().getTime() > this.lastMove + 150) {
+      if (new Date().getTime() > this.lastMove + 100) {
         this.lastMove = new Date().getTime();
         this.move(e);
       }

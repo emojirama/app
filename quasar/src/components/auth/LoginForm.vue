@@ -49,11 +49,7 @@ export default {
         })
         .then(() => {
           vm.$router.push("/");
-          const refreshFrequency =
-            process.env.NODE_ENV === "development" ? 0.1 : 4;
-          setInterval(() => {
-            vm.$store.dispatch("AUTH_REFRESH");
-          }, 1000 * 60 * refreshFrequency);
+          vm.$store.dispatch("initialAuthCheck", { vm });
         });
       this.email = "";
       this.password = "";
