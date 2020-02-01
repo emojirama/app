@@ -9,15 +9,22 @@ import { AUTH_LOGOUT } from "../auth";
 
 const state = {
   status: "",
-  profile: {}
+  profile: {
+    profile: {
+      emoji: {
+        code: "",
+        skin: ""
+      }
+    }
+  }
 };
 
 const getters = {
   getProfile: s => s.profile,
   isProfileLoaded: s => !!s.profile.name,
   getCurrentUserId: s => s.profile.id,
-  getProfileEmoji: s => {
-    if (s.profile.profile.emoji.code === "") {
+  getProfileEmoji: (s, getters) => {
+    if (!s.profile.profile.emoji.code) {
       return "bust_in_silhouette";
     } else {
       // TODO
@@ -39,11 +46,7 @@ const actions = {
       .get("/api/users/profile/")
       .then(resp => {
         const profile = resp.data;
-        commit(USER_SUCCESS, {
-          email: profile.email,
-          id: profile.id,
-          profile: profile.profile
-        });
+        commit(USER_SUCCESS, profile);
       })
       .catch(err => {
         commit(USER_ERROR);

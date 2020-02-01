@@ -9,18 +9,13 @@
       <base-emoji
         :native="false"
         :sheetSize="64"
-        :emoji="
-          $store.getters.isAuthenticated
-            ? $store.getters.getProfileEmoji
-            : `lock_with_ink_pen`
-        "
+        :emoji="$store.getters.getProfileEmoji"
         :size="28"
         :skin="1"
       />
     </div>
     <div id="auth-widget-button" v-else @click="$router.push('/login')">
       <base-emoji
-        v-if="!$store.getters.isAuthenticated"
         :native="false"
         :sheetSize="64"
         :emoji="`lock_with_ink_pen`"
