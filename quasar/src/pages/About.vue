@@ -2,7 +2,6 @@
   <base-page>
     <page-text>
       <page-header>About emojirama</page-header>
-      Hi, I’m Brian. I’m a software engineer based in Philadelphia.
     </page-text>
     <page-text>
       emojirama is a web app for creating and sharing immersive emoji
