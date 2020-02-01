@@ -21,8 +21,10 @@ import AuthWidget from "components/AuthWidget.vue";
 import SocialAuthButton from "components/SocialAuthButton.vue";
 import DeleteEmojiramaWidget from "components/DeleteEmojiramaWidget.vue";
 import AuthMenu from "components/AuthMenu.vue";
+import ProfileEditForm from "components/ProfileEditForm.vue";
 
 export default async ({ Vue }) => {
+  Vue.component("ProfileEditForm", ProfileEditForm);
   Vue.component("AuthMenu", AuthMenu);
   Vue.component("DeleteEmojiramaWidget", DeleteEmojiramaWidget);
   Vue.component("SocialAuthButton", SocialAuthButton);

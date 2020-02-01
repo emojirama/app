@@ -9,7 +9,11 @@
               class="square-preview"
               v-if="squareConfigEmoji"
             >
-              <base-emoji :emoji="squareConfigEmoji" :size="64" />
+              <base-emoji
+                :native="false"
+                :emoji="squareConfigEmoji"
+                :size="64"
+              />
             </div>
             <div v-else></div>
             <div v-if="!portalExists">

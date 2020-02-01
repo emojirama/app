@@ -7,23 +7,17 @@
     "
   >
     <q-toolbar>
-      <q-btn
-        id="toggleLeftDrawer"
-        flat
-        dense
-        round
-        @click="toggleLeftDrawer"
-        aria-label="Menu"
+      <base-emoji
+        :emoji="`hamburger`"
+        @click.native="toggleLeftDrawer"
+        :native="false"
       >
-        <q-icon name="menu" />
-      </q-btn>
-
-      <q-toolbar-title>emojirama</q-toolbar-title>
+      </base-emoji>
+      <q-toolbar-title>{{ $t("emojirama") }}</q-toolbar-title>
       <toggle-dark />
-
       <language-select />
-
       <auth-widget />
+      <profile-edit-form />
     </q-toolbar>
   </q-header>
 </template>

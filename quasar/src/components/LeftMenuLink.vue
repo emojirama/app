@@ -2,7 +2,13 @@
   <div>
     <q-item clickable tag="a" :to="to" exact>
       <q-item-section avatar>
-        <q-icon :name="icon" />
+        <base-emoji
+          :emoji="emoji"
+          @click.native="toggleLeftDrawer"
+          :native="false"
+        >
+        </base-emoji>
+        <!-- <q-icon :name="icon" /> -->
       </q-item-section>
       <q-item-section>
         <q-item-label>{{ label }}</q-item-label>
@@ -14,7 +20,7 @@
 
 <script>
 export default {
-  props: ["label", "to", "icon", "caption"]
+  props: ["label", "to", "icon", "caption", "emoji"]
 };
 </script>
 

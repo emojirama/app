@@ -2,6 +2,7 @@ const state = {
   isDark: true,
   leftDrawerOpen: false,
   showAuthMenu: false,
+  showProfileEditForm: false,
 
   // game
   sets: {
@@ -34,6 +35,7 @@ const state = {
 };
 
 const getters = {
+  getShowProfileEditForm: s => s.showProfileEditForm,
   getShowAuthMenu: s => s.showAuthMenu,
   getEmojiSetOptions: s => Object.keys(s.sets),
   getEmojiSet: s => s.set,
@@ -58,6 +60,9 @@ const getters = {
 };
 
 const mutations = {
+  toggleProfileEditForm: state => {
+    state.showProfileEditForm = !state.showProfileEditForm;
+  },
   toggleAuthMenu: state => {
     state.showAuthMenu = !state.showAuthMenu;
   },

@@ -9,7 +9,6 @@
       control-color="white"
       navigation
       padding
-      arrows
       height="300px"
       :class="
         `text-white shadow-1 rounded-borders ${
@@ -18,10 +17,17 @@
       "
     >
       <q-carousel-slide name="style" class="column no-wrap flex-center">
-        <q-icon name="layers" size="56px" />
+        <base-emoji
+          :size="64"
+          :emoji="`tada`"
+          @click.native="toggleLeftDrawer"
+          :native="false"
+        >
+        </base-emoji>
         <div class="q-mt-md text-center">
-          A full-stack application built with Django, Quasar, Postgres and other
-          technologies.
+          <p style="font-size: 1.5rem;">
+            {{ $t("welcome to emojirama") }}
+          </p>
         </div>
       </q-carousel-slide>
       <q-carousel-slide name="tv" class="column no-wrap flex-center">

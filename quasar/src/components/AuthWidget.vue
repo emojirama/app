@@ -2,6 +2,7 @@
   <div>
     <auth-menu></auth-menu>
     <div
+      id="profile-button"
       v-if="$store.getters.isAuthenticated"
       @click="$store.commit('toggleAuthMenu')"
     >
@@ -17,7 +18,7 @@
         :skin="1"
       />
     </div>
-    <div v-else @click="$router.push('/login')">
+    <div id="auth-widget-button" v-else @click="$router.push('/login')">
       <base-emoji
         v-if="!$store.getters.isAuthenticated"
         :native="false"

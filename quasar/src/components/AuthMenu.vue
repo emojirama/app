@@ -16,20 +16,23 @@
               :skin="1"
             />
           </div>
-
-          <base-btn
-            buttonClass="full-width"
-            textColor="white"
-            color="primary"
-            >{{ $t("Edit Profile") }}</base-btn
-          >
-          <base-btn
-            @click.native="$store.dispatch('AUTH_LOGOUT')"
-            buttonClass="full-width"
-            textColor="white"
-            color="red"
-            >{{ $t("Logout") }}</base-btn
-          >
+          <div class="auth-menu-button-wrapper">
+            <base-btn
+              @click.native="clicked"
+              id="edit-profile-button"
+              buttonClass="full-width"
+              textColor="white"
+              color="primary"
+              >{{ $t("Edit Profile") }}</base-btn
+            >
+            <base-btn
+              @click.native="$store.dispatch('AUTH_LOGOUT')"
+              buttonClass="full-width"
+              textColor="white"
+              color="red"
+              >{{ $t("Logout") }}</base-btn
+            >
+          </div>
         </div>
       </q-card-section>
     </base-card>
@@ -38,6 +41,12 @@
 
 <script>
 export default {
+  methods: {
+    clicked() {
+      this.$store.commit("toggleAuthMenu");
+      this.$store.commit("toggleProfileEditForm");
+    }
+  },
   computed: {
     showAuthMenu: {
       get() {
@@ -62,5 +71,9 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.auth-menu-button-wrapper {
+  display: grid;
+  gap: 10px;
 }
 </style>

@@ -17,16 +17,23 @@ const getters = {
   isProfileLoaded: s => !!s.profile.name,
   getCurrentUserId: s => s.profile.id,
   getProfileEmoji: s => {
-    if (s.profile.emoji === "") {
+    if (s.profile.profile.emoji.code === "") {
       return "bust_in_silhouette";
     } else {
       // TODO
-      return "elf"; // get the user's profile emoji
+      return s.profile.profile.emoji.code; // get the user's profile emoji
     }
   }
 };
 
 const actions = {
+  saveProfile: ({ commit }, payload) => {
+    Vue.prototype.$axios
+      .post("/api/users/profile/", { profile: payload.profile })
+      .then(resp => {
+        commit("setUserProfile", resp.data);
+      });
+  },
   [USER_REQUEST]: ({ dispatch, commit }) => {
     Vue.prototype.$axios
       .get("/api/users/profile/")
@@ -35,7 +42,7 @@ const actions = {
         commit(USER_SUCCESS, {
           email: profile.email,
           id: profile.id,
-          emoji: ""
+          profile: profile.profile
         });
       })
       .catch(err => {
@@ -46,6 +53,9 @@ const actions = {
 };
 
 const mutations = {
+  setUserProfile: (state, payload) => {
+    state.profile = payload;
+  },
   [USER_REQUEST]: s => {
     s.status = "loading";
   },

@@ -118,8 +118,8 @@ module.exports = function(ctx) {
                 process.env.BASE_URL}`
             ),
             API_URL: JSON.stringify(
-              `${process.env.HTTP_PROTOCOL}://${`localhost` ||
-                `192.168.1.4` ||
+              `${process.env.HTTP_PROTOCOL}://${`192.168.1.4` ||
+                `localhost` ||
                 process.env.DOMAIN_NAME}`
             ),
             WS_BASE_URL: JSON.stringify(

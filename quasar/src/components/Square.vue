@@ -67,7 +67,7 @@ export default {
         this.position[0] === this.$store.getters.getPosition[0] &&
         this.position[1] === this.$store.getters.getPosition[1]
       ) {
-        return "elf";
+        return "boy"; //this.$store.getters.getProfileEmoji.code;
       }
 
       return null;
@@ -78,7 +78,7 @@ export default {
         this.position[0] === this.$store.getters.getPosition[0] &&
         this.position[1] === this.$store.getters.getPosition[1]
       ) {
-        return this.$store.getters.getCurrentEmoji; // this.emoji;
+        return this.$store.getters.getProfileEmoji; // this.emoji;
       }
       return this.emoji;
     },

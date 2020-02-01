@@ -6,7 +6,7 @@ const leftDrawer = {
     },
     about: {
       main: "关于",
-      sub: "关于这个APP"
+      sub: "关于表情广场"
     },
     protected: {
       main: "保护",
