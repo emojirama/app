@@ -1,7 +1,11 @@
 <template>
   <div>
     <a :href="$store.getters.oauthUrl(provider)">
-      <img :src="`/assets/${imagePrefix}.png`" :alt="provider" class="social" />
+      <img
+        :src="'/assets/' + imagePrefix + '.png'"
+        :alt="provider"
+        class="social"
+      />
     </a>
   </div>
 </template>
