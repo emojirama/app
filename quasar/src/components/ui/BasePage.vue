@@ -18,4 +18,9 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.base-page-wrapper {
+  overflow-y: scroll;
+  height: 100vh;
+}
+</style>

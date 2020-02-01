@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="wrapper">
     <auth-menu></auth-menu>
     <div
       id="profile-button"
@@ -30,4 +30,8 @@
 export default {};
 </script>
 
-<style lang="scss" scoped></style>
+<style scoped>
+.wrapper {
+  cursor: pointer;
+}
+</style>

@@ -1,50 +1,61 @@
 <template>
-  <base-page class="base-page-wrapper">
-    <div ref="preview">
-      <page-header>Emojirama</page-header>
-      <div
-        :data-index="`emojirama_id_${e.id}`"
-        v-for="(e, i) in emojirama"
-        :key="e.id"
-      >
-        <base-btn
-          :id="`emojirama_${i}`"
-          @click.native="$router.push(`/emojirama/${e.id}`)"
-          >{{ e.id }}</base-btn
-        >
-
-        <base-btn
-          :id="`emojirama_live_${i}`"
-          @click.native="$router.push(`/emojirama/live/${e.id}`)"
-          >Live {{ e.id }}</base-btn
-        >
-        <delete-emojirama-widget
-          @reload="fetchData"
-          v-if="
-            e.owner_profile &&
-              e.owner_profile.id === $store.getters.getCurrentUserId
-          "
-          :id="e.id"
+  <base-page>
+    <div class="wrapper" ref="preview">
+      <div>
+        <base-emoji
+          :native="false"
+          :sheetSize="64"
+          :emoji="`file_cabinet`"
+          :size="64"
+          :skin="1"
         />
-        <!-- <div v-if="e.owner && e.owner.id === $store.getters.getCurrentUserId">
-          <emoji-button :native="false" :emoji="`wastebasket`"></emoji-button>
-        </div> -->
-        <emojirama-preview :board="e.board" />
+      </div>
+      <div class="pagination-wrapper">
+        <div>
+          <base-card>
+            <q-pagination
+              v-model="currentPage"
+              :color="$store.getters.isDark ? `black` : `grey`"
+              :dark="$store.getters.isDark"
+              :text-color="$store.getters.isDark ? `white` : `black`"
+              :max="getMax"
+              :max-pages="6"
+              :boundary-numbers="false"
+              @input="fetchData"
+            >
+            </q-pagination>
+          </base-card>
+        </div>
+      </div>
+      <div class="item-list" v-if="emojirama.length > 0">
+        <div
+          :data-index="`emojirama_id_${e.id}`"
+          v-for="(e, i) in emojirama"
+          :key="e.id"
+        >
+          <div>
+            <emojirama-preview @fetchData="fetchData" :i="i" :emojirama="e" />
+          </div>
+        </div>
       </div>
     </div>
-    <q-card color="white">
-      <q-pagination
-        v-model="currentPage"
-        :color="$store.getters.isDark ? `black` : `grey`"
-        :dark="$store.getters.isDark"
-        :text-color="$store.getters.isDark ? `white` : `black`"
-        :max="getMax"
-        :max-pages="6"
-        :boundary-numbers="false"
-        @input="fetchData"
-      >
-      </q-pagination>
-    </q-card>
+    <div class="pagination-wrapper">
+      <div>
+        <base-card>
+          <q-pagination
+            v-model="currentPage"
+            :color="$store.getters.isDark ? `black` : `grey`"
+            :dark="$store.getters.isDark"
+            :text-color="$store.getters.isDark ? `white` : `black`"
+            :max="getMax"
+            :max-pages="6"
+            :boundary-numbers="false"
+            @input="fetchData"
+          >
+          </q-pagination>
+        </base-card>
+      </div>
+    </div>
   </base-page>
 </template>
 
@@ -83,6 +94,7 @@ export default {
   },
   methods: {
     fetchData() {
+      console.log("fetching...");
       this.emojirama = [];
       this.$axios
         .get(`/api/emojirama/`, {
@@ -101,8 +113,31 @@ export default {
 </script>
 
 <style scoped>
-.base-page-wrapper {
-  overflow-y: scroll;
-  height: 100vh;
+.pagination-wrapper {
+  text-align: center;
+  display: flex;
+  /* align-content: center; */
+  justify-content: center;
+  padding: 10px;
+  width: auto;
+}
+.wrapper {
+  text-align: center;
+  display: grid;
+  justify-content: center;
+  /* overflow-x: hidden; */
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  width: auto;
+}
+
+.q-pagination {
+  width: fit-content;
+}
+
+.item-list {
+  display: grid;
+  gap: 15px;
+  overflow-x: hidden;
 }
 </style>

@@ -9,6 +9,9 @@
 <script>
 export default {
   name: "PageIndex",
-  mounted() {}
+  mounted() {},
+  created() {
+    document.body.style["overflow-y"] = "scroll";
+  }
 };
 </script>

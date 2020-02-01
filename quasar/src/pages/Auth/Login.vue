@@ -25,9 +25,6 @@
         </div>
         <login-form v-if="true"></login-form>
       </base-card>
-      <!-- <span class="signup">
-        <router-link to="/signup"><page-text>Sign Up</page-text></router-link>
-      </span> -->
     </div>
   </base-page>
 </template>

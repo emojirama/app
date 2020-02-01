@@ -12,7 +12,6 @@
           <div @click="deleteEmojirama">
             <emoji-button
               :backgroundColor="`white`"
-              :size="24"
               :native="false"
               :emoji="`wastebasket`"
             />

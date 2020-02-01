@@ -26,7 +26,7 @@
     <template v-else>
       <base-emoji
         v-if="isCurrentSquare"
-        :emoji="$store.getters.getCurrentEmoji['emoji']"
+        :emoji="$store.getters.getProfileEmoji"
         :skin="$store.getters.getCurrentEmoji['tone']"
         :native="$store.getters.getUseNativeEmoji"
         :size="
