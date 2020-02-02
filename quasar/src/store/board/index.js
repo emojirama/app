@@ -28,10 +28,12 @@ const state = {
   showSquareConfig: false,
   squareConfigPosition: [0, 0],
   movementMode: "normal",
-  showSceneMenu: false
+  showSceneMenu: false,
+  gridLineWidth: 0
 };
 
 const getters = {
+  getGridLineWidth: s => s.gridLineWidth,
   getMovementMode: s => s.movementMode,
   getSquareSize: s => s.squareSize,
   getRows: s => s.rows,
@@ -206,6 +208,13 @@ const actions = {
 };
 
 const mutations = {
+  toggleGridLines: state => {
+    if (state.gridLineWidth === 0) {
+      state.gridLineWidth = 0.5;
+    } else {
+      state.gridLineWidth = 0;
+    }
+  },
   setZoom: (state, payload) => {
     state.squareSize = state.squareSize + payload;
     window.dispatchEvent(new Event("resize"));

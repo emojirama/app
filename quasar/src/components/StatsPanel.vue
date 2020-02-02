@@ -37,7 +37,7 @@ export default {
   position: absolute;
   background-color: white;
   opacity: 0.4;
-  top: 50px;
+  top: 15%;
   left: 0px;
   padding: 20px;
   z-index: 100;

@@ -85,7 +85,7 @@ export default {
       ]["data"][0].length;
       return {
         display: "grid",
-        gap: "0.5px",
+        gap: `${this.$store.getters.getGridLineWidth}px`,
         gridTemplateColumns: `repeat(${Math.min(
           this.$store.getters.getCols,
           boardCols
