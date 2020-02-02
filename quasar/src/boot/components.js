@@ -17,6 +17,7 @@ import EmojiButton from "components/EmojiButton.vue";
 import MovementControl from "components/MovementControl.vue";
 import ZoomControl from "components/ZoomControl.vue";
 import ToggleStats from "components/ToggleStats.vue";
+import ToggleGridLines from "components/ToggleGridLines.vue";
 import AuthWidget from "components/AuthWidget.vue";
 import SocialAuthButton from "components/SocialAuthButton.vue";
 import DeleteEmojiramaWidget from "components/DeleteEmojiramaWidget.vue";
@@ -30,6 +31,7 @@ export default async ({ Vue }) => {
   Vue.component("SocialAuthButton", SocialAuthButton);
   Vue.component("AuthWidget", AuthWidget);
   Vue.component("ToggleStats", ToggleStats);
+  Vue.component("ToggleGridLines", ToggleGridLines);
   Vue.component("ZoomControl", ZoomControl);
   Vue.component("MovementControl", MovementControl);
   Vue.component("EmojiButton", EmojiButton);

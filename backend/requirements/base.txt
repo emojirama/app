@@ -32,6 +32,8 @@ pandas==0.24.2
 pandas_flavor==0.1.2
 pyjanitor==0.16.6
 
+matplotlib==3.1.2
+
 xlrd==1.2.0 # required by pandas for Excel support
 XlsxWriter==1.1.6 # used by the excel recon tool
 django-postgres-copy==2.4.0

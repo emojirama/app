@@ -28,10 +28,12 @@ const state = {
   showSquareConfig: false,
   squareConfigPosition: [0, 0],
   movementMode: "normal",
-  showSceneMenu: false
+  showSceneMenu: false,
+  gridLineWidth: 0
 };
 
 const getters = {
+  getGridLineWidth: s => s.gridLineWidth,
   getMovementMode: s => s.movementMode,
   getSquareSize: s => s.squareSize,
   getRows: s => s.rows,
@@ -80,10 +82,15 @@ const getters = {
         nextSquarePos = [s.position[0] + 1, s.position[1]];
         break;
     }
-    const nextSquare =
-      s.board["scenes"][s.currentScene]["data"][nextSquarePos[0]][
-        nextSquarePos[1]
-      ];
+    let nextSquare;
+    try {
+      nextSquare =
+        s.board["scenes"][s.currentScene]["data"][nextSquarePos[0]][
+          nextSquarePos[1]
+        ];
+    } catch (err) {
+      nextSquare = null;
+    }
     // console.log(JSON.stringify(nextSquare));
     return nextSquare;
     // return s.board
@@ -183,8 +190,14 @@ const actions = {
     payload
   ) => {
     const nextSquare = getters.getNextSquare(payload);
+    if (nextSquare === null) {
+      return;
+    }
     if (nextSquare.portal) {
       commit("travelPortal", nextSquare.portal);
+      return;
+    }
+    if (nextSquare.emoji !== "") {
       return;
     }
     const mode = getters.getMovementMode;
@@ -206,6 +219,13 @@ const actions = {
 };
 
 const mutations = {
+  toggleGridLines: state => {
+    if (state.gridLineWidth === 0) {
+      state.gridLineWidth = 0.5;
+    } else {
+      state.gridLineWidth = 0;
+    }
+  },
   setZoom: (state, payload) => {
     state.squareSize = state.squareSize + payload;
     window.dispatchEvent(new Event("resize"));
