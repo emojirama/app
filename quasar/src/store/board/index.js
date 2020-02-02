@@ -82,10 +82,15 @@ const getters = {
         nextSquarePos = [s.position[0] + 1, s.position[1]];
         break;
     }
-    const nextSquare =
-      s.board["scenes"][s.currentScene]["data"][nextSquarePos[0]][
-        nextSquarePos[1]
-      ];
+    let nextSquare;
+    try {
+      nextSquare =
+        s.board["scenes"][s.currentScene]["data"][nextSquarePos[0]][
+          nextSquarePos[1]
+        ];
+    } catch (err) {
+      nextSquare = null;
+    }
     // console.log(JSON.stringify(nextSquare));
     return nextSquare;
     // return s.board
@@ -185,8 +190,14 @@ const actions = {
     payload
   ) => {
     const nextSquare = getters.getNextSquare(payload);
+    if (nextSquare === null) {
+      return;
+    }
     if (nextSquare.portal) {
       commit("travelPortal", nextSquare.portal);
+      return;
+    }
+    if (nextSquare.emoji !== "") {
       return;
     }
     const mode = getters.getMovementMode;
