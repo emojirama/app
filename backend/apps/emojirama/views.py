@@ -17,7 +17,9 @@ class EmojiramaViewSet(viewsets.ViewSet):
         return Response("emojirama deleted")
 
     def post(self, request):
-        emojirama = Emojirama(board=request.data, owner=request.user)
+        emojirama = Emojirama(
+            board=request.data, owner=request.user
+        )
         emojirama.save()
         return Response("saved!!")
 
@@ -35,7 +37,9 @@ class EmojiramaViewSet(viewsets.ViewSet):
     def list_emojiramas(self, request):
         paginator = LimitOffsetPagination()
         emojiramas = Emojirama.objects.all()
-        result_page = paginator.paginate_queryset(emojiramas, request)
+        result_page = paginator.paginate_queryset(
+            emojiramas, request
+        )
         serializer = EmojiramaSerializer(result_page, many=True)
 
         return paginator.get_paginated_response(serializer.data)

@@ -25,15 +25,14 @@ urlpatterns = [
     ),
     path(
         "users/profile/",
-        views.Profile.as_view({
-            "get": "get",
-            "post": "post"
-        }),
-        name="user-profile"
+        views.Profile.as_view({"get": "get", "post": "post"}),
+        name="user-profile",
     ),
     # Social Auth Callbacks
     path(
-        "social/<backend>/", views.exchange_token, name="social-auth"
+        "social/<backend>/",
+        views.exchange_token,
+        name="social-auth",
     ),
 ]
 

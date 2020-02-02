@@ -31,7 +31,10 @@ class Migration(migrations.Migration):
                     "created_on",
                     models.DateTimeField(auto_now_add=True),
                 ),
-                ("modified_on", models.DateTimeField(auto_now=True)),
+                (
+                    "modified_on",
+                    models.DateTimeField(auto_now=True),
+                ),
                 (
                     "board",
                     django.contrib.postgres.fields.jsonb.JSONField(),

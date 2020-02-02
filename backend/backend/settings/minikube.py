@@ -8,14 +8,18 @@ DATABASES = {
         "NAME": os.environ.get(
             "POSTGRES_NAME", "kubernetes_django"
         ),  # noqa
-        "USER": os.environ.get("POSTGRES_USER", "postgres"),  # noqa
+        "USER": os.environ.get(
+            "POSTGRES_USER", "postgres"
+        ),  # noqa
         "PASSWORD": os.environ.get(
             "POSTGRES_PASSWORD", "postgres"
         ),  # noqa
         "HOST": os.environ.get(
             "POSTGRES_SERVICE_HOST", "postgres"
         ),  # noqa
-        "PORT": os.environ.get("POSTGRES_SERVICE_PORT", 5432),  # noqa
+        "PORT": os.environ.get(
+            "POSTGRES_SERVICE_PORT", 5432
+        ),  # noqa
     }
 }
 
@@ -26,9 +30,9 @@ CHANNEL_LAYERS = {
         "BACKEND": "channels_redis.core.RedisChannelLayer",
         "CONFIG": {
             "hosts": [
-                (os.environ.get("REDIS_SERVICE_HOST"), 6379)  # noqa
+                (os.environ.get("REDIS_SERVICE_HOST"), 6379)
             ],
-        },
+        },  # noqa
     },
 }
 

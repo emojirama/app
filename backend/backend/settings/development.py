@@ -38,11 +38,15 @@ LOGGING = {
     "loggers": {
         "django": {
             "handlers": ["console"],
-            "level": os.getenv("DJANGO_LOG_LEVEL", "INFO"),  # noqa
+            "level": os.getenv(
+                "DJANGO_LOG_LEVEL", "INFO"
+            ),  # noqa
         },
         "portal": {
             "handlers": ["console"],
-            "level": os.getenv("PORTAL_LOG_LEVEL", log_level),  # noqa
+            "level": os.getenv(
+                "PORTAL_LOG_LEVEL", log_level
+            ),  # noqa
         },
     },
 }

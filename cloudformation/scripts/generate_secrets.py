@@ -7,25 +7,25 @@ import subprocess
 secrets = []
 
 variables = [
-    'StackName',
-    'SSHKeyName',
-    'EnvironmentName',
-    'AppUrl',
-    'HostedZoneId',
+    "StackName",
+    "SSHKeyName",
+    "EnvironmentName",
+    "AppUrl",
+    "HostedZoneId",
     # 'SSLCertificateArn',
-    'GitSHA',
-    'ECRBackendRepositoryName',
+    "GitSHA",
+    "ECRBackendRepositoryName",
     # 'WildcardSSLCertificateArn',
-    'FlowerUsername',
-    'FlowerPassword',
-    'DjangoSecretKey'
+    "FlowerUsername",
+    "FlowerPassword",
+    "DjangoSecretKey",
 ]
 
 for v in variables:
     pair = {}
-    pair['ParameterKey'] = v
-    pair['ParameterValue'] = os.environ.get(v)
+    pair["ParameterKey"] = v
+    pair["ParameterValue"] = os.environ.get(v)
     secrets.append(pair)
 
-with open('parameters.json', 'w+') as f:
+with open("parameters.json", "w+") as f:
     f.write(json.dumps(secrets, indent=4))

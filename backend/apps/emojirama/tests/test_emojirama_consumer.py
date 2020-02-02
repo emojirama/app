@@ -17,12 +17,6 @@ def create_emojirama():
     return emojirama
 
 
-@database_sync_to_async
-def create_emojirama():
-    emojirama = EmojiramaFactory()
-    return emojirama
-
-
 @pytest.mark.asyncio
 @pytest.mark.django_db(transaction=True)
 async def test_live_emojirama():

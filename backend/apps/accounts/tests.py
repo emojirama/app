@@ -93,8 +93,10 @@ def test_user_profile():
     client.post(
         reverse("user-profile"),
         data={"profile": profile},
-        format='json'
+        format="json",
     )
 
-    assert User.objects.all().first().profile["emoji"]["code"] == \
-        "boy"
+    assert (
+        User.objects.all().first().profile["emoji"]["code"]
+        == "boy"
+    )

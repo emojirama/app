@@ -4,7 +4,9 @@ def generate_grid_data():
             {
                 "emoji": "",
                 "tone": 1,
-                "color": "#ffffff" if (i + j) % 2 == 0 else "#444",
+                "color": "#ffffff"
+                if (i + j) % 2 == 0
+                else "#444",
                 "position": [j, i],
             }
             for i in range(40)

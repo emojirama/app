@@ -14,4 +14,6 @@ class EmojiramaFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = models.Emojirama
 
-    board = {"scenes": {"default": {"data": generate_grid_data()}}}
+    board = {
+        "scenes": {"default": {"data": generate_grid_data()}}
+    }
