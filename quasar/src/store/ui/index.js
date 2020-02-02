@@ -9,11 +9,10 @@ const state = {
     apple: "Apple",
     google: "Google",
     twitter: "Twitter",
-    facebook: "Facebook",
-    emojione: "EmojiOne"
+    facebook: "Facebook"
   },
   set: "apple",
-  emojiSets: ["apple", "facebook", "google", "twitter", "emojione"],
+  emojiSets: ["apple", "facebook", "google", "twitter"],
   showSettingsModal: false,
   showDebugModal: false,
   showStatsPanel: false,
