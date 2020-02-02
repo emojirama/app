@@ -40,12 +40,16 @@ def get_emojirama_from_redis(emojirama):
     emojirama_id = emojirama.id
 
     # to round trips to redis
-    keys = r.keys(f"emojirama___{emojirama_id}___*___*___*___square")
+    keys = r.keys(
+        f"emojirama___{emojirama_id}___*___*___*___square"
+    )
     p = r.pipeline()
     for key in keys:
         p.hgetall(key)
     hashes = p.execute()
-    key_hash_dict = {key: _hash for key, _hash in zip(keys, hashes)}
+    key_hash_dict = {
+        key: _hash for key, _hash in zip(keys, hashes)
+    }
 
     scene_list = emojirama.board["scenes"].keys()
     json_data = {"scenes": {scene: {} for scene in scene_list}}
@@ -95,9 +99,7 @@ def update_square_in_redis(emojirama_id, message):
     x, y = position[0], position[1]
     emoji = square_info["emoji"]
 
-    key_name = (
-        f"emojirama___{emojirama_id}___{scene}___{x}___{y}___square"
-    )
+    key_name = f"emojirama___{emojirama_id}___{scene}___{x}___{y}___square"
     p = r.pipeline()
     if mode == "only_emoji":
         p.hset(key_name, "emoji", emoji)

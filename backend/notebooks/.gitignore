@@ -1,3 +1,4 @@
 *
 !.gitignore
 !redis_keys.ipynb
+!noise.ipynb

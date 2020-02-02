@@ -21,7 +21,9 @@ PASSWORD = "5Mr6IUPOFjuL"
 
 def token_for_new_user():
     email, password = EMAIL, PASSWORD
-    user = User.objects.create_user(email=email, password=password)
+    user = User.objects.create_user(
+        email=email, password=password
+    )
     token = AccessToken.for_user(user)
     return token
 

@@ -41,6 +41,10 @@ const routes = [
         component: () => import("pages/Protected.vue")
       },
       {
+        path: "/emojimart",
+        component: () => import("pages/Emojimart.vue")
+      },
+      {
         path: "to-do",
         component: () => import("pages/ToDo.vue")
       },

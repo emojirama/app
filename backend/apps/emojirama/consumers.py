@@ -38,7 +38,9 @@ class CoreConsumer(AsyncWebsocketConsumer):
 
         emojirama = await self.get_emojirama()
         await self.send(
-            text_data=json.dumps(get_emojirama_from_redis(emojirama))
+            text_data=json.dumps(
+                get_emojirama_from_redis(emojirama)
+            )
         )
 
     # Receive message from WebSocket
@@ -53,7 +55,8 @@ class CoreConsumer(AsyncWebsocketConsumer):
     async def update_square(self, message):
         _ = update_square_in_redis(self.emojirama_id, message)
         await self.channel_layer.group_send(
-            self.emojirama, {"type": "updated", "message": message}
+            self.emojirama,
+            {"type": "updated", "message": message},
         )
 
     async def updated(self, event):

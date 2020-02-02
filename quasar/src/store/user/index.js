@@ -24,7 +24,7 @@ const getters = {
   isProfileLoaded: s => !!s.profile.name,
   getCurrentUserId: s => s.profile.id,
   getProfileEmoji: (s, getters) => {
-    if (!s.profile.profile.emoji.code) {
+    if (s.profile.profile.emoji.code === "") {
       return "bust_in_silhouette";
     } else {
       // TODO
@@ -57,13 +57,16 @@ const actions = {
 
 const mutations = {
   setUserProfile: (state, payload) => {
+    if (state.profile === {}) {
+      state.profile = { profile: { emoji: { code: "", skin: "" } } };
+    }
     state.profile = payload;
   },
   [USER_REQUEST]: s => {
     s.status = "loading";
   },
   [USER_SUCCESS]: (s, resp) => {
-    // s.status = "success";
+    s.status = "success";
     Vue.set(state, "profile", resp);
   },
   [USER_ERROR]: s => {

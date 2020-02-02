@@ -150,8 +150,12 @@ DATABASES = {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
         "NAME": os.environ.get("POSTGRES_NAME", "postgres"),
         "USER": os.environ.get("POSTGRES_USERNAME", "postgres"),
-        "PASSWORD": os.environ.get("POSTGRES_PASSWORD", "postgres"),
-        "HOST": os.environ.get("POSTGRES_SERVICE_HOST", "postgres"),
+        "PASSWORD": os.environ.get(
+            "POSTGRES_PASSWORD", "postgres"
+        ),
+        "HOST": os.environ.get(
+            "POSTGRES_SERVICE_HOST", "postgres"
+        ),
         "PORT": os.environ.get("POSTGRES_SERVICE_PORT", 5432),
     }
 }
@@ -215,8 +219,8 @@ AUTH_PASSWORD_VALIDATORS = [
         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",  # noqa
     },
     {
-        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",  # noqa
-    },
+        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
+    },  # noqa
     {
         "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",  # noqa
     },
@@ -248,7 +252,9 @@ AWS_DEFAULT_ACL = None
 AWS_STORAGE_BUCKET_NAME = os.environ.get(
     "AWS_STORAGE_BUCKET_NAME", "bucketname"
 )
-AWS_S3_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com"
+AWS_S3_CUSTOM_DOMAIN = (
+    f"{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com"
+)
 AWS_S3_OBJECT_PARAMETERS = {
     "CacheControl": "max-age=86400",
 }
@@ -256,7 +262,9 @@ AWS_S3_OBJECT_PARAMETERS = {
 AWS_PRIVATE_MEDIA_LOCATION = "media/private"
 AWS_STATIC_LOCATION = "static"
 
-PRIVATE_FILE_STORAGE = "backend.storage_backends.PrivateMediaStorage"
+PRIVATE_FILE_STORAGE = (
+    "backend.storage_backends.PrivateMediaStorage"
+)
 
 
 # Email

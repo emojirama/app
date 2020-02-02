@@ -45,6 +45,7 @@ if settings.DEBUG:
             ),  # noqa
         ]
         + static(
-            settings.STATIC_URL, document_root=settings.STATIC_ROOT
+            settings.STATIC_URL,
+            document_root=settings.STATIC_ROOT,
         )
     )

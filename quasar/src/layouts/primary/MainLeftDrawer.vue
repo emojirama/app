@@ -45,6 +45,13 @@
         icon="info"
         :caption="$t('leftDrawer.about.sub')"
       />
+      <left-menu-link
+        :label="$t('Emojimart')"
+        to="/emojimart"
+        emoji="department_store"
+        icon="info"
+        :caption="$t('Unicode 12 Emoji')"
+      />
     </q-list>
   </q-drawer>
 </template>
