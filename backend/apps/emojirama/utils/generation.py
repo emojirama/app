@@ -1,6 +1,9 @@
 import numpy as np
 from noise import pnoise2
 
+from .colors import colorscale
+from .graphs import AStarGraph, AStarSearch
+
 # https://engineeredjoy.com/blog/perlin-noise/
 # TODO: support passing options for shape, scale and octaves
 def perlin_array(
@@ -54,12 +57,14 @@ def biome(e):
         return DEEP_WATER
     elif e < 0.2:
         return NAVY
-    elif e < 0.5:
+    elif e < 0.3:
         return WATER
+    elif e < 0.5:
+        return FOREST
     elif e < 0.55:
-        return BEACH
+        return FOREST
     elif e < 0.6:
-        return BEACH
+        return FOREST
     elif e < 0.7:
         return FOREST
     elif e < 0.8:
@@ -73,17 +78,32 @@ def biome(e):
 
 
 def generate_grid_data():
-    noise_grid = perlin_array(scale=10)
-    blank_grid = [
-        [
-            {
-                "emoji": "",
+    noise_grid = perlin_array(scale=100)
+    grid_data = []
+    for j in range(40):
+        row = []
+        for i in range(40):
+            scale = 1 + np.random.rand() / 4
+            square = {
+                "emoji": "deciduous_tree"
+                if np.random.rand() < 0.4
+                and noise_grid[i][j] >= 0.4
+                else "",
                 "tone": 1,
-                "color": biome(noise_grid[i][j]),
+                "color": colorscale(
+                    biome(noise_grid[i][j]), scale
+                ),
                 "position": [j, i],
             }
-            for i in range(40)
-        ]
-        for j in range(40)
-    ]
-    return blank_grid
+            row.append(square)
+        grid_data.append(row)
+    graph = AStarGraph(grid_data)
+    path, _ = AStarSearch((5, 5), (35, 35), graph)
+    print(path)
+    for step in path:
+        scale = 1 + np.random.rand() / 4
+        grid_data[step[1]][step[0]]["color"] = colorscale(
+            "#654321", scale
+        )
+    return grid_data
+
