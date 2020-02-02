@@ -1,6 +1,8 @@
 import SimplexNoise from "simplex-noise";
 import tinycolor from "tinycolor2";
 
+import Astar from "./utils/graph";
+
 const DEEP_WATER = "#00439e";
 const NAVY = "#0077ea";
 const WATER = "#0063ea";
@@ -38,9 +40,11 @@ const generateBiome = (h, w) => {
       return Array(w)
         .fill()
         .map((_, j) => {
+          const elevation = noise(i / 35, j / 30);
           return {
-            emoji: "", //randomSquare(),
-            color: tinycolor(biome(noise(i / 35, j / 30)))
+            emoji:
+              elevation <= 0.7 || Math.random() < 0.5 ? "" : "deciduous_tree",
+            color: tinycolor(biome(elevation))
               .darken(Math.random() * 4)
               .toString(),
             position: [i, j],
@@ -49,6 +53,15 @@ const generateBiome = (h, w) => {
         });
     });
 
+  const t0 = performance.now();
+  const path = new Astar.search(board, board[0][0], board[25][25]);
+  const t1 = performance.now();
+  console.log(`Completed A * in searched in ${t1 - t0} ms`);
+  path.map(coord => {
+    board[coord[0]][coord[1]].color = tinycolor("654321")
+      .darken(Math.random() * 4)
+      .toString();
+  });
   return board;
 };
 
