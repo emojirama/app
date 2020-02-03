@@ -74,6 +74,8 @@ export default {
           this.$store.commit("loadEmojiramaFromServer", message);
         }
       };
+    } else if (this.$route.meta.zombies) {
+      this.$store.dispatch("loadZombies");
     } else {
       this.$store.dispatch("loadEmojirama");
     }
