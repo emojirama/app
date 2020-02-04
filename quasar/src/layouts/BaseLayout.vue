@@ -8,6 +8,7 @@
     <save-button />
     <scene-menu />
     <movement-control />
+    <zombie-mode v-if="$route.meta.zombies" />
     <square-picker></square-picker>
     <div
       @touchmove="handleScroll"

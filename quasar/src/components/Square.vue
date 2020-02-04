@@ -86,6 +86,7 @@ export default {
     },
     isZombieSquare() {
       if (
+        this.$route.meta.zombies &&
         this.position[0] === this.$store.getters.getZombiePosition[0] &&
         this.position[1] === this.$store.getters.getZombiePosition[1]
       ) {

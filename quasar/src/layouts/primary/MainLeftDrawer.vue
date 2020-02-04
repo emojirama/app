@@ -39,11 +39,11 @@
         icon="info"
       />
       <left-menu-link
-        :label="$t('leftDrawer.about.main')"
-        to="/about"
-        emoji="information_source"
-        icon="info"
-        :caption="$t('leftDrawer.about.sub')"
+        :label="$t('Zombies')"
+        to="/zombies"
+        emoji="zombie"
+        icon="zombie"
+        :caption="$t('Night of the Undead')"
       />
       <left-menu-link
         :label="$t('Emojimart')"
@@ -51,6 +51,13 @@
         emoji="department_store"
         icon="info"
         :caption="$t('Unicode 12 Emoji')"
+      />
+      <left-menu-link
+        :label="$t('leftDrawer.about.main')"
+        to="/about"
+        emoji="information_source"
+        icon="info"
+        :caption="$t('leftDrawer.about.sub')"
       />
     </q-list>
   </q-drawer>
