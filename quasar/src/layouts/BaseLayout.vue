@@ -8,6 +8,7 @@
     <save-button />
     <scene-menu />
     <movement-control />
+    <zombie-mode v-if="$route.meta.zombies" />
     <square-picker></square-picker>
     <div
       @touchmove="handleScroll"
@@ -74,6 +75,8 @@ export default {
           this.$store.commit("loadEmojiramaFromServer", message);
         }
       };
+    } else if (this.$route.meta.zombies) {
+      this.$store.dispatch("loadZombies");
     } else {
       this.$store.dispatch("loadEmojirama");
     }

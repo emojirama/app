@@ -23,6 +23,18 @@
         "
       />
     </template>
+    <template v-else-if="isZombieSquare">
+      <base-emoji
+        :skin="tone"
+        :emoji="`male_zombie`"
+        :native="$store.getters.getUseNativeEmoji"
+        :size="
+          ($store.getters.getSquareSize *
+            ($store.getters.getUseNativeEmoji ? 5 : 4)) /
+            5
+        "
+      />
+    </template>
     <template v-else>
       <base-emoji
         v-if="isCurrentSquare"
@@ -71,6 +83,17 @@ export default {
       }
 
       return null;
+    },
+    isZombieSquare() {
+      if (
+        this.$route.meta.zombies &&
+        this.position[0] === this.$store.getters.getZombiePosition[0] &&
+        this.position[1] === this.$store.getters.getZombiePosition[1]
+      ) {
+        return "male_zombie"; // this.emoji;
+      } else {
+        return "";
+      }
     },
     getSquareEmoji() {
       if (this.emoji === null) return "";

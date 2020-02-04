@@ -23,8 +23,10 @@ import SocialAuthButton from "components/SocialAuthButton.vue";
 import DeleteEmojiramaWidget from "components/DeleteEmojiramaWidget.vue";
 import AuthMenu from "components/AuthMenu.vue";
 import ProfileEditForm from "components/ProfileEditForm.vue";
+import ZombieMode from "components/Zombies/index.vue";
 
 export default async ({ Vue }) => {
+  Vue.component("ZombieMode", ZombieMode);
   Vue.component("ProfileEditForm", ProfileEditForm);
   Vue.component("AuthMenu", AuthMenu);
   Vue.component("DeleteEmojiramaWidget", DeleteEmojiramaWidget);

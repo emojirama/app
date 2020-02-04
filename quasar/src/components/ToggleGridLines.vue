@@ -1,5 +1,5 @@
 <template>
-  <div @click="$store.commit('toggleGridLines')" class="dark-toggle">
+  <div @click.native="$store.commit('toggleGridLines')" class="dark-toggle">
     <base-emoji
       :native="false"
       :sheetSize="64"

@@ -4,6 +4,13 @@ const routes = [
     component: () => import("layouts/BaseLayout.vue")
   },
   {
+    path: "/zombies",
+    component: () => import("layouts/BaseLayout.vue"),
+    meta: {
+      zombies: true
+    }
+  },
+  {
     path: "/emojirama/:id",
     component: () => import("layouts/BaseLayout.vue"),
     meta: {
