@@ -43,11 +43,12 @@ export default {
     login() {
       const vm = this;
       this.$store
-        .dispatch("AUTH_REQUEST", {
+        .dispatch("authRequest", {
           email: this.email,
           password: this.password
         })
         .then(() => {
+          console.log("finished auth request.. in login form");
           vm.$router.push("/");
           vm.$store.dispatch("initialAuthCheck", { vm });
         });

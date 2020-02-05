@@ -1,15 +1,7 @@
 /* eslint-disable promise/param-names, no-unused-vars */
 
-export const AUTH_REQUEST = "AUTH_REQUEST";
-export const AUTH_SUCCESS = "AUTH_SUCCESS";
-export const AUTH_ERROR = "AUTH_ERROR";
-export const AUTH_LOGOUT = "AUTH_LOGOUT";
-export const AUTH_REFRESH = "AUTH_REFRESH";
-
-// import axios from "axios";
 import Vue from "vue";
 import { Cookies } from "quasar";
-import { USER_REQUEST } from "../user";
 
 const state = {
   token: Cookies.get("user-token") || "",
@@ -44,44 +36,45 @@ const actions = {
   },
   initialAuthCheck: ({ commit, dispatch, getters }, payload) => {
     if (getters.isAuthenticated) {
-      payload.vm.$store.dispatch("USER_REQUEST");
+      payload.vm.$store.dispatch("userRequest");
       // refresh the token every 4 minutes while the user is logged in in production
       // refresh every six seconds in development to ensure user stays logged in
       const refreshFrequency = process.env.NODE_ENV === "development" ? 2 : 4;
       const authRefreshIntervalId = setInterval(function() {
-        payload.vm.$store.dispatch("AUTH_REFRESH");
+        payload.vm.$store.dispatch("authRefresh");
       }, 1000 * 60 * refreshFrequency);
       commit("setAuthRefreshIntervalId", authRefreshIntervalId);
     }
   },
-  [AUTH_REQUEST]: ({ commit, dispatch }, user) =>
+  authRequest: ({ commit, dispatch }, user) =>
     new Promise((resolve, reject) => {
-      commit(AUTH_REQUEST);
+      commit("authRequest");
       Vue.prototype.$axios
         .post("/api/auth/obtain_token/", user)
         .then(resp => {
+          console.log("in promise..");
           Cookies.set("refresh-token", resp.data.refresh);
           Cookies.set("user-token", resp.data.access);
-          commit(AUTH_SUCCESS, resp);
-          dispatch(USER_REQUEST);
+          commit("authSuccess", resp);
+          dispatch("userRequest");
           resolve(resp);
         })
         .catch(err => {
-          commit(AUTH_ERROR, err);
+          commit("authError", err);
           Cookies.remove("user-token");
           Cookies.remove("refresh-token");
           reject(err);
         });
     }),
-  [AUTH_LOGOUT]: ({ commit, dispatch }) =>
+  authLogout: ({ commit, dispatch }) =>
     new Promise((resolve, reject) => {
-      commit(AUTH_LOGOUT);
+      commit("authLogout");
       commit("toggleAuthMenu");
       Cookies.remove("user-token");
       Cookies.remove("refresh-token");
       resolve();
     }),
-  [AUTH_REFRESH]: ({ commit, dispatch }) =>
+  authRefresh: ({ commit, dispatch }) =>
     new Promise((resolve, reject) => {
       Vue.prototype.$axios
         .post("/api/auth/refresh_token/", {
@@ -89,7 +82,7 @@ const actions = {
         })
         .then(resp => {
           Cookies.set("user-token", resp.data.access);
-          commit(AUTH_SUCCESS, resp);
+          commit("authSuccess", resp);
         });
     })
 };
@@ -101,21 +94,21 @@ const mutations = {
   setAuthRefreshIntervalId: (state, payload) => {
     state.authRefreshIntervalId = payload;
   },
-  [AUTH_REQUEST]: requestState => {
+  authRequest: requestState => {
     const s = requestState;
     s.status = "loading";
   },
-  [AUTH_SUCCESS]: (s, resp) => {
+  authSuccess: (s, resp) => {
     s.status = "success";
     s.token = resp.data.access;
     s.hasLoadedOnce = true;
   },
-  [AUTH_ERROR]: errorState => {
+  authError: errorState => {
     const s = errorState;
     s.status = "error";
     s.hasLoadedOnce = true;
   },
-  [AUTH_LOGOUT]: logoutState => {
+  authLogout: logoutState => {
     const s = logoutState;
     s.token = "";
     clearInterval(s.authRefreshIntervalId);

@@ -26,7 +26,7 @@
               >{{ $t("Edit Profile") }}</base-btn
             >
             <base-btn
-              @click.native="$store.dispatch('AUTH_LOGOUT')"
+              @click.native="$store.dispatch('authLogout')"
               buttonClass="full-width"
               textColor="white"
               color="red"

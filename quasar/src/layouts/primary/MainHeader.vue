@@ -39,7 +39,7 @@ export default {
       this.lang = lang;
     },
     logout() {
-      this.$store.dispatch("AUTH_LOGOUT").then(() => this.$router.push("/"));
+      this.$store.dispatch("authLogout").then(() => this.$router.push("/"));
       this.$router.go();
     },
     toggleLeftDrawer() {

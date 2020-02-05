@@ -41,10 +41,8 @@ const getters = {
   getArea: s => s.area,
   // stats
   getCurrentSceneDimensions: s => {
-    return [
-      s.board.scenes[s.currentScene]["data"].length,
-      s.board.scenes[s.currentScene]["data"][0].length
-    ];
+    const boardData = s.board.scenes[s.currentScene]["data"];
+    return [boardData.length, boardData[0].length];
   },
   getFullBoard: s => s.board,
   // board view takes a slice of the current board
