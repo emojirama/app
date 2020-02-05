@@ -23,7 +23,7 @@ const getters = {
     if (getters.getProfile.profile.emoji.code === "") {
       return "bust_in_silhouette";
     } else {
-      return s.profile.profile.emoji.code;
+      return getters.getProfile.profile.emoji.code;
     }
   }
 };
@@ -68,7 +68,14 @@ const mutations = {
     s.status = "error";
   },
   authLogout: s => {
-    s.profile = {};
+    s.profile = {
+      profile: {
+        emoji: {
+          code: "",
+          skin: ""
+        }
+      }
+    };
     s.status = "";
   }
 };

@@ -14,7 +14,6 @@
       >
       </base-emoji>
       <q-toolbar-title>{{ $t("emojirama") }}</q-toolbar-title>
-      {{ $store.getters.getProfile }}
       <toggle-dark />
       <language-select />
       <auth-widget />
