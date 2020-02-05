@@ -54,15 +54,20 @@ const mutations = {
   setUserProfile: (state, payload) => {
     if (payload.profile === {}) {
       state.profile = { profile: { emoji: { code: "", skin: "" } } };
+      return;
     }
     state.profile = payload;
   },
   userRequest: s => {
     s.status = "loading";
   },
-  userSuccess: (s, resp) => {
+  userSuccess: (s, payload) => {
     s.status = "success";
-    Vue.set(state, "profile", resp);
+    if (_.isEqual(payload.profile, {})) {
+      Vue.set(state, "profile", { profile: { emoji: { code: "", skin: "" } } });
+      return;
+    }
+    Vue.set(state, "profile", payload);
   },
   userError: s => {
     s.status = "error";
