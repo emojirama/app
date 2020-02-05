@@ -52,7 +52,7 @@ const actions = {
 
 const mutations = {
   setUserProfile: (state, payload) => {
-    if (_.isEqual(state.profile, {})) {
+    if (payload.profile === {}) {
       state.profile = { profile: { emoji: { code: "", skin: "" } } };
     }
     state.profile = payload;
