@@ -8,8 +8,9 @@
   >
     <q-toolbar>
       <base-emoji
+        class="hamburger"
         :emoji="`hamburger`"
-        @click.native="toggleLeftDrawer"
+        @click.native="$store.commit('toggleLeftDrawer')"
         :native="false"
       >
       </base-emoji>
@@ -23,44 +24,11 @@
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      showing: false,
-      lang: {
-        label: "EN",
-        value: "en-us",
-        emoji: ":flag-us:"
-      }
-    };
-  },
-  methods: {
-    setLang(lang) {
-      this.lang = lang;
-    },
-    logout() {
-      this.$store.dispatch("authLogout").then(() => this.$router.push("/"));
-      this.$router.go();
-    },
-    toggleLeftDrawer() {
-      this.$store.commit("toggleLeftDrawer");
-    }
-  },
-  created() {
-    // this.$i18n.locale = "en-us";
-  }
-};
+export default {};
 </script>
 
 <style scoped>
-.lang {
-  margin-right: 15px;
-  cursor: pointer;
-  height: 100%;
-}
-.q-select {
-  margin-right: 20px;
-}
+.hamburger,
 .base-emoji {
   cursor: pointer;
 }
