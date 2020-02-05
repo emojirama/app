@@ -23,7 +23,9 @@
             :provider="provider.name"
           ></social-auth-button>
         </div>
-        <login-form v-if="true"></login-form>
+        <div class="login-wrapper">
+          <login-form v-if="true"></login-form>
+        </div>
       </base-card>
     </div>
   </base-page>
@@ -46,7 +48,6 @@ export default {
 }
 
 .card {
-  max-width: 95%;
   min-width: 320px;
   padding: 20px;
 }
