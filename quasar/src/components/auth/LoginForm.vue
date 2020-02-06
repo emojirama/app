@@ -1,28 +1,32 @@
 <template>
   <q-form @submit.prevent="login">
-    <q-input
-      :color="$store.getters.isDark ? 'black' : 'primary'"
-      :dark="$store.getters.isDark"
-      id="email"
-      v-model="email"
-      type="text"
-      label="Email"
-      autofocus
-    />
-    <q-input
-      :color="$store.getters.isDark ? 'black' : 'primary'"
-      :dark="$store.getters.isDark"
-      id="password"
-      type="password"
-      v-model="password"
-      label="Password"
-    />
+    <q-card-actions>
+      <q-input
+        class="login-input"
+        :color="$store.getters.isDark ? 'black' : 'primary'"
+        :dark="$store.getters.isDark"
+        id="email"
+        v-model="email"
+        type="text"
+        label="Email"
+        autofocus
+      />
+      <q-input
+        class="login-input"
+        :color="$store.getters.isDark ? 'black' : 'primary'"
+        :dark="$store.getters.isDark"
+        id="password"
+        type="password"
+        v-model="password"
+        label="Password"
+      />
+    </q-card-actions>
 
     <q-card-actions align="right" class="text-primary">
       <q-btn
+        style="width: 100%"
         :color="$store.getters.isDark ? 'black' : 'primary'"
         id="login-btn"
-        flat
         label="Login"
         type="submit"
         v-close-popup
@@ -43,11 +47,12 @@ export default {
     login() {
       const vm = this;
       this.$store
-        .dispatch("AUTH_REQUEST", {
+        .dispatch("authRequest", {
           email: this.email,
           password: this.password
         })
         .then(() => {
+          console.log("finished auth request.. in login form");
           vm.$router.push("/");
           vm.$store.dispatch("initialAuthCheck", { vm });
         });
@@ -58,4 +63,9 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style scoped>
+.login-input,
+.q-card-actions {
+  width: 100%;
+}
+</style>

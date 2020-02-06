@@ -28,7 +28,7 @@ export default async ({ Vue, store, router }) => {
         break;
       case 401:
         // Log out user, remove token, clear state and redirect to login
-        store.dispatch("AUTH_LOGOUT").then(router.push("/"));
+        store.dispatch("authLogout").then(router.push("/"));
         break;
       case 404:
         // Show 404 page

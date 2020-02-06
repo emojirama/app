@@ -19,6 +19,7 @@
     "js-cookie": "^2.2.0",
     "lodash": "^4.17.15",
     "quasar": "1.7.4",
+    "seedrandom": "^3.0.5",
     "simplex-noise": "^2.4.0",
     "tinycolor": "0.0.1",
     "tinycolor2": "^1.4.1",

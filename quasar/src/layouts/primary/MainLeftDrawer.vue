@@ -83,16 +83,12 @@ export default {
       });
     },
     hideDrawer() {
-      console.log("hiding..");
       this.$store.commit("toggleLeftDrawer", {
         leftDrawerOpen: false
       });
-    },
-    toggleLeftDrawer() {
-      this.$store.commit("toggleLeftDrawer");
     }
   }
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style scoped></style>

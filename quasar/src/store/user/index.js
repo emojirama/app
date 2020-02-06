@@ -1,11 +1,7 @@
 /* eslint-disable no-unused-vars */
 
-export const USER_REQUEST = "USER_REQUEST";
-export const USER_SUCCESS = "USER_SUCCESS";
-export const USER_ERROR = "USER_ERROR";
-
 import Vue from "vue";
-import { AUTH_LOGOUT } from "../auth";
+import _ from "lodash";
 
 const state = {
   status: "",
@@ -24,11 +20,10 @@ const getters = {
   isProfileLoaded: s => !!s.profile.name,
   getCurrentUserId: s => s.profile.id,
   getProfileEmoji: (s, getters) => {
-    if (s.profile.profile.emoji.code === "") {
+    if (getters.getProfile.profile.emoji.code === "") {
       return "bust_in_silhouette";
     } else {
-      // TODO
-      return s.profile.profile.emoji.code; // get the user's profile emoji
+      return getters.getProfile.profile.emoji.code;
     }
   }
 };
@@ -41,39 +36,51 @@ const actions = {
         commit("setUserProfile", resp.data);
       });
   },
-  [USER_REQUEST]: ({ dispatch, commit }) => {
+  userRequest: ({ dispatch, commit }) => {
     Vue.prototype.$axios
       .get("/api/users/profile/")
       .then(resp => {
         const profile = resp.data;
-        commit(USER_SUCCESS, profile);
+        commit("userSuccess", profile);
       })
       .catch(err => {
-        commit(USER_ERROR);
-        dispatch(AUTH_LOGOUT);
+        commit("userError");
+        dispatch("authLogout");
       });
   }
 };
 
 const mutations = {
   setUserProfile: (state, payload) => {
-    if (state.profile === {}) {
+    if (payload.profile === {}) {
       state.profile = { profile: { emoji: { code: "", skin: "" } } };
+      return;
     }
     state.profile = payload;
   },
-  [USER_REQUEST]: s => {
+  userRequest: s => {
     s.status = "loading";
   },
-  [USER_SUCCESS]: (s, resp) => {
+  userSuccess: (s, payload) => {
     s.status = "success";
-    Vue.set(state, "profile", resp);
+    if (_.isEqual(payload.profile, {})) {
+      Vue.set(state, "profile", { profile: { emoji: { code: "", skin: "" } } });
+      return;
+    }
+    Vue.set(state, "profile", payload);
   },
-  [USER_ERROR]: s => {
+  userError: s => {
     s.status = "error";
   },
-  [AUTH_LOGOUT]: s => {
-    s.profile = {};
+  authLogout: s => {
+    s.profile = {
+      profile: {
+        emoji: {
+          code: "",
+          skin: ""
+        }
+      }
+    };
     s.status = "";
   }
 };

@@ -39,11 +39,10 @@ const getters = {
   getRows: s => s.rows,
   getCols: s => s.cols,
   getArea: s => s.area,
+  // stats
   getCurrentSceneDimensions: s => {
-    return [
-      s.board.scenes[s.currentScene]["data"].length,
-      s.board.scenes[s.currentScene]["data"][0].length
-    ];
+    const boardData = s.board.scenes[s.currentScene]["data"];
+    return [boardData.length, boardData[0].length];
   },
   getFullBoard: s => s.board,
   // board view takes a slice of the current board
@@ -156,7 +155,7 @@ const actions = {
     commit("toggleShowSquareConfig");
     // vm.$store.commit("setSquareConfigPosition", position);
   },
-  setSquare: ({ state, commit, rootState, getters, rootGetters }, payload) => {
+  setSquare: ({ commit, getters, rootGetters }, payload) => {
     const min = rootGetters.getColorNoiseRange["min"];
     const max = rootGetters.getColorNoiseRange["max"];
     const currentEmoji = getters.getSquarePickerEmoji;
@@ -184,10 +183,7 @@ const actions = {
       commit("setSquare", square_info);
     }
   },
-  move: (
-    { state, commit, dispatch, rootState, getters, rootGetters },
-    payload
-  ) => {
+  move: ({ commit, getters }, payload) => {
     const nextSquare = getters.getNextSquare(payload);
     if (nextSquare === null) {
       return;
@@ -200,20 +196,7 @@ const actions = {
       return;
     }
     const mode = getters.getMovementMode;
-    switch (payload) {
-      case "left":
-        commit("move", { direction: "left", mode });
-        break;
-      case "right":
-        commit("move", { direction: "right", mode });
-        break;
-      case "up":
-        commit("move", { direction: "up", mode });
-        break;
-      case "down":
-        commit("move", { direction: "down", mode });
-        break;
-    }
+    commit("move", { direction: payload, mode });
   }
 };
 
@@ -230,20 +213,19 @@ const mutations = {
     window.dispatchEvent(new Event("resize"));
   },
   setSquareFromWebsocket: (state, payload) => {
-    const scene = payload["message"]["square_info"]["scene"];
-    const pos = payload["message"]["square_info"]["position"];
-    const emoji = payload["message"]["square_info"]["emoji"];
-    const color = payload["message"]["square_info"]["color"];
-    const mode = payload["message"]["square_info"]["mode"];
+    const squareInfo = payload["message"]["square_info"];
+    const { scene, position, emoji, color, mode } = squareInfo;
+    const square =
+      state.board["scenes"][scene]["data"][position[0]][position[1]];
     if (mode === "only_emoji") {
-      state.board["scenes"][scene]["data"][pos[0]][pos[1]]["emoji"] = emoji;
+      square["emoji"] = emoji;
     } else if (mode === "only_color") {
-      state.board["scenes"][scene]["data"][pos[0]][pos[1]]["color"] = color;
+      square["color"] = color;
     } else if (mode === "both") {
-      state.board["scenes"][scene]["data"][pos[0]][pos[1]]["emoji"] = emoji;
-      state.board["scenes"][scene]["data"][pos[0]][pos[1]]["color"] = color;
+      square["emoji"] = emoji;
+      square["color"] = color;
     } else if (mode === "delete_emoji") {
-      state.board["scenes"][scene]["data"][pos[0]][pos[1]]["emoji"] = "";
+      square["emoji"] = "";
     }
   },
   removePortal: (state, payload) => {
@@ -314,17 +296,18 @@ const mutations = {
   setSquare: (state, payload) => {
     const currentScene = state.board["scenes"][state.currentScene]["data"];
     const [x, y] = payload["position"];
+    const square = currentScene[x][y];
     if (payload.mode === "both") {
-      currentScene[x][y]["emoji"] = payload.emoji;
-      currentScene[x][y]["color"] = payload.color;
-      currentScene[x][y]["tone"] = payload.tone;
+      square["emoji"] = payload.emoji;
+      square["color"] = payload.color;
+      square["tone"] = payload.tone;
     } else if (payload.mode === "only_emoji") {
-      currentScene[x][y]["emoji"] = payload.emoji;
-      currentScene[x][y]["tone"] = payload.tone;
+      square["emoji"] = payload.emoji;
+      square["tone"] = payload.tone;
     } else if (payload.mode === "only_color") {
-      currentScene[x][y]["color"] = payload.color;
+      square["color"] = payload.color;
     } else if (payload.mode === "delete_emoji") {
-      currentScene[x][y]["emoji"] = "";
+      square["emoji"] = "";
     }
   },
   setEmojiSet: (state, payload) => {

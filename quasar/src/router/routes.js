@@ -37,48 +37,13 @@ const routes = [
         component: () => import("pages/Index.vue")
       },
       { path: "login", component: () => import("pages/Auth/Login.vue") },
-      { path: "signup", component: () => import("pages/Auth/SignUp.vue") },
       {
         path: "about",
         component: () => import("pages/About.vue")
       },
       {
-        path: "protected",
-        // beforeEnter: ifAuthenticated,
-        component: () => import("pages/Protected.vue")
-      },
-      {
         path: "/emojimart",
         component: () => import("pages/Emojimart.vue")
-      },
-      {
-        path: "to-do",
-        component: () => import("pages/ToDo.vue")
-      },
-      {
-        path: "services",
-        component: () => import("pages/Services/index.vue")
-      },
-      {
-        path: "debug/environment-variables",
-        component: () => import("pages/Environment.vue")
-      },
-      {
-        path: "examples/",
-        // beforeEnter: ifAuthenticated,
-        component: () => import("pages/Examples/index.vue"),
-        children: [
-          {
-            path: "websockets",
-            // beforeEnter: ifAuthenticated,
-            component: () => import("pages/Examples/Websockets.vue")
-          },
-          {
-            path: "redis",
-            // beforeEnter: ifAuthenticated,
-            component: () => import("pages/Examples/Redis.vue")
-          }
-        ]
       },
       {
         path: "/emojirama",
