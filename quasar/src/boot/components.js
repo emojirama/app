@@ -1,5 +1,4 @@
 import BasePage from "components/ui/BasePage.vue";
-import DarkMode from "components/ui/DarkMode.vue";
 import LeftMenuLink from "components/LeftMenuLink.vue";
 import MainHeader from "layouts/primary/MainHeader.vue";
 import PageHeader from "components/ui/PageHeader.vue";
@@ -42,7 +41,6 @@ export default async ({ Vue }) => {
   Vue.component("BaseEmojiPicker", BaseEmojiPicker);
   Vue.component("BaseEmoji", BaseEmoji);
   Vue.component("BasePage", BasePage);
-  Vue.component("DarkMode", DarkMode);
   Vue.component("LeftMenuLink", LeftMenuLink);
   Vue.component("MainHeader", MainHeader);
   Vue.component("PageHeader", PageHeader);
