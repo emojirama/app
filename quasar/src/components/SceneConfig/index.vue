@@ -1,6 +1,9 @@
 <template>
   <div>
     <div class="layers">
+      <base-btn @click.native="$store.dispatch('sceneConfig/addLayer')">
+        Add Layer
+      </base-btn>
       <scene-config-layer
         :layer="layer"
         :key="i"

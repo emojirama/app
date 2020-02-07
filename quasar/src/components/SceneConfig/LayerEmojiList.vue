@@ -1,18 +1,26 @@
 <template>
   <div>
-    <div class="emoji-list">
-      <layer-emoji
-        v-for="(emoji, i) in emojiList"
-        :key="i + uuid"
-        :skin="emoji.tone"
-        :emoji="emoji.code"
-      />
+    <div class="emoji-section">
+      <div class="emoji-list">
+        <layer-emoji
+          v-for="(emoji, i) in emojiList"
+          :key="i + uuid"
+          :skin="emoji.tone"
+          :emoji="emoji.code"
+          :emojiUuid="emoji.uuid"
+          :layerUuid="uuid"
+        />
+      </div>
+      <div>
+        <div class="emojimart" @click="showModal = true">
+          <base-emoji :native="false" :emoji="`department_store`" />
+        </div>
+      </div>
     </div>
-    <base-btn @click.native="showPicker = true">New</base-btn>
-    <q-dialog v-model="showPicker">
-      <base-card style="padding: 10px; height: 260px;">
+    <q-dialog v-model="showModal">
+      <base-card style="padding: 10px; height: 280px;">
         <div class="picker">
-          <base-emoji-picker @selectEmoji="selectEmoji"></base-emoji-picker>
+          <base-emoji-picker v-if="showPicker" @selectEmoji="selectEmoji" />
         </div>
       </base-card>
     </q-dialog>
@@ -24,7 +32,8 @@ import LayerEmoji from "./LayerEmoji.vue";
 export default {
   data() {
     return {
-      showPicker: false
+      showPicker: false,
+      showModal: false
     };
   },
   components: {
@@ -41,6 +50,18 @@ export default {
         uuid: this.uuid
       });
       this.showPicker = false;
+      this.showModal = false;
+    }
+  },
+  watch: {
+    showModal(newShowPicker) {
+      console.log(newShowPicker);
+      const vm = this;
+      if (newShowPicker) {
+        setTimeout(function() {
+          vm.showPicker = true;
+        }, 100);
+      }
     }
   }
 };
@@ -57,5 +78,14 @@ div .emoji-mart {
 }
 .picker {
   position: relative;
+}
+.emojimart {
+  cursor: pointer;
+  float: right;
+}
+.emoji-section {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: 1fr 1fr;
 }
 </style>

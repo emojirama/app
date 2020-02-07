@@ -2,6 +2,9 @@
   <div class="layer">
     <base-card class="card">
       <base-input
+        outlined
+        pattern="[0-9]*"
+        label="Level"
         :step="0.1"
         type="number"
         :key="layer.uuid"
@@ -10,7 +13,9 @@
       <layer-emoji-list :uuid="layer.uuid" :emojiList="layer.emoji" />
       <layer-color-list :uuid="layer.uuid" :colorList="layer.colors" />
       <div>
-        <base-btn @click.native="deleteLayer">Delete Layer</base-btn>
+        <div class="wastebasket" @click="deleteLayer">
+          <base-emoji :native="false" :emoji="`wastebasket`" />
+        </div>
       </div>
     </base-card>
   </div>
@@ -26,7 +31,9 @@ export default {
   },
   methods: {
     deleteLayer() {
-      this.$store.dispatch("sceneConfig/deleteLayer", this.layer.uuid);
+      this.$store.dispatch("sceneConfig/deleteLayer", {
+        uuid: this.layer.uuid
+      });
     }
   },
   computed: {
@@ -56,8 +63,10 @@ export default {
   padding: 15px;
   display: grid;
   gap: 15px;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 }
-.layer {
+.wastebasket {
+  cursor: pointer;
+  float: right;
 }
 </style>
