@@ -65,10 +65,10 @@ const mutations = {
       .find(x => x.uuid === layerUuid)
       .emoji.filter(x => x.uuid !== emojiUuid);
   },
-  addColor: (state, { c, uuid, colorUuid }) => {
+  addColor: (state, { c, uuid, colorUuid, min, max }) => {
     state.layers
       .find(x => x.uuid === uuid)
-      .colors.push({ base: c, uuid: colorUuid });
+      .colors.push({ base: c, uuid: colorUuid, min, max });
   },
   addLayer: (state, payload) => {
     state.layers.push(payload);

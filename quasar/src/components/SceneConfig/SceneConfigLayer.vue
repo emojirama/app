@@ -1,6 +1,6 @@
 <template>
   <div class="layer">
-    <base-card class="card">
+    <base-card :key="layer.uuid" class="card">
       <base-input
         outlined
         pattern="[0-9]*"
@@ -10,6 +10,7 @@
         :key="layer.uuid"
         v-model="z"
       ></base-input>
+
       <layer-emoji-list :uuid="layer.uuid" :emojiList="layer.emoji" />
       <layer-color-list :uuid="layer.uuid" :colorList="layer.colors" />
       <div>
@@ -63,6 +64,7 @@ export default {
   padding: 15px;
   display: grid;
   gap: 15px;
+  justify-content: center;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 }
 .wastebasket {

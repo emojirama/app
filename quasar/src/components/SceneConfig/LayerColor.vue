@@ -1,16 +1,13 @@
 <template>
   <div>
-    <div
-      @click="deleteLayerColor"
-      class="color"
-      :style="`backgroundColor: ${color.base}`"
-    >
+    <div @click="deleteLayerColor" class="color" :style="style">
       &nbsp;
     </div>
   </div>
 </template>
 
 <script>
+import tinycolor from "tinycolor2";
 export default {
   methods: {
     deleteLayerColor() {
@@ -19,6 +16,19 @@ export default {
         layerUuid: this.layerUuid,
         colorUuid: this.color.uuid
       });
+    }
+  },
+  computed: {
+    style() {
+      const c1 = tinycolor(this.color.base)
+        .darken(Math.abs(this.color.min))
+        .toString();
+      const c2 = tinycolor(this.color.base)
+        .lighten(this.color.max)
+        .toString();
+      return {
+        background: `linear-gradient(0deg, ${c1}, ${c2})`
+      };
     }
   },
   props: {
@@ -34,6 +44,14 @@ export default {
       type: Object,
       default: () => {}
     }
+    // min: {
+    //   type: Number,
+    //   default: 10
+    // },
+    // max: {
+    //   type: Number,
+    //   default: 10
+    // }
   }
 };
 </script>
