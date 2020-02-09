@@ -40,6 +40,10 @@ export default {
     LayerEmoji
   },
   props: {
+    index: {
+      type: Number,
+      default: null
+    },
     emojiList: { type: Array, default: () => [] },
     uuid: { type: String, default: null }
   },

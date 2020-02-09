@@ -1,12 +1,16 @@
 <template>
   <div>
     <div class="layers">
-      <base-btn @click.native="$store.dispatch('sceneConfig/addLayer')">
+      <base-btn
+        id="add-layer"
+        @click.native="$store.dispatch('sceneConfig/addLayer')"
+      >
         Add Layer
       </base-btn>
       <scene-config-layer
         :layer="layer"
         :key="i"
+        :index="i"
         v-for="(layer, i) in $store.getters['sceneConfig/getLayers']"
       />
     </div>

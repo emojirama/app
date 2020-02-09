@@ -62,7 +62,7 @@ export default {
     },
     color: {
       type: String,
-      default: "red"
+      default: "black"
     },
     position: {
       type: Array,

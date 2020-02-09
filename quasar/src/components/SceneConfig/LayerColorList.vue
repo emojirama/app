@@ -8,6 +8,7 @@
           </div>
           <div>
             <base-btn
+              id="add-color"
               class="full-width"
               :color="getSelectedColor"
               @click.native="addColor"
@@ -31,7 +32,7 @@
         />
       </div>
       <div>
-        <div class="art" @click="showColorPicker = true">
+        <div :id="`art-${index}`" class="art" @click="showColorPicker = true">
           <base-emoji :native="false" :emoji="`art`"></base-emoji>
         </div>
       </div>
@@ -86,6 +87,10 @@ export default {
     }
   },
   props: {
+    index: {
+      type: Number,
+      default: null
+    },
     colorList: {
       type: Array,
       default: () => []

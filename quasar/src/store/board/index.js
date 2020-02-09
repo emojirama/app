@@ -104,9 +104,17 @@ const getters = {
 
 const actions = {
   /* eslint-disable no-unused-vars */
+
+  createNewEmojiramaFromConfig: ({ rootGetters, commit }) => {
+    const data = generateBoard(
+      "biome",
+      rootGetters["sceneConfig/getSceneConfig"]
+    );
+    console.log(data);
+    commit("loadEmojirama", { data });
+  },
   setZoom: ({ rootState, commit, state, getters, rootGetters }, payload) => {
     commit("setZoom", payload);
-    // rootState.board.squareSize = rootState.squareSize + payload;
   },
 
   removePortal: ({ state, commit, rootGetters, getters }) => {
@@ -138,7 +146,7 @@ const actions = {
       .catch(err => Notify.create("emojirama not saved..."));
   },
   loadEmojirama: ({ state, commit, dispatch }, payload) => {
-    commit("loadEmojirama", { payload: null });
+    commit("loadEmojirama", null);
   },
   loadEmojiramaFromServer: ({ state, commit }, payload) => {
     payload.vm.$axios
@@ -256,7 +264,7 @@ const mutations = {
   },
   createNewScene: (state, payload) => {
     const newScene = {
-      data: generateBoard(payload),
+      data: generateBoard(payload, null),
       name: "newscene1"
     };
     const newSceneId = uuidv1();
@@ -269,10 +277,16 @@ const mutations = {
     state.board = payload.board;
   },
   loadEmojirama: (state, payload) => {
+    let data;
+    if (payload) {
+      data = payload.data;
+    } else {
+      data = generateBoard("biome", { dimensions: [50, 50] });
+    }
     state.board = {
       scenes: {
         default: {
-          data: generateBoard("biome")
+          data: data
         }
       }
     };

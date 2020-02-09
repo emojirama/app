@@ -12,6 +12,12 @@ const state = {
 };
 
 const getters = {
+  getSceneConfig: s => {
+    return {
+      layers: s.layers,
+      dimensions: [30, 30]
+    };
+  },
   getLayers: s => {
     const layersCopy = _.cloneDeep(s.layers);
     return layersCopy.sort((a, b) => a.z - b.z);

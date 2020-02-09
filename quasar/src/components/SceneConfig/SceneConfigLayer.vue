@@ -4,6 +4,7 @@
       <base-input
         outlined
         pattern="[0-9]*"
+        :id="`layer-level-${index}`"
         label="Level"
         :step="0.1"
         type="number"
@@ -11,8 +12,16 @@
         v-model="z"
       ></base-input>
 
-      <layer-emoji-list :uuid="layer.uuid" :emojiList="layer.emoji" />
-      <layer-color-list :uuid="layer.uuid" :colorList="layer.colors" />
+      <layer-emoji-list
+        :uuid="layer.uuid"
+        :emojiList="layer.emoji"
+        :index="index"
+      />
+      <layer-color-list
+        :uuid="layer.uuid"
+        :colorList="layer.colors"
+        :index="index"
+      />
       <div>
         <div class="wastebasket" @click="deleteLayer">
           <base-emoji :native="false" :emoji="`wastebasket`" />
@@ -51,6 +60,10 @@ export default {
     }
   },
   props: {
+    index: {
+      type: Number,
+      default: null
+    },
     layer: {
       type: Object,
       default: () => {}
