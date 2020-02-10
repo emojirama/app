@@ -4,14 +4,16 @@
       <q-card style="padding: 10px;">
         <div class="color-options">
           <div>
-            <q-color no-header class="my-picker" @input="selectColor" />
+            <q-color no-header class="my-picker" v-model="selectedColor" />
+            <base-input
+              id="color-input"
+              v-show="true"
+              v-model="selectedColorProxy"
+            ></base-input>
           </div>
+
           <div>
-            <base-btn
-              id="add-color"
-              class="full-width"
-              :color="getSelectedColor"
-              @click.native="addColor"
+            <base-btn id="add-color" class="full-width" @click.native="addColor"
               >Add Color &nbsp;
               <span class="color-preview" :style="previewStyle">
                 &nbsp;
@@ -51,7 +53,8 @@ export default {
     return {
       range: { min: 0, max: 0 },
       showColorPicker: false,
-      selectedColor: "#ffffff"
+      selectedColor: "#ffffff",
+      selectedColorProxy: ""
     };
   },
   computed: {
@@ -68,6 +71,12 @@ export default {
     },
     getSelectedColor() {
       return this.selectedColor;
+    }
+  },
+  watch: {
+    selectedColorProxy(oldValue, newValue) {
+      console.log(oldValue);
+      this.selectedColor = newValue;
     }
   },
   methods: {

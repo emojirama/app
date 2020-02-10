@@ -106,10 +106,13 @@ const actions = {
   /* eslint-disable no-unused-vars */
 
   createNewEmojiramaFromConfig: ({ rootGetters, commit }) => {
+    const t0 = performance.now();
     const data = generateBoard(
       "biome",
       rootGetters["sceneConfig/getSceneConfig"]
     );
+    const t1 = performance.now();
+    console.log(`Calculated board in ${t1 - t0}ms`);
     console.log(data);
     commit("loadEmojirama", { data });
   },

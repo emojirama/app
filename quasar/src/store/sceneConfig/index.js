@@ -8,14 +8,46 @@ const state = {
     emoji: [],
     density: 0.25
   },
-  layers: []
+  layers: [
+    {
+      uuid: "layer-1",
+      emoji: [{ code: "fish", uuid: "abc-123" }],
+      colors: [{ uuid: "abc-123", base: "#1d417c" }],
+      z: 50,
+      density: 0.025
+    },
+    {
+      uuid: "layer-2",
+      emoji: [{ code: "shell", uuid: "abc-123" }],
+      colors: [{ uuid: "abc-123", base: "#7a7a36" }],
+      z: 40,
+      density: 0.02
+    },
+    {
+      uuid: "layer-3",
+      emoji: [{ code: "deciduous_tree", uuid: "abc-123" }],
+      colors: [{ uuid: "abc-123", base: "#056805" }],
+      z: 70,
+      density: 0.1
+    },
+    {
+      uuid: "layer-4",
+      emoji: [
+        { code: "deciduous_tree", uuid: "abc-123" },
+        { code: "tulip", uuid: "abc-456" }
+      ],
+      colors: [{ uuid: "abc-123", base: "#056805" }],
+      z: 80,
+      density: 0.25
+    }
+  ]
 };
 
 const getters = {
   getSceneConfig: s => {
     return {
       layers: s.layers,
-      dimensions: [30, 30]
+      dimensions: [70, 70]
     };
   },
   getLayers: s => {
@@ -24,6 +56,9 @@ const getters = {
   },
   getLayerZ: s => uuid => {
     return s.layers.find(x => x.uuid === uuid).z;
+  },
+  getLayerEmojiDensity: s => uuid => {
+    return s.layers.find(x => x.uuid === uuid).density;
   }
 };
 
@@ -81,6 +116,10 @@ const mutations = {
   },
   setLayerZ: (state, { uuid, z }) => {
     state.layers.find(x => x.uuid === uuid).z = parseFloat(z);
+  },
+  setLayerEmojiDensity: (state, { uuid, emojiDensity }) => {
+    console.log("setting layer emoji density...");
+    state.layers.find(x => x.uuid === uuid).density = emojiDensity;
   },
   addEmojiOption: (state, { uuid, emoji }) => {
     const newEmojiUuid = uuidv1();

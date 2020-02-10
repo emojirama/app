@@ -29,15 +29,6 @@ function biome(e) {
 }
 console.log(biome);
 
-function getEmoji(elevation) {
-  return elevation <= 70 || Math.random() < 0.5 ? "" : "deciduous_tree";
-}
-
-// function getColor(elevation) {
-//   return tinycolor(biome(elevation))
-//     .darken(Math.random() * 4)
-//     .toString();
-// }
 const generateBiome = config => {
   let h;
   let w;
@@ -51,7 +42,7 @@ const generateBiome = config => {
   let gen = new SimplexNoise("test.");
 
   function getLayerIdForElevation(elevation) {
-    const sortedLayers = config.layers.sort((a, b) => a.z < b.z);
+    const sortedLayers = config["layers"].concat().sort((a, b) => a.z > b.z);
     for (let i = 0; i < sortedLayers.length; i++) {
       // console.log(config["layers"][i]);
       if (elevation > config.layers[i].z) {
@@ -59,6 +50,22 @@ const generateBiome = config => {
       }
     }
     return config.layers[config.layers.length - 1].uuid;
+  }
+
+  function getEmojiForLayer(layerId) {
+    let emoji = "";
+
+    const layer = config["layers"].find(x => x.uuid === layerId);
+    const emojis = layer.emoji;
+    if (emojis.length > 0) {
+      const rn = Math.random();
+
+      if (rn < layer.density) {
+        emoji = _.sample(emojis).code;
+      }
+    }
+
+    return emoji;
   }
 
   function getColorForLayer(layerId) {
@@ -69,7 +76,10 @@ const generateBiome = config => {
       console.log("err");
     }
 
-    const color = _.sample(colors).base;
+    const color = tinycolor(_.sample(colors).base)
+      .darken(Math.random() * 4)
+      .toString();
+
     return color;
   }
 
@@ -83,11 +93,12 @@ const generateBiome = config => {
       return Array(w)
         .fill()
         .map((_, j) => {
-          const elevation = noise(i / 35, j / 30) * 100;
+          const elevation = noise(i / 35, j / 35) * 100;
+          // console.log(elevation);
           const layerId = getLayerIdForElevation(elevation);
 
           return {
-            emoji: getEmoji(elevation),
+            emoji: getEmojiForLayer(layerId),
             color: getColorForLayer(layerId), //"#000", //getColor(elevation, config),
             position: [i, j],
             tone: Math.floor(Math.random() * 6) + 1
@@ -99,11 +110,14 @@ const generateBiome = config => {
   const path = new Astar.search(board, board[0][0], board[10][10]);
   const t1 = performance.now();
   console.log(`Completed A * in searched in ${t1 - t0} ms`);
-  path.map(coord => {
-    board[coord[0]][coord[1]].color = tinycolor("654321")
-      .darken(Math.random() * 4)
-      .toString();
-  });
+
+  console.log(path);
+  // TODO: add this back in with options
+  // path.map(coord => {
+  //   board[coord[0]][coord[1]].color = tinycolor("654321")
+  //     .darken(Math.random() * 4)
+  //     .toString();
+  // });
   return board;
 };
 
