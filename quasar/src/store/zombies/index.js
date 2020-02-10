@@ -34,7 +34,7 @@ const actions = {
     commit("moveZombie", nextPosition);
   },
   loadZombies: ({ dispatch, commit }) => {
-    dispatch("loadEmojirama");
+    dispatch("createNewEmojiramaFromConfig");
     const zombieInterval = setInterval(function() {
       dispatch("moveZombie");
     }, 250);

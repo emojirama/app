@@ -1,19 +1,35 @@
 <template>
   <base-page>
-    <base-btn id="new_emojirama" @click.native="createNewEmojirama"
-      >New Emojirama</base-btn
-    >
+    <div class="button-wrapper">
+      <div>
+        <base-btn
+          class="full-width"
+          id="new-emojirama-from-config"
+          @click.native="createNewEmojiramaFromConfig"
+          >New Emojirama from Config</base-btn
+        >
+      </div>
+      <div>
+        <scene-config :sceneConfig="$store.getters['sceneConfig/getLayers']" />
+      </div>
+    </div>
   </base-page>
 </template>
 
 <script>
 export default {
   methods: {
-    createNewEmojirama() {
-      this.$store.dispatch("createNewEmojirama", { vm: this });
+    createNewEmojiramaFromConfig() {
+      this.$store.dispatch("createNewEmojiramaFromConfig");
+      this.$router.push("/game");
     }
   }
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style scoped>
+.button-wrapper {
+  display: grid;
+  gap: 10px;
+}
+</style>

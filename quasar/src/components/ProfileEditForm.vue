@@ -49,7 +49,7 @@ export default {
   data() {
     return {
       showPicker: false,
-      selectedEmoji: null,
+      selectedEmoji: this.$store.getters.getProfileEmoji,
       selectedSkin: 1,
       saveDisabled: false
     };
@@ -59,7 +59,10 @@ export default {
       const vm = this;
       this.$store
         .dispatch("saveProfile", { profile: this.profileJson, vm })
-        .then(() => {});
+        .then(() => {
+          this.showPicker = false;
+          this.$store.commit("toggleProfileEditForm");
+        });
     },
     selectEmoji(e) {
       this.selectedEmoji = e.id;

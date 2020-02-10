@@ -77,6 +77,8 @@ export default {
   },
   computed: {
     style() {
+      console.log("undefined part is....");
+      console.log(this.$store.getters.getFullBoard["scenes"]);
       const boardRows = this.$store.getters.getFullBoard["scenes"][
         this.$store.getters.getCurrentScene
       ]["data"].length;

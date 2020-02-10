@@ -78,7 +78,7 @@ export default {
     } else if (this.$route.meta.zombies) {
       this.$store.dispatch("loadZombies");
     } else {
-      this.$store.dispatch("loadEmojirama");
+      this.$store.dispatch("createNewEmojiramaFromConfig");
     }
   },
   data() {
@@ -127,5 +127,6 @@ body {
   margin: 0;
   height: 100%;
   overflow: hidden;
+  /* color: #056805 */
 }
 </style>

@@ -23,8 +23,12 @@ import DeleteEmojiramaWidget from "components/DeleteEmojiramaWidget.vue";
 import AuthMenu from "components/AuthMenu.vue";
 import ProfileEditForm from "components/ProfileEditForm.vue";
 import ZombieMode from "components/Zombies/index.vue";
+import SceneConfig from "components/SceneConfig/index.vue";
+import BaseInput from "components/ui/BaseInput.vue";
 
 export default async ({ Vue }) => {
+  Vue.component("BaseInput", BaseInput);
+  Vue.component("SceneConfig", SceneConfig);
   Vue.component("ZombieMode", ZombieMode);
   Vue.component("ProfileEditForm", ProfileEditForm);
   Vue.component("AuthMenu", AuthMenu);
