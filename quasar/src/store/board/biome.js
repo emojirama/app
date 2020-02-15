@@ -4,30 +4,6 @@ import _ from "lodash";
 
 import Astar from "./utils/graph";
 
-const DEEP_WATER = "#00439e";
-const NAVY = "#0077ea";
-const WATER = "#0063ea";
-const FOREST = "#004e00"; // "darkgreen";
-const BEACH = "#ffd500"; // "yellow";
-const JUNGLE = "#007600"; // "green";
-const SAVANNAH = "#008900"; // "yellow";
-const DESERT = "#009d00"; //"beige";
-const SNOW = "#009d00"; //"white";
-
-function biome(e) {
-  if (e < 0.1) return DEEP_WATER;
-  else if (e < 20) return NAVY;
-  else if (e < 50) return WATER;
-  else if (e < 55) return BEACH;
-  else if (e < 60) return BEACH;
-  else if (e < 70) return FOREST;
-  else if (e < 80) return JUNGLE;
-  else if (e < 85) return SAVANNAH;
-  else if (e < 90) return DESERT;
-  else return SNOW;
-}
-console.log(biome);
-
 const generateBiome = config => {
   let h;
   let w;
