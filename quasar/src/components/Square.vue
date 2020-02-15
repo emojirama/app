@@ -79,10 +79,10 @@ export default {
         this.position[0] === this.$store.getters.getPosition[0] &&
         this.position[1] === this.$store.getters.getPosition[1]
       ) {
-        return "boy"; //this.$store.getters.getProfileEmoji.code;
+        return true;
       }
 
-      return null;
+      return false;
     },
     isZombieSquare() {
       if (
