@@ -14,7 +14,7 @@ const generateBiome = config => {
     h = config["dimensions"][0];
     w = config["dimensions"][1];
   }
-  let gen = new SimplexNoise("test.");
+  let gen = new SimplexNoise();
 
   function getLayerIdForElevation(elevation) {
     const sortedLayers = config["layers"].concat().sort((a, b) => a.z - b.z);
