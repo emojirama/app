@@ -68,7 +68,7 @@ const getters = {
     ];
   },
   getScenes: s => s.board["scenes"],
-  getNextSquare: s => direction => {
+  getNextSquare: (s, getters) => direction => {
     let nextSquarePos;
     switch (direction) {
       case "left":
@@ -85,6 +85,14 @@ const getters = {
         break;
     }
     let nextSquare;
+    if (
+      nextSquarePos[0] < 0 ||
+      nextSquarePos[0] === getters.getCurrentSceneDimensions[0] ||
+      nextSquarePos[1] < 0 ||
+      nextSquarePos[1] === getters.getCurrentSceneDimensions[1]
+    ) {
+      return null;
+    }
     try {
       nextSquare =
         s.board["scenes"][s.currentScene]["data"][nextSquarePos[0]][
@@ -94,7 +102,6 @@ const getters = {
       nextSquare = null;
     }
     return nextSquare;
-    // return s.board
   },
   getSceneOptions: s => {
     const scenes = Object.keys(s.board.scenes);

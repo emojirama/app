@@ -3,6 +3,7 @@
     <q-dialog v-model="showSquareConfig" @touchmove="handleScroll">
       <q-card class="q-card">
         <div class="square-config">
+          <square-config-options />
           <q-card-section>
             <div
               :style="`backgroundColor: ${squareConfigBackgroundColor}`"
@@ -48,11 +49,15 @@
 </template>
 
 <script>
+import SquareConfigOptions from "./SquareConfigOptions.vue";
 export default {
   data() {
     return {
       selectedScene: null
     };
+  },
+  components: {
+    SquareConfigOptions
   },
   created() {},
   destroyed() {},
@@ -127,7 +132,6 @@ export default {
 
 .square-config {
   justify-content: center;
-  width: 250px;
   display: grid;
   grid-template-rows: 1fr;
 }
