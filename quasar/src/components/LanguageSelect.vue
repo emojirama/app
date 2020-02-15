@@ -8,7 +8,6 @@
         :native="false"
         :sheetSize="64"
         :emoji="$store.getters.getCurrentLanguageEmoji"
-        :size="28"
         :skin="1"
       />
     </div>

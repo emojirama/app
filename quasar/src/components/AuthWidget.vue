@@ -10,7 +10,6 @@
         :native="false"
         :sheetSize="64"
         :emoji="$store.getters.getProfileEmoji"
-        :size="28"
         :skin="1"
       />
     </div>
