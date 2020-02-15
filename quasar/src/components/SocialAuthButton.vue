@@ -1,17 +1,20 @@
 <template>
   <div>
     <a :href="$store.getters.oauthUrl(provider)">
-      <img
-        :src="'/statics/' + imagePrefix + '.png'"
-        :alt="provider"
-        class="social"
-      />
+      <img :src="getButtonSrc()" :alt="provider" class="social" />
     </a>
   </div>
 </template>
 
 <script>
 export default {
+  methods: {
+    getButtonSrc() {
+      const prefix =
+        process.env.NODE_ENV === "development" ? "/assets/" : "/statics/";
+      return prefix + this.imagePrefix + ".png";
+    }
+  },
   props: {
     imagePrefix: {
       type: String
