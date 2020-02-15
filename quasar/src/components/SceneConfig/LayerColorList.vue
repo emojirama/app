@@ -75,17 +75,14 @@ export default {
   },
   watch: {
     selectedColorProxy(oldValue, newValue) {
-      console.log(oldValue);
       this.selectedColor = newValue;
     }
   },
   methods: {
     selectColor(color) {
-      console.log(color);
       this.selectedColor = color;
     },
     addColor() {
-      console.log(this.selectedColor);
       this.showColorPicker = false;
       this.$store.dispatch("sceneConfig/addColor", {
         c: this.selectedColor,

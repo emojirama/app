@@ -94,7 +94,6 @@ export default {
   },
   methods: {
     fetchData() {
-      console.log("fetching...");
       this.emojirama = [];
       this.$axios
         .get(`/api/emojirama/`, {

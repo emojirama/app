@@ -13,14 +13,14 @@ const state = {
       uuid: "layer-1",
       emoji: [{ code: "fish", uuid: "abc-123" }],
       colors: [{ uuid: "abc-123", base: "#1d417c" }],
-      z: 50,
+      z: 40,
       density: 0.025
     },
     {
       uuid: "layer-2",
       emoji: [{ code: "shell", uuid: "abc-123" }],
       colors: [{ uuid: "abc-123", base: "#7a7a36" }],
-      z: 40,
+      z: 50,
       density: 0.02
     },
     {
@@ -47,7 +47,7 @@ const getters = {
   getSceneConfig: s => {
     return {
       layers: s.layers,
-      dimensions: [70, 70]
+      dimensions: [30, 30]
     };
   },
   getLayers: s => {
@@ -64,19 +64,14 @@ const getters = {
 
 const actions = {
   deleteLayerColor: ({ commit }, payload) => {
-    console.log(payload);
     commit("deleteLayerColor", payload);
   },
   deleteLayerEmoji: ({ commit }, payload) => {
-    console.log("actoin payload");
-    console.log(payload);
     commit("deleteLayerEmoji", payload);
   },
   deleteLayer: ({ commit, state }, { uuid }) => {
-    console.log(uuid);
     const layersCopy = _.cloneDeep(state.layers);
     const newLayers = layersCopy.filter(x => x.uuid !== uuid);
-    console.log(newLayers.length);
     commit("deleteLayer", newLayers);
   },
   addLayer: ({ commit, state }) => {
@@ -87,21 +82,17 @@ const actions = {
   addColor: ({ commit }, payload) => {
     const uuid = uuidv1();
     payload["colorUuid"] = uuid;
-    console.log(payload);
-
     commit("addColor", payload);
   }
 };
 
 const mutations = {
   deleteLayerColor: (state, { layerUuid, colorUuid }) => {
-    console.log(layerUuid, colorUuid);
     state.layers.find(x => x.uuid === layerUuid).colors = state.layers
       .find(x => x.uuid === layerUuid)
       .colors.filter(x => x.uuid !== colorUuid);
   },
   deleteLayerEmoji: (state, { layerUuid, emojiUuid }) => {
-    console.log(emojiUuid);
     state.layers.find(x => x.uuid === layerUuid).emoji = state.layers
       .find(x => x.uuid === layerUuid)
       .emoji.filter(x => x.uuid !== emojiUuid);
@@ -118,7 +109,6 @@ const mutations = {
     state.layers.find(x => x.uuid === uuid).z = parseFloat(z);
   },
   setLayerEmojiDensity: (state, { uuid, emojiDensity }) => {
-    console.log("setting layer emoji density...");
     state.layers.find(x => x.uuid === uuid).density = emojiDensity;
   },
   addEmojiOption: (state, { uuid, emoji }) => {

@@ -11,7 +11,6 @@ import tinycolor from "tinycolor2";
 export default {
   methods: {
     deleteLayerColor() {
-      console.log();
       this.$store.dispatch("sceneConfig/deleteLayerColor", {
         layerUuid: this.layerUuid,
         colorUuid: this.color.uuid

@@ -52,7 +52,6 @@ export default {
           password: this.password
         })
         .then(() => {
-          console.log("finished auth request.. in login form");
           vm.$router.push("/");
           vm.$store.dispatch("initialAuthCheck", { vm });
         });

@@ -13,7 +13,6 @@ const JUNGLE = "#007600"; // "green";
 const SAVANNAH = "#008900"; // "yellow";
 const DESERT = "#009d00"; //"beige";
 const SNOW = "#009d00"; //"white";
-// "#004e00", "#006200", "#007600", "#008900", "#009d00";
 
 function biome(e) {
   if (e < 0.1) return DEEP_WATER;
@@ -42,14 +41,13 @@ const generateBiome = config => {
   let gen = new SimplexNoise("test.");
 
   function getLayerIdForElevation(elevation) {
-    const sortedLayers = config["layers"].concat().sort((a, b) => a.z > b.z);
+    const sortedLayers = config["layers"].concat().sort((a, b) => a.z - b.z);
     for (let i = 0; i < sortedLayers.length; i++) {
-      // console.log(config["layers"][i]);
-      if (elevation > config.layers[i].z) {
-        return config.layers[i].uuid;
+      if (elevation < sortedLayers[i].z) {
+        return sortedLayers[i].uuid;
       }
     }
-    return config.layers[config.layers.length - 1].uuid;
+    return sortedLayers[sortedLayers.length - 1].uuid;
   }
 
   function getEmojiForLayer(layerId) {
@@ -94,7 +92,6 @@ const generateBiome = config => {
         .fill()
         .map((_, j) => {
           const elevation = noise(i / 35, j / 35) * 100;
-          // console.log(elevation);
           const layerId = getLayerIdForElevation(elevation);
 
           return {
