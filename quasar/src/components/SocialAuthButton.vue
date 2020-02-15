@@ -2,7 +2,7 @@
   <div>
     <a :href="$store.getters.oauthUrl(provider)">
       <img
-        :src="'/assets/' + imagePrefix + '.png'"
+        :src="'assets/' + imagePrefix + '.png'"
         :alt="provider"
         class="social"
       />
