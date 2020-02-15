@@ -59,7 +59,6 @@ export default {
   },
   watch: {
     showModal(newShowPicker) {
-      console.log(newShowPicker);
       const vm = this;
       if (newShowPicker) {
         setTimeout(function() {

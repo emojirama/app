@@ -113,7 +113,6 @@ const actions = {
     );
     const t1 = performance.now();
     console.log(`Calculated board in ${t1 - t0}ms`);
-    console.log(data);
     commit("loadEmojirama", { data });
   },
   setZoom: ({ rootState, commit, state, getters, rootGetters }, payload) => {

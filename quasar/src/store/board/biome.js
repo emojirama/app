@@ -4,31 +4,6 @@ import _ from "lodash";
 
 import Astar from "./utils/graph";
 
-const DEEP_WATER = "#00439e";
-const NAVY = "#0077ea";
-const WATER = "#0063ea";
-const FOREST = "#004e00"; // "darkgreen";
-const BEACH = "#ffd500"; // "yellow";
-const JUNGLE = "#007600"; // "green";
-const SAVANNAH = "#008900"; // "yellow";
-const DESERT = "#009d00"; //"beige";
-const SNOW = "#009d00"; //"white";
-// "#004e00", "#006200", "#007600", "#008900", "#009d00";
-
-function biome(e) {
-  if (e < 0.1) return DEEP_WATER;
-  else if (e < 20) return NAVY;
-  else if (e < 50) return WATER;
-  else if (e < 55) return BEACH;
-  else if (e < 60) return BEACH;
-  else if (e < 70) return FOREST;
-  else if (e < 80) return JUNGLE;
-  else if (e < 85) return SAVANNAH;
-  else if (e < 90) return DESERT;
-  else return SNOW;
-}
-console.log(biome);
-
 const generateBiome = config => {
   let h;
   let w;
@@ -39,17 +14,16 @@ const generateBiome = config => {
     h = config["dimensions"][0];
     w = config["dimensions"][1];
   }
-  let gen = new SimplexNoise("test.");
+  let gen = new SimplexNoise();
 
   function getLayerIdForElevation(elevation) {
-    const sortedLayers = config["layers"].concat().sort((a, b) => a.z > b.z);
+    const sortedLayers = config["layers"].concat().sort((a, b) => a.z - b.z);
     for (let i = 0; i < sortedLayers.length; i++) {
-      // console.log(config["layers"][i]);
-      if (elevation > config.layers[i].z) {
-        return config.layers[i].uuid;
+      if (elevation < sortedLayers[i].z) {
+        return sortedLayers[i].uuid;
       }
     }
-    return config.layers[config.layers.length - 1].uuid;
+    return sortedLayers[sortedLayers.length - 1].uuid;
   }
 
   function getEmojiForLayer(layerId) {
@@ -94,7 +68,6 @@ const generateBiome = config => {
         .fill()
         .map((_, j) => {
           const elevation = noise(i / 35, j / 35) * 100;
-          // console.log(elevation);
           const layerId = getLayerIdForElevation(elevation);
 
           return {

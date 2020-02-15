@@ -68,7 +68,6 @@ export default {
   computed: {
     showSceneMenu: {
       get() {
-        console.log(this.$store.getters.getShowSceneMenu);
         return this.$store.getters.getShowSceneMenu;
       },
       set() {}

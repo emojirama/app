@@ -6,6 +6,7 @@
           :emoji="emoji"
           @click.native="toggleLeftDrawer"
           :native="false"
+          size="40"
         >
         </base-emoji>
         <!-- <q-icon :name="icon" /> -->
