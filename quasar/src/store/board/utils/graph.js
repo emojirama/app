@@ -51,7 +51,7 @@ var astar = {
 
       for (var i = 0, il = neighbors.length; i < il; i++) {
         var neighbor = neighbors[i];
-        if (neighbor.closed || neighbor.emoji !== "") {
+        if (neighbor.closed || neighbor.emoji !== "" || neighbor.zombie) {
           // Not a valid node to process, skip to next neighbor.
           continue;
         }

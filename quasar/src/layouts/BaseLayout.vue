@@ -78,7 +78,7 @@ export default {
         }
       };
     } else if (this.$route.meta.zombies) {
-      this.$store.dispatch("loadZombies");
+      this.$store.dispatch("resetZombies", { created: true, initial: true });
     } else {
       this.$store.dispatch("createNewEmojiramaFromConfig");
     }

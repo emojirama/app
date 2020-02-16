@@ -47,7 +47,7 @@ const getters = {
   getSceneConfig: s => {
     return {
       layers: s.layers,
-      dimensions: [30, 30]
+      dimensions: [80, 80]
     };
   },
   getLayers: s => {
