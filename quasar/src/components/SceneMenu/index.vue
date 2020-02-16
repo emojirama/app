@@ -8,7 +8,7 @@
       <emoji-button emoji="world_map"></emoji-button>
     </div>
     <q-dialog v-model="showSceneMenu">
-      <q-card class="q-card">
+      <base-card class="q-card">
         <q-card-section>
           Scenes
           <div class="scene-list-wrapper">
@@ -58,7 +58,7 @@
             @click="$store.commit('toggleShowSceneMenu')"
           ></q-btn>
         </q-card-actions>
-      </q-card>
+      </base-card>
     </q-dialog>
   </div>
 </template>

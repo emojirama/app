@@ -8,6 +8,7 @@
       <emoji-button
         :backgroundColor="$store.getters.getSquarePickerColor"
         :emoji="$store.getters.getSquarePickerEmoji"
+        :tone="$store.getters.getSquarePickerToneNumber"
       ></emoji-button>
     </div>
     <q-dialog transition-show="fade" v-model="showSquarePicker">
@@ -59,14 +60,17 @@
               class="button"
               @click="$store.commit('setSquarePickerTab', 'mode')"
             >
-              <emoji-button :skin="1" emoji="gear"></emoji-button>
+              <emoji-button
+                :tone="$store.getters.getSquarePickerToneNumber"
+                emoji="gear"
+              ></emoji-button>
             </div>
             <div
               class="button"
               @click="$store.commit('setSquarePickerTab', 'emoji')"
             >
               <emoji-button
-                :skin="$store.getters.getSquarePickerToneNumber"
+                :tone="$store.getters.getSquarePickerToneNumber"
                 :emoji="$store.getters.getSquarePickerEmoji"
                 :backgroundColor="$store.getters.getSquarePickerColor"
               ></emoji-button>
@@ -76,9 +80,9 @@
               @click="$store.commit('setSquarePickerTab', 'tone')"
             >
               <emoji-button
-                :skin="1"
+                :tone="1"
                 :backgroundColor="$store.getters.getSquarePickerTone"
-                :emoji="null"
+                :emoji="''"
               ></emoji-button>
             </div>
             <div
@@ -86,6 +90,7 @@
               @click="$store.commit('setSquarePickerTab', 'color')"
             >
               <emoji-button
+                :tone="1"
                 :backgroundColor="$store.getters.getSquarePickerColor"
                 emoji="art"
               ></emoji-button>

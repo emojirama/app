@@ -1,38 +1,15 @@
 <template>
   <div @touchmove="handleScroll">
     <q-dialog v-model="showSquareConfig" @touchmove="handleScroll">
-      <q-card class="q-card">
+      <base-card class="q-card">
         <div class="square-config">
           <square-config-options />
-          <q-card-section>
-            <div
-              :style="`backgroundColor: ${squareConfigBackgroundColor}`"
-              class="square-preview"
-              v-if="squareConfigEmoji"
-            >
-              <base-emoji
-                :native="false"
-                :emoji="squareConfigEmoji"
-                :size="64"
-              />
-            </div>
-            <div v-else></div>
-            <div v-if="!portalExists">
-              <q-select
-                label="To Scene"
-                ref="scenes"
-                :options="$store.getters.getSceneOptions"
-                v-model="selectedScene"
-              >
-              </q-select>
-              <q-btn @click="setPortal">Set Portal</q-btn>
-            </div>
-            <div v-else>
-              <base-btn @click.native="$store.dispatch('removePortal')"
-                >Remove Portal</base-btn
-              >
-            </div>
-          </q-card-section>
+          <portal-options
+            v-if="$store.getters.getActiveSquareConfigTab === 'portal'"
+          />
+          <dialog-options
+            v-if="$store.getters.getActiveSquareConfigTab === 'dialog'"
+          />
         </div>
 
         <q-card-actions align="right">
@@ -43,71 +20,30 @@
             @click="$store.commit('toggleShowSquareConfig')"
           />
         </q-card-actions>
-      </q-card>
+      </base-card>
     </q-dialog>
   </div>
 </template>
 
 <script>
 import SquareConfigOptions from "./SquareConfigOptions.vue";
+import PortalOptions from "components/SquareConfig/PortalOptions.vue";
+import DialogOptions from "components/SquareConfig/DialogOptions.vue";
 export default {
-  data() {
-    return {
-      selectedScene: null
-    };
-  },
   components: {
-    SquareConfigOptions
+    SquareConfigOptions,
+    PortalOptions,
+    DialogOptions
   },
-  created() {},
-  destroyed() {},
   computed: {
-    portalExists: {
-      get() {
-        const portal = !!this.$store.getters.getSquareConfig(
-          this.$store.getters.getSquareConfigPosition
-        )["portal"];
-        return portal;
-      }
-    },
     showSquareConfig: {
       get() {
         return this.$store.getters.getShowSquareConfig;
       },
       set() {}
-    },
-    squareConfigBackgroundColor: {
-      get() {
-        const squareConfig = this.$store.getters.getSquareConfig;
-        if (squareConfig !== undefined) {
-          return this.$store.getters.getSquareConfig(
-            this.$store.getters.getSquareConfigPosition
-          )["color"];
-        }
-        return "#000";
-      }
-    },
-    squareConfigEmoji: {
-      get() {
-        return this.$store.getters.getSquareConfig(
-          this.$store.getters.getSquareConfigPosition
-        )["emoji"];
-      }
     }
   },
   methods: {
-    setPortal() {
-      const fromScene = this.$store.getters.getCurrentScene;
-      const toScene = this.$refs.scenes.value;
-      const fromPos = this.$store.getters.getSquareConfigPosition;
-      const toPos = [5, 7];
-      this.$store.dispatch("setPortal", {
-        fromScene,
-        toScene,
-        fromPos,
-        toPos
-      });
-    },
     handleScroll(event) {
       event.preventDefault();
       event.stopPropagation();

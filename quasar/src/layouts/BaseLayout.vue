@@ -3,11 +3,12 @@
     <debug-panel id="debug"></debug-panel>
     <settings-modal></settings-modal>
     <stats-panel></stats-panel>
-    <square-conifg />
+    <square-conifg v-if="$store.getters.getShowSquareConfig" />
     <home-modal />
     <save-button />
     <scene-menu />
     <movement-control />
+    <square-dialog />
     <zombie-mode v-if="$route.meta.zombies" />
     <square-picker></square-picker>
     <div
@@ -36,6 +37,7 @@ import SquareConifg from "components/SquareConfig.vue";
 import HomeModal from "components/HomeModal.vue";
 import SaveButton from "components/SaveButton.vue";
 import SceneMenu from "components/SceneMenu/index.vue";
+import SquareDialog from "components/SquareDialog.vue";
 
 export default {
   components: {
@@ -47,7 +49,8 @@ export default {
     SquareConifg,
     HomeModal,
     SaveButton,
-    SceneMenu
+    SceneMenu,
+    SquareDialog
   },
   created() {
     document.body.style.backgroundColor = "black";

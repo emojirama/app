@@ -29,10 +29,16 @@ const state = {
   squareConfigPosition: [0, 0],
   movementMode: "normal",
   showSceneMenu: false,
-  gridLineWidth: 0
+  gridLineWidth: 0,
+  showDialog: false,
+  currentDialog: "",
+  dialogEmoji: "",
+  dialogEmojiTone: 3
 };
 
 const getters = {
+  getDialogEmoji: s => s.dialogEmoji,
+  getDialogEmojiTone: s => s.dialogEmojiTone,
   getGridLineWidth: s => s.gridLineWidth,
   getMovementMode: s => s.movementMode,
   getSquareSize: s => s.squareSize,
@@ -106,12 +112,25 @@ const getters = {
   getSceneOptions: s => {
     const scenes = Object.keys(s.board.scenes);
     return scenes;
+  },
+  getShowDialog: s => {
+    return s.showDialog;
+  },
+  getCurrentDialog: s => {
+    return s.currentDialog;
   }
 };
 
 const actions = {
   /* eslint-disable no-unused-vars */
 
+  setSquareDialog: ({ state, commit, getters }, { dialog }) => {
+    commit("setSquareDialog", {
+      dialog,
+      scene: getters.getCurrentScene,
+      position: getters.getSquareConfigPosition
+    });
+  },
   createNewEmojiramaFromConfig: ({ rootGetters, commit }) => {
     const t0 = performance.now();
     const data = generateBoard(
@@ -205,6 +224,9 @@ const actions = {
     if (nextSquare === null) {
       return;
     }
+    if (nextSquare.dialog) {
+      commit("showDialog", { dialog: nextSquare.dialog, square: nextSquare });
+    }
     if (nextSquare.portal) {
       commit("travelPortal", nextSquare.portal);
       return;
@@ -212,8 +234,12 @@ const actions = {
     if (nextSquare.emoji !== "") {
       return;
     }
+
     const mode = getters.getMovementMode;
     commit("move", { direction: payload, mode });
+  },
+  toggleSquareDialog: ({ commit }, payload) => {
+    commit("toggleSquareDialog", payload);
   }
 };
 
@@ -255,6 +281,13 @@ const mutations = {
   },
   deleteScene: (state, payload) => {
     Vue.delete(state.board["scenes"], payload);
+  },
+  setSquareDialog: (state, { dialog, scene, position }) => {
+    Vue.set(
+      state.board["scenes"][scene]["data"][position[0]][position[1]],
+      "dialog",
+      dialog
+    );
   },
   setPortal: (state, payload) => {
     Vue.set(
@@ -346,6 +379,15 @@ const mutations = {
   setCols: (state, payload) => {
     state.cols = payload + 1;
     state.area = state.rows * state.cols;
+  },
+  showDialog: (state, { dialog, square }) => {
+    state.currentDialog = dialog;
+    state.showDialog = true;
+    state.dialogEmojiTone = square.tone;
+    state.dialogEmoji = square.emoji;
+  },
+  toggleSquareDialog: (state, payload) => {
+    state.showDialog = payload;
   },
   move: moveMutation
 };

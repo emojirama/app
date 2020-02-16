@@ -1,10 +1,10 @@
 <template>
   <div @touchmove="handleScroll">
     <div class="trigger" @click="$store.commit('toggleDebugModal')">
-      <emoji-button emoji="gear"></emoji-button>
+      <emoji-button :tone="1" emoji="gear"></emoji-button>
     </div>
     <q-dialog v-model="showDebugModal">
-      <q-card class="q-card">
+      <base-card class="q-card">
         <q-card-section class="welcome">
           <div class="settings-icons">
             <language-select />
@@ -34,6 +34,7 @@
             <div @click="$store.commit('setUseNativeEmoji', true)">
               <base-emoji
                 :emoji="$store.getters.getProfileEmoji"
+                :skin="1"
                 :native="true"
               ></base-emoji>
             </div>
@@ -48,7 +49,7 @@
             @click="$store.commit('toggleDebugModal')"
           />
         </q-card-actions>
-      </q-card>
+      </base-card>
     </q-dialog>
   </div>
 </template>

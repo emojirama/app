@@ -46,6 +46,16 @@ export default {
       this.$store.commit("setMouseDown", true);
     },
     handleKeyDown(e) {
+      if (e.code === "Space" && this.$store.getters.getShowDialog) {
+        this.$store.dispatch("toggleSquareDialog", false);
+        return;
+      }
+      if (this.$store.getters.getShowSquareConfig) {
+        return;
+      }
+      if (this.$store.getters.getShowDialog) {
+        return;
+      }
       if (this.$store.getters.showSquarePicker) {
         return;
       }

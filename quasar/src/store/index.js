@@ -9,6 +9,7 @@ import squarePicker from "./squarePicker";
 import core from "./core";
 import zombies from "./zombies";
 import sceneConfig from "./sceneConfig";
+import squareConfig from "./squareConfig";
 
 // import example from './module-example'
 
@@ -29,7 +30,8 @@ export default function(/* { ssrContext } */) {
       squarePicker,
       core,
       zombies,
-      sceneConfig
+      sceneConfig,
+      squareConfig
     },
 
     // enable strict mode (adds overhead!)

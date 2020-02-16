@@ -4,7 +4,7 @@
       <emoji-button emoji="house"></emoji-button>
     </div>
     <q-dialog v-model="showHomeModal">
-      <q-card class="q-card">
+      <base-card class="q-card">
         <div class="square-config">
           <q-card-section>
             <h6>
@@ -30,7 +30,7 @@
             "
           ></q-btn>
         </q-card-actions>
-      </q-card>
+      </base-card>
     </q-dialog>
   </div>
 </template>

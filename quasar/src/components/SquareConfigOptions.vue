@@ -1,9 +1,9 @@
 <template>
   <div class="options">
-    <div>
+    <div @click="$store.dispatch('setActiveSquareConigTab', 'portal')">
       <base-emoji :emoji="`door`" :native="false"></base-emoji>
     </div>
-    <div>
+    <div @click="$store.dispatch('setActiveSquareConigTab', 'dialog')">
       <base-emoji :emoji="`speech_balloon`" :native="false"></base-emoji>
     </div>
   </div>

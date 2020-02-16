@@ -21,7 +21,6 @@ const getters = {
 
 const actions = {
   handleOauthCallback: ({ commit, dispatch }, payload) => {
-    console.log(payload);
     const { provider } = payload.vm.$route.params;
     const { code } = payload.vm.$route.query;
     payload.vm.$axios
@@ -52,7 +51,6 @@ const actions = {
       Vue.prototype.$axios
         .post("/api/auth/obtain_token/", user)
         .then(resp => {
-          console.log("in promise..");
           Cookies.set("refresh-token", resp.data.refresh);
           Cookies.set("user-token", resp.data.access);
           commit("authSuccess", resp);
