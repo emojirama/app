@@ -53,7 +53,7 @@ export default {
         })
         .then(() => {
           vm.$router.push("/");
-          vm.$store.dispatch("initialAuthCheck", { vm });
+          vm.$store.dispatch("initialAuthCheck");
         });
       this.email = "";
       this.password = "";

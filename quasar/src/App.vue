@@ -11,10 +11,8 @@ export default {
   name: "App",
 
   created: function() {
-    this.$store.dispatch("initialAuthCheck", { vm: this });
+    this.$store.dispatch("initialAuthCheck");
   }
-  // TODO: set this in Vuex
-  // const isDesktop = this.$q.platform.is.desktop;
 };
 </script>
 

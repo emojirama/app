@@ -1,7 +1,7 @@
 /* eslint-disable promise/param-names, no-unused-vars */
 
 import Vue from "vue";
-import { Cookies } from "quasar";
+import * as Cookies from "js-cookie";
 
 const state = {
   token: Cookies.get("user-token") || "",
@@ -21,29 +21,33 @@ const getters = {
 
 const actions = {
   handleOauthCallback: ({ commit, dispatch }, payload) => {
-    const { provider } = payload.vm.$route.params;
-    const { code } = payload.vm.$route.query;
-    payload.vm.$axios
-      .post(`/api/social/${provider}/`, { code })
-      .then(function(resp) {
-        Cookies.set("refresh-token", resp.data.refresh);
-        Cookies.set("user-token", resp.data.access);
-        commit("setAccessToken", resp.data.access);
-        dispatch("initialAuthCheck", { vm: payload.vm });
-        payload.vm.$router.push("/");
-      });
+    new Promise((resolve, reject) => {
+      const { provider } = payload.vm.$route.params;
+      const { code } = payload.vm.$route.query;
+      Vue.prototype.$axios
+        .post(`/api/social/${provider}/`, { code })
+        .then(function(resp) {
+          Cookies.set("refresh-token", resp.data.refresh);
+          Cookies.set("user-token", resp.data.access);
+          commit("setAccessToken", resp.data.access);
+          dispatch("initialAuthCheck");
+          payload.vm.$router.push("/");
+        });
+    });
   },
-  initialAuthCheck: ({ commit, dispatch, getters }, payload) => {
-    if (getters.isAuthenticated) {
-      payload.vm.$store.dispatch("userRequest");
-      // refresh the token every 4 minutes while the user is logged in in production
-      // refresh every six seconds in development to ensure user stays logged in
-      const refreshFrequency = process.env.NODE_ENV === "development" ? 2 : 4;
-      const authRefreshIntervalId = setInterval(function() {
-        payload.vm.$store.dispatch("authRefresh");
-      }, 1000 * 60 * refreshFrequency);
-      commit("setAuthRefreshIntervalId", authRefreshIntervalId);
-    }
+  initialAuthCheck: ({ commit, dispatch, getters }) => {
+    dispatch("authRefresh").then(() => {
+      dispatch("userRequest");
+      if (getters.isAuthenticated) {
+        // refresh the token every 4 minutes while the user is logged in in production
+        // refresh every six seconds in development to ensure user stays logged in
+        const refreshFrequency = process.env.NODE_ENV === "development" ? 2 : 4;
+        const authRefreshIntervalId = setInterval(function() {
+          dispatch("authRefresh");
+        }, 1000 * 60 * refreshFrequency);
+        commit("setAuthRefreshIntervalId", authRefreshIntervalId);
+      }
+    });
   },
   authRequest: ({ commit, dispatch }, user) =>
     new Promise((resolve, reject) => {
@@ -81,6 +85,10 @@ const actions = {
         .then(resp => {
           Cookies.set("user-token", resp.data.access);
           commit("authSuccess", resp);
+          resolve();
+        })
+        .catch(() => {
+          reject();
         });
     })
 };

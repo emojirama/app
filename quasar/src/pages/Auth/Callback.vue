@@ -5,7 +5,6 @@
 </template>
 
 <script>
-// import * as Cookies from "js-cookie";
 export default {
   methods: {
     handleOauthCallback() {
