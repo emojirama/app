@@ -4,6 +4,8 @@ describe("Test Delete Emojirama", function() {
     cy.visit("/new");
     cy.get("#new-emojirama-from-config").click();
     cy.wait(500);
+    cy.get("#save_button").click();
+    cy.contains("Saved");
     cy.url().then($url => {
       const urlParts = $url.split("/");
       const id = urlParts[urlParts.length - 1];

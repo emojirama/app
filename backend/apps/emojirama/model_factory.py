@@ -14,6 +14,10 @@ class EmojiramaFactory(factory.django.DjangoModelFactory):
         model = models.Emojirama
 
     board = {
-        "scenes": {"default": {"data": generate_grid_data()}}
+        "scenes": {
+            "default": {
+                "data": generate_grid_data(dimensions=[5, 5])
+            }
+        }
     }
     owner = factory.SubFactory(UserFactory)

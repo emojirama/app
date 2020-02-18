@@ -4,6 +4,7 @@ Tests for CRUD operations on emojirama
 
 import pytest
 
+from apps.emojirama.utils.generation import generate_grid_data
 from apps.emojirama.models import Emojirama
 from apps.emojirama.model_factory import EmojiramaFactory
 from apps.core.tests.utils import login
@@ -19,7 +20,16 @@ User = get_user_model()
 @pytest.mark.django_db(transaction=True)
 def test_new_emojirama_route():
     client = login()
-    client.post(reverse("new-emojirama"))
+    post_data = {
+        "scenes": {
+            "default": {
+                "data": generate_grid_data(dimensions=[5, 5])
+            }
+        }
+    }
+    client.post(
+        reverse("new-emojirama"), post_data, format="json"
+    )
     assert Emojirama.objects.all().count() == 1
 
 
@@ -55,29 +65,22 @@ def test_update_emojirama():
     assert emojirama.owner is user
 
     # create a new simple scene to add to the board
-    new_scene = {
-        "data": [
-            [
-                {
-                    "emoji": "elf",
-                    "color": "#ffffff",
-                    "position": [0, 0],
-                    "tone": 1,
-                }
-            ]
-        ]
-    }
+    new_scene = {"data": generate_grid_data(dimensions=[3, 3])}
 
     e = Emojirama.objects.all().first()
-    e.board["scenes"]["new_scene"] = new_scene
+    emojirama_board = e.board
+    emojirama_board["scenes"]["new_scene"] = new_scene
 
     client.post(
-        f"/api/emojirama/{e.id}/",
-        data={"board": e.board, "owner": user.id},
+        reverse("emojirama-record", kwargs={"pk": e.id}),
+        data=emojirama_board,
         format="json",
     )
 
-    assert len(e.board["scenes"]) == 2
+    updated_emojirama = Emojirama.objects.get(id=e.id)
+
+    print(updated_emojirama.board)
+    assert len(updated_emojirama.board["scenes"]) == 2
 
 
 @pytest.mark.django_db(transaction=True)

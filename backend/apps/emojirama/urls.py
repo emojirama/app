@@ -6,7 +6,7 @@ urlpatterns = [
     path(
         "emojirama/",
         views.EmojiramaViewSet.as_view(
-            {"get": "list_emojiramas", "post": "post"}
+            {"get": "list_emojiramas"}
         ),
         name="emojirama",
     ),

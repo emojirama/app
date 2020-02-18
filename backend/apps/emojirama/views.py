@@ -1,8 +1,7 @@
-from rest_framework import viewsets
+from rest_framework import viewsets, status
 from rest_framework.pagination import LimitOffsetPagination
 from rest_framework.response import Response
 
-from .utils.generation import generate_grid_data
 from .models import Emojirama
 from .serializers import EmojiramaSerializer
 from .permissions import EmojiramaPermissions
@@ -21,13 +20,6 @@ class EmojiramaViewSet(viewsets.ViewSet):
         # remove users from live WS connection groups
         return Response("emojirama deleted")
 
-    def post(self, request):
-        emojirama = Emojirama(
-            board=request.data, owner=request.user
-        )
-        emojirama.save()
-        return Response("saved!!")
-
     def get(self, request, pk):
         emojirama = Emojirama.objects.get(pk=pk)
         self.check_object_permissions(request, emojirama)
@@ -37,9 +29,15 @@ class EmojiramaViewSet(viewsets.ViewSet):
     def save(self, request, pk):
         emojirama = Emojirama.objects.get(pk=pk)
         self.check_object_permissions(request, emojirama)
-        emojirama.board = request.data
-        emojirama.save()
-        return Response("OK..")
+        serializer_data = {"board": request.data}
+        serializer = EmojiramaSerializer(
+            emojirama, data=serializer_data, partial=True
+        )
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(
+            data=serializer.data, status=status.HTTP_200_OK
+        )
 
     def list_emojiramas(self, request):
         paginator = LimitOffsetPagination()
@@ -52,22 +50,10 @@ class EmojiramaViewSet(viewsets.ViewSet):
         return paginator.get_paginated_response(serializer.data)
 
     def new_emojirama(self, request):
-        # TODO: remove this and generate initial scene
-        # from frontend with options
 
-        board = {
-            "scenes": {"default": {"data": generate_grid_data()}}
-        }
-        owner = None
-        if not request.user.is_anonymous:
-            print("getting here....")
-            owner = request.user
-        print(owner)
-        print(type(owner))
-
+        board = request.data
         serializer = EmojiramaSerializer(
-            context={"request": request},
-            data={"board": board, "owner": owner},
+            context={"request": request}, data={"board": board},
         )
         if serializer.is_valid():
             serializer.save()

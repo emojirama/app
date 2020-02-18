@@ -165,13 +165,22 @@ const actions = {
       payload.vm.$router.push(`/emojirama/${resp.data.id}`);
     });
   },
-  saveEmojirama: ({ state }, payload) => {
-    payload.vm.$axios
-      .post(`/api/emojirama/${payload.vm.$route.params.id}/`, state.board)
-      .then(resp => {
-        Notify.create("saved...");
-      })
-      .catch(err => Notify.create("emojirama not saved..."));
+  saveEmojirama: ({ state, getters }, payload) => {
+    if (payload.vm.$route.meta.unsaved) {
+      const postData = getters.getFullBoard;
+      Vue.prototype.$axios.post("/api/emojirama/new/", postData).then(resp => {
+        const id = resp.data.id;
+        payload.vm.$router.push(`/emojirama/${id}`);
+        Notify.create("Saved");
+      });
+    } else {
+      payload.vm.$axios
+        .post(`/api/emojirama/${payload.vm.$route.params.id}/`, state.board)
+        .then(resp => {
+          Notify.create("saved...");
+        })
+        .catch(err => Notify.create("emojirama not saved..."));
+    }
   },
   loadEmojirama: ({ state, commit, dispatch }, payload) => {
     commit("loadEmojirama", null);

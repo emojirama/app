@@ -1,27 +1,34 @@
 const routes = [
   {
     path: "/game",
-    component: () => import("layouts/BaseLayout.vue")
+    component: () => import("layouts/BaseLayout.vue"),
+    meta: {
+      unsaved: true,
+      save: true
+    }
   },
   {
     path: "/zombies",
     component: () => import("layouts/BaseLayout.vue"),
     meta: {
-      zombies: true
+      zombies: true,
+      save: false
     }
   },
   {
     path: "/emojirama/:id",
     component: () => import("layouts/BaseLayout.vue"),
     meta: {
-      db: true
+      db: true,
+      save: true
     }
   },
   {
     path: "/emojirama/live/:id",
     component: () => import("layouts/BaseLayout.vue"),
     meta: {
-      live: true
+      live: true,
+      save: false
     }
   },
   {

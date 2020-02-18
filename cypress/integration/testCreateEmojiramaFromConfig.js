@@ -1,5 +1,6 @@
 describe("test create emojirama from config", function() {
   it("can create an emojirama config and generate a new emojirama from it", function() {
+    cy.login();
     cy.visit("/new");
 
     cy.get("#add-layer").click();

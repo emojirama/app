@@ -77,12 +77,12 @@ def biome(e):
         return SNOW
 
 
-def generate_grid_data():
+def generate_grid_data(dimensions=None):
     noise_grid = perlin_array(scale=100)
     grid_data = []
-    for j in range(40):
+    for j in range(dimensions[1]):
         row = []
-        for i in range(40):
+        for i in range(dimensions[0]):
             scale = 1 + np.random.rand() / 4
             square = {
                 "emoji": "deciduous_tree"

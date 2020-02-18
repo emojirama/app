@@ -5,7 +5,7 @@
     <stats-panel></stats-panel>
     <square-conifg v-if="$store.getters.getShowSquareConfig" />
     <home-modal />
-    <save-button />
+    <save-button v-if="$route.meta.save" />
     <scene-menu />
     <movement-control />
     <square-dialog />
