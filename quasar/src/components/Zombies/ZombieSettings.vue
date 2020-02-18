@@ -7,13 +7,19 @@
       label
       :min="100"
       :max="1000"
-      dark
+      :dark="$store.getters.isDark"
       v-model="zombieSpeed"
     ></q-slider>
     <page-text>
       Zombie Count
     </page-text>
-    <q-slider label :min="1" :max="100" dark v-model="zombieCount"></q-slider>
+    <q-slider
+      label
+      :min="1"
+      :max="100"
+      :dark="$store.getters.isDark"
+      v-model="zombieCount"
+    ></q-slider>
   </div>
 </template>
 
