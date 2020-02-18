@@ -304,7 +304,10 @@ const mutations = {
         payload.fromPos[1]
       ],
       "portal",
-      { toScene: payload.toScene, toPos: payload.toPos }
+      {
+        toScene: payload.toScene,
+        toPos: [parseInt(payload.toPos[0]), parseInt(payload.toPos[1])]
+      }
     );
   },
   travelPortal: (state, payload) => {

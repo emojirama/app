@@ -23,6 +23,20 @@
           v-model="selectedScene"
         >
         </q-select>
+        <div v-if="selectedScene" class="coords">
+          <base-input
+            class="coord"
+            type="number"
+            v-model="toX"
+            label="Col"
+          ></base-input>
+          <base-input
+            class="coord"
+            type="number"
+            v-model="toY"
+            label="Row"
+          ></base-input>
+        </div>
         <q-btn @click="setPortal">Set Portal</q-btn>
       </div>
       <div v-else>
@@ -38,7 +52,9 @@
 export default {
   data() {
     return {
-      selectedScene: null
+      selectedScene: null,
+      toX: 5,
+      toY: 5
     };
   },
   computed: {
@@ -81,7 +97,7 @@ export default {
       const fromScene = this.$store.getters.getCurrentScene;
       const toScene = this.$refs.scenes.value;
       const fromPos = this.$store.getters.getSquareConfigPosition;
-      const toPos = [5, 7];
+      const toPos = [parseInt(this.toX, 10), parseInt(this.toY, 10)];
       this.$store.dispatch("setPortal", {
         fromScene,
         toScene,
@@ -99,5 +115,13 @@ export default {
   gap: 10px;
   min-width: 200px;
   grid-template-rows: 1fr;
+}
+.coords {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: 1fr 1fr;
+}
+.coord {
+  max-width: fit-content;
 }
 </style>
