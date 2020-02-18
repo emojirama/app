@@ -8,6 +8,7 @@ urlpatterns = [
         views.EmojiramaViewSet.as_view(
             {"get": "list_emojiramas", "post": "post"}
         ),
+        name="emojirama",
     ),
     path(
         "emojirama/<int:pk>/",

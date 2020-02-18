@@ -116,7 +116,6 @@ def AStarSearch(start, end, graph):
             # we could have already gotten to the neighbor with a better score? from somewhere else?
             # we have opened the vertex (prepared to work with it, but it hasn't been closed yet)
             elif candidateG >= G[neighbor]:
-                print("getting here....")
                 print(candidateG, G[neighbor])
                 continue  # This G score is worse than previously found
 

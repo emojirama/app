@@ -2,7 +2,7 @@ describe("Test Delete Emojirama", function() {
   it("lets a user delete their own emojirama", function() {
     cy.login();
     cy.visit("/new");
-    cy.get("#new_emojirama").click();
+    cy.get("#new-emojirama-from-config").click();
     cy.wait(500);
     cy.url().then($url => {
       const urlParts = $url.split("/");

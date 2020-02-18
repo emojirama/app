@@ -19,8 +19,7 @@ EMAIL = "admin@company.com"
 PASSWORD = "5Mr6IUPOFjuL"
 
 
-def token_for_new_user():
-    email, password = EMAIL, PASSWORD
+def token_for_new_user(email=None, password=None):
     user = User.objects.create_user(
         email=email, password=password
     )
@@ -28,13 +27,17 @@ def token_for_new_user():
     return token
 
 
-def login():
+def login(email=None, password=None):
+    if not email and not password:
+        email, password = EMAIL, PASSWORD
     client = APIClient()
-    token = token_for_new_user()
+    token = token_for_new_user(email, password)
     client.credentials(HTTP_AUTHORIZATION=f"Bearer {token}")
     return client
 
 
 @database_sync_to_async
-def channels_login():
-    return token_for_new_user()
+def channels_login(email=None, password=None):
+    if not email and not password:
+        email, password = EMAIL, PASSWORD
+    return token_for_new_user(email, password)

@@ -5,11 +5,16 @@ from rest_framework.response import Response
 from .utils.generation import generate_grid_data
 from .models import Emojirama
 from .serializers import EmojiramaSerializer
+from .permissions import EmojiramaPermissions
 
 
 class EmojiramaViewSet(viewsets.ViewSet):
+
+    permission_classes = (EmojiramaPermissions,)
+
     def delete(self, request, pk):
         emojirama = Emojirama.objects.get(pk=pk)
+        self.check_object_permissions(request, emojirama)
         emojirama.delete()
         # TODO
         # delete all redis keys
@@ -25,11 +30,13 @@ class EmojiramaViewSet(viewsets.ViewSet):
 
     def get(self, request, pk):
         emojirama = Emojirama.objects.get(pk=pk)
+        self.check_object_permissions(request, emojirama)
         serializer = EmojiramaSerializer(emojirama)
         return Response(serializer.data)
 
     def save(self, request, pk):
         emojirama = Emojirama.objects.get(pk=pk)
+        self.check_object_permissions(request, emojirama)
         emojirama.board = request.data
         emojirama.save()
         return Response("OK..")
@@ -51,7 +58,12 @@ class EmojiramaViewSet(viewsets.ViewSet):
         board = {
             "scenes": {"default": {"data": generate_grid_data()}}
         }
-        owner = request.user
+        owner = None
+        if not request.user.is_anonymous:
+            print("getting here....")
+            owner = request.user
+        print(owner)
+        print(type(owner))
 
         serializer = EmojiramaSerializer(
             context={"request": request},

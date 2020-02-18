@@ -97,13 +97,13 @@ def generate_grid_data():
             }
             row.append(square)
         grid_data.append(row)
-    graph = AStarGraph(grid_data)
-    path, _ = AStarSearch((5, 5), (35, 35), graph)
-    print(path)
-    for step in path:
-        scale = 1 + np.random.rand() / 4
-        grid_data[step[1]][step[0]]["color"] = colorscale(
-            "#654321", scale
-        )
+
+    # graph = AStarGraph(grid_data)
+    # path, _ = AStarSearch((5, 5), (35, 35), graph)
+    # for step in path:
+    #     scale = 1 + np.random.rand() / 4
+    #     grid_data[step[1]][step[0]]["color"] = colorscale(
+    #         "#654321", scale
+    #     )
     return grid_data
 

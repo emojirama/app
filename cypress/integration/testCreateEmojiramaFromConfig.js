@@ -19,7 +19,6 @@ describe("test create emojirama from config", function() {
     cy.get("#color-input").type("#4545");
     cy.get("#add-color").click();
     cy.get("#layer-level-0").type("55");
-    cy.pause();
 
     cy.get("#add-layer").click();
     cy.get("#art-0").click();
@@ -40,7 +39,5 @@ describe("test create emojirama from config", function() {
     cy.get("#layer-level-0").type("15");
 
     cy.get("#new-emojirama-from-config").click();
-
-    cy.wait(1000);
   });
 });

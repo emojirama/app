@@ -2,7 +2,7 @@ describe("Test New Emojirama", function() {
   it("Can create a new emojirama", function() {
     cy.login();
     cy.visit("/new");
-    cy.get("#new_emojirama").click();
+    cy.get("#new-emojirama-from-config").click();
     cy.visit("/emojirama");
     cy.get("#emojirama_0").click();
     cy.wait(1000);

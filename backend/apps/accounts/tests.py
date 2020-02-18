@@ -6,6 +6,8 @@ from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase
 
+
+from .model_factory import UserFactory
 from apps.core.tests.utils import login
 
 User = get_user_model()
@@ -100,3 +102,9 @@ def test_user_profile():
         User.objects.all().first().profile["emoji"]["code"]
         == "boy"
     )
+
+
+@pytest.mark.django_db(transaction=True)
+def test_user_model_factory():
+    UserFactory()
+    assert User.objects.all().count() == 1
