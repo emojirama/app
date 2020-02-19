@@ -41,7 +41,7 @@
             push
             label="New Biome"
             color="primary"
-            @click="$store.dispatch('createNewScene', 'biome')"
+            @click="$store.dispatch('toggleShowBiomeMenu')"
           />
           <q-btn
             id="new_dungeon"

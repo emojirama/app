@@ -33,10 +33,12 @@ const state = {
   showDialog: false,
   currentDialog: "",
   dialogEmoji: "",
-  dialogEmojiTone: 3
+  dialogEmojiTone: 3,
+  showBiomeMenu: false
 };
 
 const getters = {
+  getShowBiomeMenu: s => s.showBiomeMenu,
   getDialogEmoji: s => s.dialogEmoji,
   getDialogEmojiTone: s => s.dialogEmojiTone,
   getGridLineWidth: s => s.gridLineWidth,
@@ -122,7 +124,20 @@ const getters = {
 };
 
 const actions = {
+  toggleShowBiomeMenu: ({ commit }, payload) => {
+    commit("toggleShowBiomeMenu");
+  },
   /* eslint-disable no-unused-vars */
+  addSceneFromConfig: ({ state, commit, getters, rootGetters }) => {
+    const t0 = performance.now();
+    const data = generateBoard(
+      "biome",
+      rootGetters["sceneConfig/getSceneConfig"]
+    );
+    const t1 = performance.now();
+    console.log(`Calculated board in ${t1 - t0}ms`);
+    commit("addSceneFromConfig", { data });
+  },
 
   setSquareDialog: ({ state, commit, getters }, { dialog }) => {
     commit("setSquareDialog", {
@@ -253,6 +268,9 @@ const actions = {
 };
 
 const mutations = {
+  toggleShowBiomeMenu: state => {
+    state.showBiomeMenu = !state.showBiomeMenu;
+  },
   toggleGridLines: state => {
     if (state.gridLineWidth === 0) {
       state.gridLineWidth = 0.5;
@@ -315,6 +333,14 @@ const mutations = {
     state.position = payload.toPos;
     state.anchor = [payload.toPos[0] - 2, payload.toPos[1] - 2];
     Notify.create(`${payload.toScene}`);
+  },
+  addSceneFromConfig: (state, { data }) => {
+    const newSceneId = uuidv1();
+    const newScene = {
+      data,
+      name: "newscene1"
+    };
+    Vue.set(state.board["scenes"], newSceneId.slice(0, 8), newScene);
   },
   createNewScene: (state, payload) => {
     const newScene = {

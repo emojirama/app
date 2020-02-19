@@ -6,6 +6,7 @@
     <square-conifg v-if="$store.getters.getShowSquareConfig" />
     <home-modal />
     <save-button v-if="$route.meta.save" />
+    <biome-menu />
     <scene-menu />
     <movement-control />
     <square-dialog />
@@ -38,9 +39,11 @@ import HomeModal from "components/HomeModal.vue";
 import SaveButton from "components/SaveButton.vue";
 import SceneMenu from "components/SceneMenu/index.vue";
 import SquareDialog from "components/SquareDialog.vue";
+import BiomeMenu from "components/BiomeMenu.vue";
 
 export default {
   components: {
+    BiomeMenu,
     Board,
     DebugPanel,
     SettingsModal,
