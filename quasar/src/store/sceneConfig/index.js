@@ -2,6 +2,7 @@ import uuidv1 from "uuid/v1";
 import _ from "lodash";
 
 const state = {
+  zoom: 35,
   emptyLayer: {
     z: null,
     colors: [],
@@ -44,10 +45,12 @@ const state = {
 };
 
 const getters = {
+  getZoom: s => s.zoom,
   getSceneConfig: s => {
     return {
       layers: s.layers,
-      dimensions: [80, 80]
+      dimensions: [80, 80],
+      zoom: s.zoom
     };
   },
   getLayers: s => {
@@ -63,6 +66,9 @@ const getters = {
 };
 
 const actions = {
+  setZoom: ({ commit }, { zoom }) => {
+    commit("setZoom", { zoom });
+  },
   deleteLayerColor: ({ commit }, payload) => {
     commit("deleteLayerColor", payload);
   },
@@ -87,6 +93,9 @@ const actions = {
 };
 
 const mutations = {
+  setZoom: (state, { zoom }) => {
+    state.zoom = zoom;
+  },
   deleteLayerColor: (state, { layerUuid, colorUuid }) => {
     state.layers.find(x => x.uuid === layerUuid).colors = state.layers
       .find(x => x.uuid === layerUuid)

@@ -128,7 +128,7 @@ const actions = {
     commit("toggleShowBiomeMenu");
   },
   /* eslint-disable no-unused-vars */
-  addSceneFromConfig: ({ state, commit, getters, rootGetters }) => {
+  addSceneFromConfig: ({ state, commit, getters, rootGetters, dispatch }) => {
     const t0 = performance.now();
     const data = generateBoard(
       "biome",
@@ -137,6 +137,7 @@ const actions = {
     const t1 = performance.now();
     console.log(`Calculated board in ${t1 - t0}ms`);
     commit("addSceneFromConfig", { data });
+    dispatch("toggleShowBiomeMenu");
   },
 
   setSquareDialog: ({ state, commit, getters }, { dialog }) => {

@@ -57,6 +57,7 @@ export default {
   },
   created() {
     document.body.style.backgroundColor = "black";
+    this.$store.commit("switchScene", { nextScene: "default" });
     this.handleResize();
     window.addEventListener("scroll", this.handleScroll);
     window.addEventListener("resize", this.handleResize);

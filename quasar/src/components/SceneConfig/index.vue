@@ -1,6 +1,12 @@
 <template>
   <div>
     <div class="layers">
+      <q-slider
+        :min="1"
+        :max="100"
+        v-model="zoom"
+        :dark="$store.getters.isDark"
+      />
       <base-btn
         id="add-layer"
         @click.native="$store.dispatch('sceneConfig/addLayer')"
@@ -22,6 +28,16 @@ import SceneConfigLayer from "./SceneConfigLayer.vue";
 export default {
   components: {
     SceneConfigLayer
+  },
+  computed: {
+    zoom: {
+      get() {
+        return this.$store.getters["sceneConfig/getZoom"];
+      },
+      set(zoom) {
+        this.$store.dispatch("sceneConfig/setZoom", { zoom });
+      }
+    }
   },
   props: {
     sceneConfig: {

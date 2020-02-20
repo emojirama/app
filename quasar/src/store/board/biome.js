@@ -2,7 +2,7 @@ import SimplexNoise from "simplex-noise";
 import tinycolor from "tinycolor2";
 import _ from "lodash";
 
-import Astar from "./utils/graph";
+// import Astar from "./utils/graph";
 
 const generateBiome = config => {
   let h;
@@ -67,7 +67,7 @@ const generateBiome = config => {
       return Array(w)
         .fill()
         .map((_, j) => {
-          const elevation = noise(i / 35, j / 35) * 100;
+          const elevation = noise(i / config.zoom, j / config.zoom) * 100;
           const layerId = getLayerIdForElevation(elevation);
 
           return {
@@ -79,12 +79,12 @@ const generateBiome = config => {
         });
     });
 
-  const t0 = performance.now();
-  const path = new Astar.search(board, board[0][0], board[10][10]);
-  const t1 = performance.now();
-  console.log(`Completed A * in searched in ${t1 - t0} ms`);
+  // const t0 = performance.now();
+  // const path = new Astar.search(board, board[0][0], board[10][10]);
+  // const t1 = performance.now();
+  // console.log(`Completed A * in searched in ${t1 - t0} ms`);
 
-  console.log(path);
+  // console.log(path);
   // TODO: add this back in with options
   // path.map(coord => {
   //   board[coord[0]][coord[1]].color = tinycolor("654321")
