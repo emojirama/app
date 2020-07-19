@@ -17,7 +17,7 @@
     "emoji-mart-vue": "^2.6.6",
     "emoji-mart-vue-fast": "^7.0.0",
     "js-cookie": "^2.2.0",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "quasar": "1.7.4",
     "seedrandom": "^3.0.5",
     "simplex-noise": "^2.4.0",
